@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 
 // SCHEMA SETUP
 var websiteSchema = new mongoose.Schema({
-    websiteName: { 
+    name: { 
         type: String,
         required: 'Website name cannot be blank'
     },
