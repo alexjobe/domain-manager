@@ -13,7 +13,7 @@ var websiteSchema = new mongoose.Schema({
     ftp: String,
     userName: String,
     password: String,
-    comments: String,
+    notes: String,
     registrar: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Registrar"

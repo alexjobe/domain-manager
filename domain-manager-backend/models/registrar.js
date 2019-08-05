@@ -12,6 +12,7 @@ var registrarSchema = new mongoose.Schema({
     password: {
         type: String
     },
+    notes: String,
     websites: [
         {
             type: mongoose.Schema.Types.ObjectId,

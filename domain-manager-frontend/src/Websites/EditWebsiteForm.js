@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 
-class AddWebsiteForm extends Component {
+class EditWebsiteForm extends Component {
   constructor(props){
     super(props);
     this.state = {
-      websiteName: '',
-      url: '',
-      ftp: '',
-      userName: '',
-      password: '',
-      comments: ''
+      websiteName: this.props.website.name,
+      url: this.props.website.url,
+      ftp: this.props.website.ftp,
+      userName: this.props.website.userName,
+      password: this.props.website.password,
+      notes: this.props.website.notes
 
     };
 
@@ -24,66 +24,73 @@ class AddWebsiteForm extends Component {
 
   handleSubmit(e){
     e.preventDefault(); // Prevent form from reloading the page on submit
-    // Create website object
-    var website = {
-        name: this.state.websiteName,
-        url: this.state.url,
-        ftp: this.state.ftp,
-        userName: this.state.userName,
-        password: this.state.password,
-        comments: this.state.comments
-    }
-    // Call addWebsite(), which is passed from WebsiteList as a prop
-    this.props.addWebsite(website);
+    // Create updated website object
+    var updatedWebsite = this.props.website;
+    updatedWebsite.name = this.state.websiteName;
+    updatedWebsite.url = this.state.url;
+    updatedWebsite.ftp = this.state.ftp;
+    updatedWebsite.userName = this.state.userName;
+    updatedWebsite.password = this.state.password;
+    updatedWebsite.notes = this.state.notes;
+
+    // Call updateWebsite(), which is passed from WebsiteList as a prop
+    this.props.updateWebsite(updatedWebsite);
+    this.props.disableEditMode();
   }
 
   render() {
     return (
-      <section id="addWebsiteForm">
+      <section id="editWebsiteForm">
         <form id="websiteInput">
           <input
+            type='text'
             name='websiteName'
             value={this.state.websiteName}
             onChange={this.handleChange}
             placeholder='Website'
           />
           <input
+            type='text'
             name='url'
             value={this.state.url}
             onChange={this.handleChange}
             placeholder='URL'
           />
           <input
+            type='text'
             name='ftp'
             value={this.state.ftp}
             onChange={this.handleChange}
             placeholder='FTP'
           />
           <input
+            type='text'
             name='userName'
             value={this.state.userName}
             onChange={this.handleChange}
             placeholder='Username'
           />
           <input
+            type='text'
             name='password'
             value={this.state.password}
             onChange={this.handleChange}
             placeholder='Password'
           />
-          <input
-            name='comments'
-            value={this.state.comments}
+          <textarea
+            rows='10'
+            name='notes'
+            value={this.state.notes}
             onChange={this.handleChange}
-            placeholder='Comments'
+            placeholder='Notes'
           />
           <button 
             onClick={this.handleSubmit}
-          >Add Website</button>
+          >Update Website</button>
         </form>
       </section>
     )
   }
 }
 
-export default AddWebsiteForm;
+export default EditWebsiteForm;
