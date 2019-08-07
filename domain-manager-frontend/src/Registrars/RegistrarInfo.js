@@ -27,7 +27,7 @@ class RegistrarInfo extends Component {
         <h3>Registrar Info:</h3>
         <p>
           Registrar: {this.props.registrar.name} <br />
-          Account: {this.props.registrar.account} <br />
+          Username: {this.props.registrar.userName} <br />
           Password: {this.props.registrar.password} <br />
         </p>
         Notes:
@@ -35,6 +35,7 @@ class RegistrarInfo extends Component {
           rows='10'
           name='notes'
           value={this.props.registrar.notes}
+          placeholder='Notes...'
           readOnly
           disabled
         />

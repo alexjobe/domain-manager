@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import SelectRegistrarItem from './SelectRegistrarItem';
 
 class AddWebsiteForm extends Component {
   constructor(props){
@@ -9,8 +10,8 @@ class AddWebsiteForm extends Component {
       ftp: '',
       userName: '',
       password: '',
-      notes: ''
-
+      notes: '',
+      registrar: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -33,12 +34,22 @@ class AddWebsiteForm extends Component {
         password: this.state.password,
         notes: this.state.notes
     }
+    if(this.state.registrar) {
+      website.registrar = this.state.registrar;
+    }
     // Call addWebsite(), which is passed from WebsiteList as a prop
     this.props.addWebsite(website);
     this.props.disableAddWebsite();
   }
 
   render() {
+    const registrars = this.props.registrars.map((r) => (
+      <SelectRegistrarItem
+        key={r._id}
+        registrar={r}
+        id={r._id}
+      />
+    ));
     return (
       <section id="addWebsiteForm">
         <form id="websiteInput">
@@ -77,12 +88,20 @@ class AddWebsiteForm extends Component {
             onChange={this.handleChange}
             placeholder='Password'
           />
+          <select
+            name='registrar'
+            onChange={this.handleChange}
+          >
+            <option value=''>---Choose a Registrar---</option>
+            <option value=''>----------None----------</option>
+            {registrars}
+          </select>
           <textarea
             rows='10'
             name='notes'
             value={this.state.notes}
             onChange={this.handleChange}
-            placeholder='Notes'
+            placeholder='Notes...'
           />
           <button 
             onClick={this.handleSubmit}

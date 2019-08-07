@@ -5,7 +5,7 @@ class EditRegistrarForm extends Component {
     super(props);
     this.state = {
       registrarName: this.props.registrar.name,
-      account: this.props.registrar.account,
+      userName: this.props.registrar.userName,
       password: this.props.registrar.password,
       notes: this.props.registrar.notes
     };
@@ -24,7 +24,7 @@ class EditRegistrarForm extends Component {
     // Create updated registrar object
     var updatedRegistrar = this.props.registrar;
     updatedRegistrar.name = this.state.registrarName;
-    updatedRegistrar.account = this.state.account;
+    updatedRegistrar.userName = this.state.userName;
     updatedRegistrar.password = this.state.password;
     updatedRegistrar.notes = this.state.notes;
 
@@ -46,10 +46,10 @@ class EditRegistrarForm extends Component {
           />
           <input
             type='text'
-            name='account'
-            value={this.state.account}
+            name='userName'
+            value={this.state.userName}
             onChange={this.handleChange}
-            placeholder='Account'
+            placeholder='Username'
           />
           <input
             type='text'
@@ -63,7 +63,7 @@ class EditRegistrarForm extends Component {
             name='notes'
             value={this.state.notes}
             onChange={this.handleChange}
-            placeholder='Notes'
+            placeholder='Notes...'
           />
           <button 
             onClick={this.handleSubmit}

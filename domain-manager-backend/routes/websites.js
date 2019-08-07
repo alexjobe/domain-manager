@@ -43,7 +43,7 @@ router.get("/:websiteId", function(req, res){
 
 // WEBSITE UPDATE - Update a website
 router.put("/:websiteId", function(req, res){
-    db.Website.findOneAndUpdate({_id: req.params.websiteId}, req.body, {new: true}) // {new: true} respond with updated data
+    db.Website.findByIdAndUpdate({_id: req.params.websiteId}, req.body, {new: true}).populate('registrar') // {new: true} respond with updated data
     .then(function(website){
         res.json(website);
     })

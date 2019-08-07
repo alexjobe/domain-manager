@@ -5,7 +5,7 @@ class AddRegistrarForm extends Component {
     super(props);
     this.state = {
       registrarName: '',
-      account: '',
+      userName: '',
       password: '',
       notes: ''
     };
@@ -24,7 +24,7 @@ class AddRegistrarForm extends Component {
     // Create registrar object
     var registrar = {
         name: this.state.registrarName,
-        account: this.state.account,
+        userName: this.state.userName,
         password: this.state.password,
         notes: this.state.notes
     }
@@ -46,10 +46,10 @@ class AddRegistrarForm extends Component {
           />
           <input
             type='text'
-            name='account'
-            value={this.state.account}
+            name='userName'
+            value={this.state.userName}
             onChange={this.handleChange}
-            placeholder='Account'
+            placeholder='Username'
           />
           <input
             type='text'
@@ -63,7 +63,7 @@ class AddRegistrarForm extends Component {
             name='notes'
             value={this.state.notes}
             onChange={this.handleChange}
-            placeholder='Notes'
+            placeholder='Notes...'
           />
           <button 
             onClick={this.handleSubmit}

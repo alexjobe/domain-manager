@@ -23,6 +23,25 @@ export async function getWebsites() {
   })
 }
 
+export async function getWebsite(id){
+  const getURL = WEBSITE_URL + id;
+  return fetch(getURL)
+    .then(resp => {
+      if(!resp.ok) {
+        if(resp.status >= 400 && resp.status < 500){
+          return resp.json().then(data => {
+            let err = {errorMessage: data.message};
+            throw err;
+          })
+        } else {
+          let err = {errorMessage: 'Error: Server is not responding'};
+          throw err;
+        }
+      }
+      return resp.json();
+  })
+}
+
 export async function createWebsite(website) {
   return fetch(WEBSITE_URL, {
     method: 'post',

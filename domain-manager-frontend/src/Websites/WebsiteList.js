@@ -11,6 +11,7 @@ class WebsiteList extends Component {
     super(props);
     this.state = {
       websites: [],
+      registrars: [],
       selectedWebsite: null,
       enableAddWebsite: false
     }
@@ -25,11 +26,17 @@ class WebsiteList extends Component {
 
   componentWillMount(){
     this.loadWebsites();
+    this.loadRegistrars();
   }
 
   async loadWebsites(){
     let websites = await apiCalls.getWebsites();
     this.setState({websites});
+  }
+
+  async loadRegistrars(){
+    let registrars = await apiCalls.getRegistrars();
+    this.setState({registrars});
   }
 
   async addWebsite(website) {
@@ -47,6 +54,7 @@ class WebsiteList extends Component {
   }
 
   selectWebsite(website) {
+    this.updateWebsite(website);
     this.setState({selectedWebsite: website})
     this.setState({enableAddWebsite: false});
   }
@@ -60,9 +68,12 @@ class WebsiteList extends Component {
     let updatedSite = await apiCalls.updateWebsite(website);
     // Find website in websites and replace it with updatedSite
     const websites = this.state.websites.map(website => {
-      return (website === updatedSite._id ? updatedSite : website);
+      return (website._id === updatedSite._id ? updatedSite : website);
     });
     // Update state
+    if(this.state.selectedWebsite._id === updatedSite._id){
+      this.setState({selectedWebsite: updatedSite});
+    }
     this.setState({websites: websites})
   }
 
@@ -89,25 +100,39 @@ class WebsiteList extends Component {
         <ul>
           {websites}
         </ul>
-        {
-          this.state.enableAddWebsite ?
-            <AddWebsiteForm addWebsite={this.addWebsite} disableAddWebsite={this.disableAddWebsite}/>
-          : <button onClick={this.enableAddWebsite}>Add Website</button>
-        }
+        <button onClick={this.enableAddWebsite}>Add Website</button>
       </div>
+    )
+  }
+
+  renderAddWebsite(){
+    return (
+      <AddWebsiteForm 
+      addWebsite={this.addWebsite} 
+      disableAddWebsite={this.disableAddWebsite}
+      registrars={this.state.registrars}
+      />
+    )
+  }
+
+  renderWebsiteInfo(){
+    return (
+      <WebsiteInfo 
+        website={this.state.selectedWebsite} 
+        deselectWebsite={this.deselectWebsite}
+        updateWebsite={this.updateWebsite}
+        deleteWebsite={this.deleteWebsite.bind(this, this.state.selectedWebsite)}
+        registrars={this.state.registrars}
+      />
     )
   }
 
   render() {
     if(this.state.selectedWebsite !== null){
-      return (
-        <WebsiteInfo 
-          website={this.state.selectedWebsite} 
-          deselectWebsite={this.deselectWebsite}
-          updateWebsite={this.updateWebsite}
-          deleteWebsite={this.deleteWebsite.bind(this, this.state.selectedWebsite)}
-        />
-      )
+      return this.renderWebsiteInfo();
+    }
+    if(this.state.enableAddWebsite){
+      return this.renderAddWebsite();
     }
     return this.renderWebsiteList();
   }

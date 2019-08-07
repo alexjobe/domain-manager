@@ -6,7 +6,7 @@ var registrarSchema = new mongoose.Schema({
         type: String,
         required: 'Name cannot be blank'
     },
-    account: {
+    userName: {
         type: String
     },
     password: {

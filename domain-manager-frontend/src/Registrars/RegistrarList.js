@@ -88,25 +88,37 @@ class RegistrarList extends Component {
         <ul>
           {registrars}
         </ul>
-        {
-          this.state.enableAddRegistrar ?
-            <AddRegistrarForm addRegistrar={this.addRegistrar} disableAddRegistrar={this.disableAddRegistrar}/>
-          : <button onClick={this.enableAddRegistrar}>Add Registrar</button>
-        }
+        <button onClick={this.enableAddRegistrar}>Add Registrar</button>
       </div>
+    )
+  }
+
+  renderAddRegistrar(){
+    return(
+      <AddRegistrarForm 
+        addRegistrar={this.addRegistrar} 
+        disableAddRegistrar={this.disableAddRegistrar}
+      />
+    )
+  }
+
+  renderRegistrarInfo(){
+    return (
+      <RegistrarInfo 
+        registrar={this.state.selectedRegistrar} 
+        deselectRegistrar={this.deselectRegistrar}
+        updateRegistrar={this.updateRegistrar}
+        deleteRegistrar={this.deleteRegistrar.bind(this, this.state.selectedRegistrar)}
+      />
     )
   }
 
   render() {
     if(this.state.selectedRegistrar !== null){
-      return (
-        <RegistrarInfo 
-          registrar={this.state.selectedRegistrar} 
-          deselectRegistrar={this.deselectRegistrar}
-          updateRegistrar={this.updateRegistrar}
-          deleteRegistrar={this.deleteRegistrar.bind(this, this.state.selectedRegistrar)}
-        />
-      )
+      return this.renderRegistrarInfo();
+    }
+    if(this.state.enableAddRegistrar){
+      return this.renderAddRegistrar();
     }
     return this.renderRegistrarList();
   }

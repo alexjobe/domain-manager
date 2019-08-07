@@ -30,13 +30,15 @@ class WebsiteInfo extends Component {
           URL: {this.props.website.url} <br />
           FTP: {this.props.website.ftp} <br />
           Username: {this.props.website.userName} <br />
-          Password: {this.props.website.password}
+          Password: {this.props.website.password} <br />
+          {this.props.website.registrar ? 'Registrar: ' + this.props.website.registrar.name : ''}
         </p>
         Notes: 
         <textarea
           rows='10'
           name='notes'
           value={this.props.website.notes}
+          placeholder='Notes...'
           readOnly
           disabled
         />
@@ -52,6 +54,7 @@ class WebsiteInfo extends Component {
         website={this.props.website} 
         updateWebsite={this.props.updateWebsite} 
         disableEditMode={this.disableEditMode}
+        registrars={this.props.registrars}
       />
     )
   }

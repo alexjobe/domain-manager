@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import SelectRegistrarItem from './SelectRegistrarItem';
 
 class EditWebsiteForm extends Component {
   constructor(props){
@@ -9,7 +10,8 @@ class EditWebsiteForm extends Component {
       ftp: this.props.website.ftp,
       userName: this.props.website.userName,
       password: this.props.website.password,
-      notes: this.props.website.notes
+      notes: this.props.website.notes,
+      registrar: this.props.website.registrar
 
     };
 
@@ -32,6 +34,8 @@ class EditWebsiteForm extends Component {
     updatedWebsite.userName = this.state.userName;
     updatedWebsite.password = this.state.password;
     updatedWebsite.notes = this.state.notes;
+    updatedWebsite.registrar = this.state.registrar;
+
 
     // Call updateWebsite(), which is passed from WebsiteList as a prop
     this.props.updateWebsite(updatedWebsite);
@@ -39,6 +43,13 @@ class EditWebsiteForm extends Component {
   }
 
   render() {
+    const registrars = this.props.registrars.map((r) => (
+      <SelectRegistrarItem
+        key={r._id}
+        registrar={r}
+        id={r._id}
+      />
+    ));
     return (
       <section id="editWebsiteForm">
         <form id="websiteInput">
@@ -77,12 +88,20 @@ class EditWebsiteForm extends Component {
             onChange={this.handleChange}
             placeholder='Password'
           />
+          <select
+            name='registrar'
+            onChange={this.handleChange}
+          >
+            <option value=''>---Choose a Registrar---</option>
+            <option value=''>----------None----------</option>
+            {registrars}
+          </select>
           <textarea
             rows='10'
             name='notes'
             value={this.state.notes}
             onChange={this.handleChange}
-            placeholder='Notes'
+            placeholder='Notes...'
           />
           <button 
             onClick={this.handleSubmit}
