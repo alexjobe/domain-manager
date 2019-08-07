@@ -29,8 +29,10 @@ class AddRegistrarForm extends Component {
         notes: this.state.notes
     }
     // Call addRegistrar(), which is passed from RegistrarList as a prop
-    this.props.addRegistrar(registrar);
-    this.props.disableAddRegistrar();
+    if(registrar.name) {
+      this.props.addRegistrar(registrar);
+      this.props.disableAddRegistrar();
+    }
   }
 
   render() {

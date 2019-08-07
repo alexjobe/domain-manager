@@ -21,16 +21,18 @@ class EditRegistrarForm extends Component {
 
   handleSubmit(e){
     e.preventDefault(); // Prevent form from reloading the page on submit
-    // Create updated registrar object
-    var updatedRegistrar = this.props.registrar;
-    updatedRegistrar.name = this.state.registrarName;
-    updatedRegistrar.userName = this.state.userName;
-    updatedRegistrar.password = this.state.password;
-    updatedRegistrar.notes = this.state.notes;
+    if(this.state.registrarName) {
+      // Create updated registrar object
+      var updatedRegistrar = this.props.registrar;
+      updatedRegistrar.name = this.state.registrarName;
+      updatedRegistrar.userName = this.state.userName;
+      updatedRegistrar.password = this.state.password;
+      updatedRegistrar.notes = this.state.notes;
 
-    // Call updateRegistrar(), which is passed from RegistrarList as a prop
-    this.props.updateRegistrar(updatedRegistrar);
-    this.props.disableEditMode();
+      // Call updateRegistrar(), which is passed from RegistrarList as a prop
+      this.props.updateRegistrar(updatedRegistrar);
+      this.props.disableEditMode();
+    }
   }
 
   render() {

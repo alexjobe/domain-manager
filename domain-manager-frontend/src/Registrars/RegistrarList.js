@@ -10,7 +10,6 @@ class RegistrarList extends Component {
   constructor(props){
     super(props);
     this.state = {
-      registrars: [],
       selectedRegistrar: null,
       enableAddRegistrar: false
     }
@@ -22,19 +21,10 @@ class RegistrarList extends Component {
     this.updateRegistrar = this.updateRegistrar.bind(this);
   }
 
-  componentWillMount(){
-    this.loadRegistrars();
-  }
-
-  async loadRegistrars(){
-    let registrars = await apiCalls.getRegistrars();
-    this.setState({registrars});
-  }
-
   async addRegistrar(registrar) {
     // Create new registrar and update state
     let newRegistrar = await apiCalls.createRegistrar(registrar);
-    this.setState({registrars: [...this.state.registrars, newRegistrar]}) // ... is the spread operator
+    this.props.updateRegistrars([...this.props.registrars, newRegistrar]) // ... is the spread operator
   }
 
   enableAddRegistrar() {
@@ -58,22 +48,22 @@ class RegistrarList extends Component {
     // Update registrar
     let updatedReg = await apiCalls.updateRegistrar(registrar);
     // Find registrar in registrars and replace it with updatedReg
-    const registrars = this.state.registrars.map(registrar => {
+    const registrars = this.props.registrars.map(registrar => {
       return (registrar === updatedReg._id ? updatedReg : registrar);
     });
     // Update state
-    this.setState({registrars: registrars})
+    this.props.updateRegistrars(registrars);
   }
 
   async deleteRegistrar(registrar) {
     this.setState({selectedRegistrar: null});
     await apiCalls.removeRegistrar(registrar._id);
-    const registrars = this.state.registrars.filter(r => r._id !== registrar._id);
-    this.setState({registrars: registrars});
+    const registrars = this.props.registrars.filter(r => r._id !== registrar._id);
+    this.props.updateRegistrars(registrars);
   }
 
   renderRegistrarList() {
-    const registrars = this.state.registrars.map((r) => (
+    const registrars = this.props.registrars.map((r) => (
       <RegistrarItem
         key={r._id}
         {...r}
@@ -97,6 +87,7 @@ class RegistrarList extends Component {
     return(
       <div id="registrarAddNew">
         <BackButton onClick={this.disableAddRegistrar}></BackButton>
+        <h1>New Registrar</h1>
         <AddRegistrarForm 
           addRegistrar={this.addRegistrar} 
           disableAddRegistrar={this.disableAddRegistrar}

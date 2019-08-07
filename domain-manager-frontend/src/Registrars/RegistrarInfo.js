@@ -25,7 +25,7 @@ class RegistrarInfo extends Component {
     return(
       <div id="registrarInfoDisplay">
         <BackButton onClick={this.props.deselectRegistrar}></BackButton>
-        <h3>Registrar Info:</h3>
+        <h1>Registrar Info:</h1>
         <p>
           Registrar: {this.props.registrar.name} <br />
           Username: {this.props.registrar.userName} <br />
@@ -50,6 +50,7 @@ class RegistrarInfo extends Component {
     return (
       <div id="registrarEdit">
         <BackButton onClick={this.disableEditMode}></BackButton>
+        <h1>Edit Registrar</h1>
         <EditRegistrarForm 
           registrar={this.props.registrar} 
           updateRegistrar={this.props.updateRegistrar} 

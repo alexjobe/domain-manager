@@ -10,7 +10,6 @@ class HostList extends Component {
   constructor(props){
     super(props);
     this.state = {
-      hosts: [],
       selectedHost: null,
       enableAddHost: false
     }
@@ -34,7 +33,7 @@ class HostList extends Component {
   async addHost(host) {
     // Create new host and update state
     let newHost = await apiCalls.createHost(host);
-    this.setState({hosts: [...this.state.hosts, newHost]}) // ... is the spread operator
+    this.props.updateHosts([...this.props.hosts, newHost]) // ... is the spread operator
   }
 
   enableAddHost() {
@@ -58,22 +57,22 @@ class HostList extends Component {
     // Update host
     let updatedHost = await apiCalls.updateHost(host);
     // Find host in hosts and replace it with updatedHost
-    const hosts = this.state.hosts.map(host => {
+    const hosts = this.props.hosts.map(host => {
       return (host === updatedHost._id ? updatedHost : host);
     });
     // Update state
-    this.setState({hosts: hosts})
+    this.props.updateHosts(hosts)
   }
 
   async deleteHost(host) {
     this.setState({selectedHost: null});
     await apiCalls.removeHost(host._id);
-    const hosts = this.state.hosts.filter(r => r._id !== host._id);
-    this.setState({hosts: hosts});
+    const hosts = this.props.hosts.filter(r => r._id !== host._id);
+    this.props.updateHosts(hosts);
   }
 
   renderHostList() {
-    const hosts = this.state.hosts.map((r) => (
+    const hosts = this.props.hosts.map((r) => (
       <HostItem
         key={r._id}
         {...r}
@@ -97,6 +96,7 @@ class HostList extends Component {
     return(
       <div id="hostAddNew">
         <BackButton onClick={this.disableAddHost}></BackButton>
+        <h1>New Host</h1>
         <AddHostForm 
           addHost={this.addHost} 
           disableAddHost={this.disableAddHost}

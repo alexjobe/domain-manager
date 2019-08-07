@@ -25,7 +25,7 @@ class WebsiteInfo extends Component {
     return (
       <div id="websiteInfoDisplay">
         <BackButton onClick={this.props.deselectWebsite}></BackButton>
-        <h3>Website Info:</h3>
+        <h1>Website Info:</h1>
         <p>
           Website: {this.props.website.name} <br />
           URL: {this.props.website.url} <br />
@@ -56,6 +56,7 @@ class WebsiteInfo extends Component {
     return (
       <div id="websiteEdit">
         <BackButton onClick={this.disableEditMode}></BackButton>
+        <h1>Edit Website</h1>
         <EditWebsiteForm 
           website={this.props.website} 
           updateWebsite={this.props.updateWebsite} 

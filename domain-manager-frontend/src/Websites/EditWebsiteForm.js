@@ -28,20 +28,19 @@ class EditWebsiteForm extends Component {
 
   handleSubmit(e){
     e.preventDefault(); // Prevent form from reloading the page on submit
-    // Create updated website object
-    var updatedWebsite = this.props.website;
-    updatedWebsite.name = this.state.websiteName;
-    updatedWebsite.url = this.state.url;
-    updatedWebsite.ftp = this.state.ftp;
-    updatedWebsite.userName = this.state.userName;
-    updatedWebsite.password = this.state.password;
-    updatedWebsite.notes = this.state.notes;
-    updatedWebsite.registrar = this.state.registrar;
-    updatedWebsite.host = this.state.host;
+    if(this.state.websiteName && this.state.url){
+      // Create updated website object
+      var updatedWebsite = this.props.website;
+      updatedWebsite.name = this.state.websiteName;
+      updatedWebsite.url = this.state.url;
+      updatedWebsite.ftp = this.state.ftp;
+      updatedWebsite.userName = this.state.userName;
+      updatedWebsite.password = this.state.password;
+      updatedWebsite.notes = this.state.notes;
+      updatedWebsite.registrar = this.state.registrar;
+      updatedWebsite.host = this.state.host;
 
-
-    // Call updateWebsite(), which is passed from WebsiteList as a prop
-    if(updatedWebsite.name && updatedWebsite.url){
+      // Call updateWebsite(), which is passed from WebsiteList as a prop
       this.props.updateWebsite(updatedWebsite);
       this.props.disableEditMode();
     }

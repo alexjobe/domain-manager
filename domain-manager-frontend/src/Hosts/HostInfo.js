@@ -25,7 +25,7 @@ class HostInfo extends Component {
     return(
       <div id="hostInfoDisplay">
         <BackButton onClick={this.props.deselectHost}></BackButton>
-        <h3>Host Info:</h3>
+        <h1>Host Info:</h1>
         <p>
           Host: {this.props.host.name} <br />
           Username: {this.props.host.userName} <br />
@@ -50,6 +50,7 @@ class HostInfo extends Component {
     return (
       <div id="hostEdit">
         <BackButton onClick={this.disableEditMode}></BackButton>
+        <h1>Edit Host</h1>
         <EditHostForm 
           host={this.props.host} 
           updateHost={this.props.updateHost} 

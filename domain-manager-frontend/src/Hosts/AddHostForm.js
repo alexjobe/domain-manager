@@ -29,8 +29,10 @@ class AddHostForm extends Component {
         notes: this.state.notes
     }
     // Call addHost(), which is passed from HostList as a prop
-    this.props.addHost(host);
-    this.props.disableAddHost();
+    if(host.name) {
+      this.props.addHost(host);
+      this.props.disableAddHost();
+    }
   }
 
   render() {

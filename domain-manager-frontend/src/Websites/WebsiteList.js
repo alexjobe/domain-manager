@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import WebsiteItem from './WebsiteItem';
+import React, { Component } from 'react';
 import * as apiCalls from '../api';
+import WebsiteItem from './WebsiteItem';
 import WebsiteInfo from './WebsiteInfo';
 import AddWebsiteForm from './AddWebsiteForm';
 import BackButton from '../General/BackButton';
@@ -10,46 +10,16 @@ class WebsiteList extends Component {
   constructor(props){
     super(props);
     this.state = {
-      websites: [],
-      registrars: [],
-      hosts: [],
       selectedWebsite: null,
       enableAddWebsite: false
     }
-    this.addWebsite = this.addWebsite.bind(this);
     this.enableAddWebsite = this.enableAddWebsite.bind(this);
     this.disableAddWebsite = this.disableAddWebsite.bind(this);
     this.selectWebsite = this.selectWebsite.bind(this);
     this.deselectWebsite = this.deselectWebsite.bind(this);
+    this.addWebsite = this.addWebsite.bind(this);
     this.updateWebsite = this.updateWebsite.bind(this);
     this.deleteWebsite = this.deleteWebsite.bind(this);
-  }
-
-  componentWillMount(){
-    this.loadWebsites();
-    this.loadRegistrars();
-    this.loadHosts();
-  }
-
-  async loadWebsites(){
-    let websites = await apiCalls.getWebsites();
-    this.setState({websites});
-  }
-
-  async loadRegistrars(){
-    let registrars = await apiCalls.getRegistrars();
-    this.setState({registrars});
-  }
-
-  async loadHosts(){
-    let hosts = await apiCalls.getHosts();
-    this.setState({hosts});
-  }
-
-  async addWebsite(website) {
-    // Create new website and update state
-    let newWebsite = await apiCalls.createWebsite(website);
-    this.setState({websites: [...this.state.websites, newWebsite]}) // ... is the spread operator
   }
 
   enableAddWebsite() {
@@ -70,29 +40,35 @@ class WebsiteList extends Component {
     this.setState({selectedWebsite: null});
   }
 
+  async addWebsite(website) {
+    // Create new website and update state
+    let newWebsite = await apiCalls.createWebsite(website);
+    this.props.updateWebsites([...this.props.websites, newWebsite]) // ... is the spread operator
+  }
+
   async updateWebsite(website) {
     // Update website
     let updatedSite = await apiCalls.updateWebsite(website);
     // Find website in websites and replace it with updatedSite
-    const websites = this.state.websites.map(website => {
+    const websites = this.props.websites.map(website => {
       return (website._id === updatedSite._id ? updatedSite : website);
     });
     // Update state
     if(this.state.selectedWebsite._id === updatedSite._id){
       this.setState({selectedWebsite: updatedSite});
     }
-    this.setState({websites: websites})
+    this.props.updateWebsites(websites)
   }
 
   async deleteWebsite(website) {
     this.setState({selectedWebsite: null});
     await apiCalls.removeWebsite(website._id);
-    const websites = this.state.websites.filter(w => w._id !== website._id);
-    this.setState({websites: websites});
+    const websites = this.props.websites.filter(w => w._id !== website._id);
+    this.props.updateWebsites(websites);
   }
 
   renderWebsiteList() {
-    const websites = this.state.websites.map((w) => (
+    const websites = this.props.websites.map((w) => (
       <WebsiteItem
         key={w._id}
         {...w}
@@ -116,11 +92,12 @@ class WebsiteList extends Component {
     return (
       <div id="websiteAddNew">
         <BackButton onClick={this.disableAddWebsite}></BackButton>
+        <h1>New Website</h1>
         <AddWebsiteForm 
           addWebsite={this.addWebsite} 
           disableAddWebsite={this.disableAddWebsite}
-          registrars={this.state.registrars}
-          hosts={this.state.hosts}
+          registrars={this.props.registrars}
+          hosts={this.props.hosts}
         />
       </div>
     )
@@ -133,8 +110,8 @@ class WebsiteList extends Component {
         deselectWebsite={this.deselectWebsite}
         updateWebsite={this.updateWebsite}
         deleteWebsite={this.deleteWebsite.bind(this, this.state.selectedWebsite)}
-        registrars={this.state.registrars}
-        hosts={this.state.hosts}
+        registrars={this.props.registrars}
+        hosts={this.props.hosts}
       />
     )
   }

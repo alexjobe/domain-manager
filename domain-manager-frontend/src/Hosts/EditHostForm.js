@@ -21,16 +21,18 @@ class EditHostForm extends Component {
 
   handleSubmit(e){
     e.preventDefault(); // Prevent form from reloading the page on submit
-    // Create updated host object
-    var updatedHost = this.props.host;
-    updatedHost.name = this.state.hostName;
-    updatedHost.userName = this.state.userName;
-    updatedHost.password = this.state.password;
-    updatedHost.notes = this.state.notes;
+    if(this.state.hostName) {
+      // Create updated host object
+      var updatedHost = this.props.host;
+      updatedHost.name = this.state.hostName;
+      updatedHost.userName = this.state.userName;
+      updatedHost.password = this.state.password;
+      updatedHost.notes = this.state.notes;
 
-    // Call updateHost(), which is passed from HostList as a prop
-    this.props.updateHost(updatedHost);
-    this.props.disableEditMode();
+      // Call updateHost(), which is passed from HostList as a prop
+      this.props.updateHost(updatedHost);
+      this.props.disableEditMode();
+    }
   }
 
   render() {
