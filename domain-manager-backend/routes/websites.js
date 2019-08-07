@@ -10,6 +10,8 @@ var express = require('express'),
 // WEBSITE INDEX - Get all websites
 router.get("/", function(req, res){
     db.Website.find()
+    .populate('registrar')
+    .populate('host')
     .then(function(websites){ // Promise instead of typical callback
         res.json(websites);
     })
@@ -21,6 +23,9 @@ router.get("/", function(req, res){
 // WEBSITE CREATE - Add new website to database
 router.post("/", function(req, res){
     db.Website.create(req.body)
+    .then(function(website){
+        return website.populate('registrar').populate('host').execPopulate();
+    })
     .then(function(website) {
         res.status(201).json(website); // 201 is "created"
     })

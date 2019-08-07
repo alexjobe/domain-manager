@@ -112,6 +112,10 @@ class HostList extends Component {
         deselectHost={this.deselectHost}
         updateHost={this.updateHost}
         deleteHost={this.deleteHost.bind(this, this.state.selectedHost)}
+        websites={this.props.websites}
+        registrars={this.props.registrars}
+        hosts={this.props.hosts}
+        updateWebsites={this.props.updateWebsites}
       />
     )
   }

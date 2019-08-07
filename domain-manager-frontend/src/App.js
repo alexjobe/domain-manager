@@ -111,8 +111,11 @@ class App extends Component {
           this.state.currentView === 'hosts' ?
             <HostList 
               enableHomeView={this.enableHomeView}
+              websites={this.state.websites}
+              registrars={this.state.registrars}
               hosts={this.state.hosts}
               updateHosts={this.updateHosts}
+              updateWebsites={this.updateWebsites}
             />
           : ''
         }

@@ -68,7 +68,14 @@ class WebsiteList extends Component {
   }
 
   renderWebsiteList() {
-    const websites = this.props.websites.map((w) => (
+    var websites;
+    if(this.props.selectedHost) {
+      websites = this.props.websites.filter(w => w.host._id === this.props.selectedHost._id);
+    }
+    else {
+      websites = this.props.websites;
+    }
+    const websiteItems = websites.map((w) => (
       <WebsiteItem
         key={w._id}
         {...w}
@@ -81,7 +88,7 @@ class WebsiteList extends Component {
         <BackButton onClick={this.props.enableHomeView}></BackButton>
         <h1>Website List</h1>
         <ul>
-          {websites}
+          {websiteItems}
         </ul>
         <button onClick={this.enableAddWebsite}>Add Website</button>
       </div>
