@@ -23,7 +23,8 @@ class RegistrarInfo extends Component {
 
   renderRegistrarInfo() {
     return(
-      <div id="infoDisplay">
+      <div id="registrarInfoDisplay">
+        <BackButton onClick={this.props.deselectRegistrar}></BackButton>
         <h3>Registrar Info:</h3>
         <p>
           Registrar: {this.props.registrar.name} <br />
@@ -47,18 +48,20 @@ class RegistrarInfo extends Component {
 
   renderRegistrarEdit () {
     return (
-      <EditRegistrarForm 
-        registrar={this.props.registrar} 
-        updateRegistrar={this.props.updateRegistrar} 
-        disableEditMode={this.disableEditMode}
-      />
+      <div id="registrarEdit">
+        <BackButton onClick={this.disableEditMode}></BackButton>
+        <EditRegistrarForm 
+          registrar={this.props.registrar} 
+          updateRegistrar={this.props.updateRegistrar} 
+          disableEditMode={this.disableEditMode}
+        />
+      </div>
     )
   }
 
   render() {
     return(
       <div id='registrarInfo'>
-        <BackButton onClick={this.props.deselectRegistrar}></BackButton>
         {
           this.state.enableEditMode ?
             this.renderRegistrarEdit()

@@ -33,8 +33,8 @@ class RegistrarList extends Component {
 
   async addRegistrar(registrar) {
     // Create new registrar and update state
-    let newReg = await apiCalls.createRegistrar(registrar);
-    this.setState({registrars: [...this.state.registrars, newReg]}) // ... is the spread operator
+    let newRegistrar = await apiCalls.createRegistrar(registrar);
+    this.setState({registrars: [...this.state.registrars, newRegistrar]}) // ... is the spread operator
   }
 
   enableAddRegistrar() {
@@ -95,10 +95,13 @@ class RegistrarList extends Component {
 
   renderAddRegistrar(){
     return(
-      <AddRegistrarForm 
-        addRegistrar={this.addRegistrar} 
-        disableAddRegistrar={this.disableAddRegistrar}
-      />
+      <div id="registrarAddNew">
+        <BackButton onClick={this.disableAddRegistrar}></BackButton>
+        <AddRegistrarForm 
+          addRegistrar={this.addRegistrar} 
+          disableAddRegistrar={this.disableAddRegistrar}
+        />
+      </div>
     )
   }
 

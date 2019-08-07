@@ -6,3 +6,4 @@ mongoose.Promise = Promise;
 
 module.exports.Website = require('./website');
 module.exports.Registrar = require('./registrar');
+module.exports.Host = require('./host');

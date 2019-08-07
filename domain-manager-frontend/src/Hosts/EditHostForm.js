@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 
-class EditRegistrarForm extends Component {
+class EditHostForm extends Component {
   constructor(props){
     super(props);
     this.state = {
-      registrarName: this.props.registrar.name,
-      userName: this.props.registrar.userName,
-      password: this.props.registrar.password,
-      notes: this.props.registrar.notes
+      hostName: this.props.host.name,
+      userName: this.props.host.userName,
+      password: this.props.host.password,
+      notes: this.props.host.notes
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -21,28 +21,28 @@ class EditRegistrarForm extends Component {
 
   handleSubmit(e){
     e.preventDefault(); // Prevent form from reloading the page on submit
-    // Create updated registrar object
-    var updatedRegistrar = this.props.registrar;
-    updatedRegistrar.name = this.state.registrarName;
-    updatedRegistrar.userName = this.state.userName;
-    updatedRegistrar.password = this.state.password;
-    updatedRegistrar.notes = this.state.notes;
+    // Create updated host object
+    var updatedHost = this.props.host;
+    updatedHost.name = this.state.hostName;
+    updatedHost.userName = this.state.userName;
+    updatedHost.password = this.state.password;
+    updatedHost.notes = this.state.notes;
 
-    // Call updateRegistrar(), which is passed from RegistrarList as a prop
-    this.props.updateRegistrar(updatedRegistrar);
+    // Call updateHost(), which is passed from HostList as a prop
+    this.props.updateHost(updatedHost);
     this.props.disableEditMode();
   }
 
   render() {
     return (
-      <section id="registrarEditForm">
-        <form id="registrarEditInput">
+      <section id="hostEditForm">
+        <form id="hostEditInput">
           <input
             type='text'
-            name='registrarName'
-            value={this.state.registrarName}
+            name='hostName'
+            value={this.state.hostName}
             onChange={this.handleChange}
-            placeholder='Registrar'
+            placeholder='Host'
           />
           <input
             type='text'
@@ -67,11 +67,11 @@ class EditRegistrarForm extends Component {
           />
           <button 
             onClick={this.handleSubmit}
-          >Update Registrar</button>
+          >Update Host</button>
         </form>
       </section>
     )
   }
 }
 
-export default EditRegistrarForm;
+export default EditHostForm;

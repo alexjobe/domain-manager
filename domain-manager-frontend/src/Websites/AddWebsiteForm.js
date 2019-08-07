@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import SelectRegistrarItem from './SelectRegistrarItem';
+import SelectHostItem from './SelectHostItem';
 
 class AddWebsiteForm extends Component {
   constructor(props){
@@ -11,7 +12,8 @@ class AddWebsiteForm extends Component {
       userName: '',
       password: '',
       notes: '',
-      registrar: ''
+      registrar: '',
+      host:''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -37,9 +39,14 @@ class AddWebsiteForm extends Component {
     if(this.state.registrar) {
       website.registrar = this.state.registrar;
     }
+    if(this.state.host) {
+      website.host = this.state.host;
+    }
     // Call addWebsite(), which is passed from WebsiteList as a prop
-    this.props.addWebsite(website);
-    this.props.disableAddWebsite();
+    if(website.name && website.url) {
+      this.props.addWebsite(website);
+      this.props.disableAddWebsite();
+    }
   }
 
   render() {
@@ -50,9 +57,16 @@ class AddWebsiteForm extends Component {
         id={r._id}
       />
     ));
+    const hosts = this.props.hosts.map((h) => (
+      <SelectHostItem
+        key={h._id}
+        host={h}
+        id={h._id}
+      />
+    ));
     return (
-      <section id="addWebsiteForm">
-        <form id="websiteInput">
+      <section id="websiteAddForm">
+        <form id="websiteAddInput">
           <input
             type='text'
             name='websiteName'
@@ -95,6 +109,14 @@ class AddWebsiteForm extends Component {
             <option value=''>---Choose a Registrar---</option>
             <option value=''>----------None----------</option>
             {registrars}
+          </select>
+          <select
+            name='host'
+            onChange={this.handleChange}
+          >
+            <option value=''>---Choose a Host---</option>
+            <option value=''>-------None--------</option>
+            {hosts}
           </select>
           <textarea
             rows='10'

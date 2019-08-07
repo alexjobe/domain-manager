@@ -17,6 +17,10 @@ var websiteSchema = new mongoose.Schema({
     registrar: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Registrar"
+    },
+    host: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Host"
     }
 });
 

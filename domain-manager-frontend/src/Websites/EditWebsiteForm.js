@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import SelectRegistrarItem from './SelectRegistrarItem';
+import SelectHostItem from './SelectHostItem';
 
 class EditWebsiteForm extends Component {
   constructor(props){
@@ -11,7 +12,8 @@ class EditWebsiteForm extends Component {
       userName: this.props.website.userName,
       password: this.props.website.password,
       notes: this.props.website.notes,
-      registrar: this.props.website.registrar
+      registrar: this.props.website.registrar,
+      host: this.props.website.host
 
     };
 
@@ -35,11 +37,14 @@ class EditWebsiteForm extends Component {
     updatedWebsite.password = this.state.password;
     updatedWebsite.notes = this.state.notes;
     updatedWebsite.registrar = this.state.registrar;
+    updatedWebsite.host = this.state.host;
 
 
     // Call updateWebsite(), which is passed from WebsiteList as a prop
-    this.props.updateWebsite(updatedWebsite);
-    this.props.disableEditMode();
+    if(updatedWebsite.name && updatedWebsite.url){
+      this.props.updateWebsite(updatedWebsite);
+      this.props.disableEditMode();
+    }
   }
 
   render() {
@@ -50,9 +55,16 @@ class EditWebsiteForm extends Component {
         id={r._id}
       />
     ));
+    const hosts = this.props.hosts.map((h) => (
+      <SelectHostItem
+        key={h._id}
+        host={h}
+        id={h._id}
+      />
+    ));
     return (
-      <section id="editWebsiteForm">
-        <form id="websiteInput">
+      <section id="websiteEditForm">
+        <form id="websiteEditInput">
           <input
             type='text'
             name='websiteName'
@@ -95,6 +107,14 @@ class EditWebsiteForm extends Component {
             <option value=''>---Choose a Registrar---</option>
             <option value=''>----------None----------</option>
             {registrars}
+          </select>
+          <select
+            name='host'
+            onChange={this.handleChange}
+          >
+            <option value=''>---Choose a Host---</option>
+            <option value=''>-------None--------</option>
+            {hosts}
           </select>
           <textarea
             rows='10'

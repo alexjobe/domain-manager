@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import WebsiteList from './Websites/WebsiteList';
 import RegistrarList from './Registrars/RegistrarList';
+import HostList from './Hosts/HostList';
 
 class App extends Component {
   constructor(props){
@@ -11,6 +12,7 @@ class App extends Component {
     this.enableHomeView = this.enableHomeView.bind(this);
     this.enableWebsiteView = this.enableWebsiteView.bind(this);
     this.enableRegistrarView = this.enableRegistrarView.bind(this);
+    this.enableHostView = this.enableHostView.bind(this);
   }
 
   enableHomeView() {
@@ -25,11 +27,16 @@ class App extends Component {
     this.setState({currentView: 'registrars'});
   }
 
+  enableHostView() {
+    this.setState({currentView: 'hosts'});
+  }
+
   renderHomeView() {
     return (
       <div id='homeView'>
         <button onClick={this.enableWebsiteView}>Websites</button>
         <button onClick={this.enableRegistrarView}>Registrars</button>
+        <button onClick={this.enableHostView}>Hosts</button>
       </div>
     )
   }
@@ -48,6 +55,11 @@ class App extends Component {
         {
           this.state.currentView === 'registrars' ?
             <RegistrarList enableHomeView={this.enableHomeView}/>
+          : ''
+        }
+        {
+          this.state.currentView === 'hosts' ?
+            <HostList enableHomeView={this.enableHomeView}/>
           : ''
         }
       </div>

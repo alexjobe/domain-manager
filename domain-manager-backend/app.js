@@ -16,15 +16,17 @@ app.use(cors()); // Required for React to connect to API
 app.use(express.static(path.join(frontendPath, 'build')));
 
 // ========== REQUIRE ROUTES ========== //
-var registrarRoutes = require("./routes/registrars");
 var websiteRoutes = require("./routes/websites");
+var registrarRoutes = require("./routes/registrars");
+var hostRoutes = require("./routes/hosts");
 
 // USE ROUTES
 app.get('/', function (res) {
     res.sendFile(path.join(frontendPath, 'build', 'index.html'));
 });
-app.use('/api/registrars', registrarRoutes);
 app.use('/api/websites', websiteRoutes);
+app.use('/api/registrars', registrarRoutes);
+app.use('/api/hosts', hostRoutes);
 
 // START SERVER
 app.listen(port, "localhost", function(){

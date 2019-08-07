@@ -35,8 +35,8 @@ class AddRegistrarForm extends Component {
 
   render() {
     return (
-      <section id="addRegistrarForm">
-        <form id="registrarInput">
+      <section id="registrarAddForm">
+        <form id="registrarAddInput">
           <input
             type='text'
             name='registrarName'

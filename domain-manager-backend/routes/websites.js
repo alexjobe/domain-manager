@@ -31,8 +31,10 @@ router.post("/", function(req, res){
 
 // WEBSITE GET - Get a single website
 router.get("/:websiteId", function(req, res){
-    // Mongo populates registrar based on ObjectID
-    db.Website.findById(req.params.websiteId).populate('registrar')
+    // Mongoose populates based on ObjectID
+    db.Website.findById(req.params.websiteId)
+    .populate('registrar')
+    .populate('host')
     .then(function(website){
         res.json(website);
     })
@@ -43,7 +45,10 @@ router.get("/:websiteId", function(req, res){
 
 // WEBSITE UPDATE - Update a website
 router.put("/:websiteId", function(req, res){
-    db.Website.findByIdAndUpdate({_id: req.params.websiteId}, req.body, {new: true}).populate('registrar') // {new: true} respond with updated data
+    // Mongoose populates based on ObjectID
+    db.Website.findByIdAndUpdate({_id: req.params.websiteId}, req.body, {new: true}) // {new: true} respond with updated data
+    .populate('registrar')
+    .populate('host')
     .then(function(website){
         res.json(website);
     })

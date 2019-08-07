@@ -23,7 +23,8 @@ class WebsiteInfo extends Component {
 
   renderWebsiteInfo() {
     return (
-      <div id="infoDisplay">
+      <div id="websiteInfoDisplay">
+        <BackButton onClick={this.props.deselectWebsite}></BackButton>
         <h3>Website Info:</h3>
         <p>
           Website: {this.props.website.name} <br />
@@ -31,7 +32,10 @@ class WebsiteInfo extends Component {
           FTP: {this.props.website.ftp} <br />
           Username: {this.props.website.userName} <br />
           Password: {this.props.website.password} <br />
-          {this.props.website.registrar ? 'Registrar: ' + this.props.website.registrar.name : ''}
+          {this.props.website.registrar && this.props.website.registrar.name ? 
+            'Registrar: ' + this.props.website.registrar.name : ''} <br />
+          {this.props.website.host && this.props.website.host.name ? 
+            'Host: ' + this.props.website.host.name : ''}
         </p>
         Notes: 
         <textarea
@@ -50,19 +54,22 @@ class WebsiteInfo extends Component {
 
   renderWebsiteEdit() {
     return (
-      <EditWebsiteForm 
-        website={this.props.website} 
-        updateWebsite={this.props.updateWebsite} 
-        disableEditMode={this.disableEditMode}
-        registrars={this.props.registrars}
-      />
+      <div id="websiteEdit">
+        <BackButton onClick={this.disableEditMode}></BackButton>
+        <EditWebsiteForm 
+          website={this.props.website} 
+          updateWebsite={this.props.updateWebsite} 
+          disableEditMode={this.disableEditMode}
+          registrars={this.props.registrars}
+          hosts={this.props.hosts}
+        />
+      </div>
     )
   }
 
   render() {
     return(
       <div id='websiteInfo'>
-        <BackButton onClick={this.props.deselectWebsite}></BackButton>
         {
           this.state.enableEditMode ?
             this.renderWebsiteEdit()

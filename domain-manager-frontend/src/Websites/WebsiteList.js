@@ -12,6 +12,7 @@ class WebsiteList extends Component {
     this.state = {
       websites: [],
       registrars: [],
+      hosts: [],
       selectedWebsite: null,
       enableAddWebsite: false
     }
@@ -27,6 +28,7 @@ class WebsiteList extends Component {
   componentWillMount(){
     this.loadWebsites();
     this.loadRegistrars();
+    this.loadHosts();
   }
 
   async loadWebsites(){
@@ -39,10 +41,15 @@ class WebsiteList extends Component {
     this.setState({registrars});
   }
 
+  async loadHosts(){
+    let hosts = await apiCalls.getHosts();
+    this.setState({hosts});
+  }
+
   async addWebsite(website) {
     // Create new website and update state
-    let newSite = await apiCalls.createWebsite(website);
-    this.setState({websites: [...this.state.websites, newSite]}) // ... is the spread operator
+    let newWebsite = await apiCalls.createWebsite(website);
+    this.setState({websites: [...this.state.websites, newWebsite]}) // ... is the spread operator
   }
 
   enableAddWebsite() {
@@ -107,11 +114,15 @@ class WebsiteList extends Component {
 
   renderAddWebsite(){
     return (
-      <AddWebsiteForm 
-      addWebsite={this.addWebsite} 
-      disableAddWebsite={this.disableAddWebsite}
-      registrars={this.state.registrars}
-      />
+      <div id="websiteAddNew">
+        <BackButton onClick={this.disableAddWebsite}></BackButton>
+        <AddWebsiteForm 
+          addWebsite={this.addWebsite} 
+          disableAddWebsite={this.disableAddWebsite}
+          registrars={this.state.registrars}
+          hosts={this.state.hosts}
+        />
+      </div>
     )
   }
 
@@ -123,6 +134,7 @@ class WebsiteList extends Component {
         updateWebsite={this.updateWebsite}
         deleteWebsite={this.deleteWebsite.bind(this, this.state.selectedWebsite)}
         registrars={this.state.registrars}
+        hosts={this.state.hosts}
       />
     )
   }
