@@ -69,8 +69,13 @@ class WebsiteList extends Component {
 
   renderWebsiteList() {
     var websites;
+    // If there is a selected host or registrar, only display websites for that host or registrar
+    // selectedHost and selectedRegistrar are passed as props from HostInfo and RegistrarInfo, respectively
     if(this.props.selectedHost) {
-      websites = this.props.websites.filter(w => w.host._id === this.props.selectedHost._id);
+      websites = this.props.websites.filter(w => w.host && w.host._id === this.props.selectedHost._id);
+    }
+    else if(this.props.selectedRegistrar) {
+      websites = this.props.websites.filter(w => w.registrar && w.registrar._id === this.props.selectedRegistrar._id);
     }
     else {
       websites = this.props.websites;
@@ -85,8 +90,16 @@ class WebsiteList extends Component {
     ));
     return (
       <div className="WebsiteList">
-        <BackButton onClick={this.props.enableHomeView}></BackButton>
+        <BackButton onClick={this.props.goBack}></BackButton>
         <h1>Website List</h1>
+        {this.props.selectedHost ? 
+          <h2>Host: {this.props.selectedHost.name}</h2> 
+          : ''
+        }
+        {this.props.selectedRegistrar ? 
+          <h2>Registrar: {this.props.selectedRegistrar.name}</h2> 
+          : ''
+        }
         <ul>
           {websiteItems}
         </ul>
@@ -100,11 +113,21 @@ class WebsiteList extends Component {
       <div id="websiteAddNew">
         <BackButton onClick={this.disableAddWebsite}></BackButton>
         <h1>New Website</h1>
+        {this.props.selectedHost ? 
+          <h2>Host: {this.props.selectedHost.name}</h2> 
+          : ''
+        }
+        {this.props.selectedRegistrar ? 
+          <h2>Registrar: {this.props.selectedRegistrar.name}</h2> 
+          : ''
+        }
         <AddWebsiteForm 
           addWebsite={this.addWebsite} 
           disableAddWebsite={this.disableAddWebsite}
           registrars={this.props.registrars}
           hosts={this.props.hosts}
+          selectedHost={this.props.selectedHost}
+          selectedRegistrar={this.props.selectedRegistrar}
         />
       </div>
     )
@@ -114,7 +137,7 @@ class WebsiteList extends Component {
     return (
       <WebsiteInfo 
         website={this.state.selectedWebsite} 
-        deselectWebsite={this.deselectWebsite}
+        goBack={this.deselectWebsite}
         updateWebsite={this.updateWebsite}
         deleteWebsite={this.deleteWebsite.bind(this, this.state.selectedWebsite)}
         registrars={this.props.registrars}

@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import BackButton from '../General/BackButton';
 import EditRegistrarForm from './EditRegistrarForm';
+import WebsiteList from '../Websites/WebsiteList';
 
 class RegistrarInfo extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      enableEditMode: false
+      enableEditMode: false,
+      enableViewWebsites: false
     }
     this.enableEditMode = this.enableEditMode.bind(this);
     this.disableEditMode = this.disableEditMode.bind(this);
+    this.enableViewWebsites = this.enableViewWebsites.bind(this);
+    this.disableViewWebsites = this.disableViewWebsites.bind(this);
   }
 
   enableEditMode() {
@@ -21,10 +25,18 @@ class RegistrarInfo extends Component {
     this.setState({enableEditMode: false});
   }
 
+  enableViewWebsites() {
+    this.setState({enableViewWebsites: true});
+  }
+
+  disableViewWebsites() {
+    this.setState({enableViewWebsites: false});
+  }
+
   renderRegistrarInfo() {
     return(
       <div id="registrarInfoDisplay">
-        <BackButton onClick={this.props.deselectRegistrar}></BackButton>
+        <BackButton onClick={this.props.goBack}></BackButton>
         <h1>Registrar Info:</h1>
         <p>
           Registrar: {this.props.registrar.name} <br />
@@ -40,6 +52,7 @@ class RegistrarInfo extends Component {
           readOnly
           disabled
         />
+        <button onClick={this.enableViewWebsites}>Registered Websites</button>
         <button onClick={this.enableEditMode}>Edit Registrar</button>
         <button onClick={this.props.deleteRegistrar}>Delete Registrar</button>
       </div>
@@ -60,16 +73,27 @@ class RegistrarInfo extends Component {
     )
   }
 
-  render() {
-    return(
-      <div id='registrarInfo'>
-        {
-          this.state.enableEditMode ?
-            this.renderRegistrarEdit()
-          : this.renderRegistrarInfo()
-        }
-      </div>
+  renderRegistrarWebsites() {
+    return (
+      <WebsiteList 
+        goBack={this.disableViewWebsites}
+        websites={this.props.websites}
+        registrars={this.props.registrars}
+        hosts={this.props.hosts}
+        updateWebsites={this.props.updateWebsites}
+        selectedRegistrar={this.props.registrar}
+      />
     )
+  }
+
+  render() {
+    if(this.state.enableEditMode){
+      return this.renderRegistrarEdit();
+    }
+    if(this.state.enableViewWebsites){
+      return this.renderRegistrarWebsites();
+    }
+    return this.renderRegistrarInfo();
   }
 }
 

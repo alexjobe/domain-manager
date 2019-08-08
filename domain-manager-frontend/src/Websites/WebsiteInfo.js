@@ -24,7 +24,7 @@ class WebsiteInfo extends Component {
   renderWebsiteInfo() {
     return (
       <div id="websiteInfoDisplay">
-        <BackButton onClick={this.props.deselectWebsite}></BackButton>
+        <BackButton onClick={this.props.goBack}></BackButton>
         <h1>Website Info:</h1>
         <p>
           Website: {this.props.website.name} <br />

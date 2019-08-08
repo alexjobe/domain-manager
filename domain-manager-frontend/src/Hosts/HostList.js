@@ -82,7 +82,7 @@ class HostList extends Component {
     ));
     return (
       <div className="HostList">
-        <BackButton onClick={this.props.enableHomeView}></BackButton>
+        <BackButton onClick={this.props.goBack}></BackButton>
         <h1>Host List</h1>
         <ul>
           {hosts}
@@ -109,7 +109,7 @@ class HostList extends Component {
     return (
       <HostInfo 
         host={this.state.selectedHost} 
-        deselectHost={this.deselectHost}
+        goBack={this.deselectHost}
         updateHost={this.updateHost}
         deleteHost={this.deleteHost.bind(this, this.state.selectedHost)}
         websites={this.props.websites}

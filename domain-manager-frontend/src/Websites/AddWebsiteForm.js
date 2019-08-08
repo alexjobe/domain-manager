@@ -12,8 +12,8 @@ class AddWebsiteForm extends Component {
       userName: '',
       password: '',
       notes: '',
-      registrar: '',
-      host:''
+      registrar: this.props.selectedRegistrar,
+      host: this.props.selectedHost
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -102,22 +102,28 @@ class AddWebsiteForm extends Component {
             onChange={this.handleChange}
             placeholder='Password'
           />
-          <select
-            name='registrar'
-            onChange={this.handleChange}
-          >
-            <option value=''>---Choose a Registrar---</option>
-            <option value=''>----------None----------</option>
-            {registrars}
-          </select>
-          <select
-            name='host'
-            onChange={this.handleChange}
-          >
-            <option value=''>---Choose a Host---</option>
-            <option value=''>-------None--------</option>
-            {hosts}
-          </select>
+          {!this.props.selectedRegistrar ?
+            <select
+              name='registrar'
+              onChange={this.handleChange}
+            >
+              <option value=''>---Choose a Registrar---</option>
+              <option value=''>----------None----------</option>
+              {registrars}
+            </select>
+            : ''
+          }
+          {!this.props.selectedHost ?
+            <select
+              name='host'
+              onChange={this.handleChange}
+            >
+              <option value=''>---Choose a Host---</option>
+              <option value=''>-------None--------</option>
+              {hosts}
+            </select>
+            : ''
+          }
           <textarea
             rows='10'
             name='notes'

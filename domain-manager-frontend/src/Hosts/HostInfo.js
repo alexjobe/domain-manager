@@ -36,7 +36,7 @@ class HostInfo extends Component {
   renderHostInfo() {
     return(
       <div id="hostInfoDisplay">
-        <BackButton onClick={this.props.deselectHost}></BackButton>
+        <BackButton onClick={this.props.goBack}></BackButton>
         <h1>Host Info:</h1>
         <p>
           Host: {this.props.host.name} <br />
@@ -52,7 +52,7 @@ class HostInfo extends Component {
           readOnly
           disabled
         />
-        <button onClick={this.enableViewWebsites}>View Websites</button>
+        <button onClick={this.enableViewWebsites}>Hosted Websites</button>
         <button onClick={this.enableEditMode}>Edit Host</button>
         <button onClick={this.props.deleteHost}>Delete Host</button>
       </div>
@@ -76,7 +76,7 @@ class HostInfo extends Component {
   renderHostWebsites() {
     return (
       <WebsiteList 
-        enableHomeView={this.disableViewWebsites}
+        goBack={this.disableViewWebsites}
         websites={this.props.websites}
         registrars={this.props.registrars}
         hosts={this.props.hosts}

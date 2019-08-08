@@ -73,7 +73,7 @@ class App extends Component {
 
   renderHomeView() {
     return (
-      <div id='homeView'>
+      <div className="App">
         <button onClick={this.enableWebsiteView}>Websites</button>
         <button onClick={this.enableRegistrarView}>Registrars</button>
         <button onClick={this.enableHostView}>Hosts</button>
@@ -87,10 +87,13 @@ class App extends Component {
     }
     return (
       <div className="App">
+        <button onClick={this.enableWebsiteView}>Websites</button>
+        <button onClick={this.enableRegistrarView}>Registrars</button>
+        <button onClick={this.enableHostView}>Hosts</button>
         {
           this.state.currentView === 'websites' ?
             <WebsiteList 
-              enableHomeView={this.enableHomeView}
+              goBack={this.enableHomeView}
               websites={this.state.websites}
               registrars={this.state.registrars}
               hosts={this.state.hosts}
@@ -101,16 +104,19 @@ class App extends Component {
         {
           this.state.currentView === 'registrars' ?
             <RegistrarList 
-              enableHomeView={this.enableHomeView}
+              goBack={this.enableHomeView}
+              websites={this.state.websites}
               registrars={this.state.registrars}
+              hosts={this.state.hosts}
               updateRegistrars={this.updateRegistrars}
+              updateWebsites={this.updateWebsites}
             />
           : ''
         }
         {
           this.state.currentView === 'hosts' ?
             <HostList 
-              enableHomeView={this.enableHomeView}
+              goBack={this.enableHomeView}
               websites={this.state.websites}
               registrars={this.state.registrars}
               hosts={this.state.hosts}

@@ -73,7 +73,7 @@ class RegistrarList extends Component {
     ));
     return (
       <div className="RegistrarList">
-        <BackButton onClick={this.props.enableHomeView}></BackButton>
+        <BackButton onClick={this.props.goBack}></BackButton>
         <h1>Registrar List</h1>
         <ul>
           {registrars}
@@ -100,9 +100,13 @@ class RegistrarList extends Component {
     return (
       <RegistrarInfo 
         registrar={this.state.selectedRegistrar} 
-        deselectRegistrar={this.deselectRegistrar}
+        goBack={this.deselectRegistrar}
         updateRegistrar={this.updateRegistrar}
         deleteRegistrar={this.deleteRegistrar.bind(this, this.state.selectedRegistrar)}
+        websites={this.props.websites}
+        registrars={this.props.registrars}
+        hosts={this.props.hosts}
+        updateWebsites={this.props.updateWebsites}
       />
     )
   }
