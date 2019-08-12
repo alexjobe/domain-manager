@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import TextInput from '../General/TextInput';
 
 class AddHostForm extends Component {
   constructor(props){
@@ -39,21 +40,21 @@ class AddHostForm extends Component {
     return (
       <section id="hostAddForm">
         <form id="hostAddInput">
-          <input
+          <TextInput
             type='text'
             name='hostName'
             value={this.state.hostName}
             onChange={this.handleChange}
             placeholder='Host'
           />
-          <input
+          <TextInput
             type='text'
             name='userName'
             value={this.state.userName}
             onChange={this.handleChange}
             placeholder='Username'
           />
-          <input
+          <TextInput
             type='text'
             name='password'
             value={this.state.password}

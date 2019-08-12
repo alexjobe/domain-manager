@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import BackButton from '../General/BackButton';
 import EditHostForm from './EditHostForm';
 import WebsiteList from '../Websites/WebsiteList';
+import CopyableText from '../General/CopyableText';
 
 class HostInfo extends Component {
 
@@ -37,13 +38,10 @@ class HostInfo extends Component {
     return(
       <div id="hostInfoDisplay">
         <BackButton onClick={this.props.goBack}></BackButton>
-        <h2>Host Info:</h2>
-        <p>
-          Host: {this.props.host.name} <br />
-          Username: {this.props.host.userName} <br />
-          Password: {this.props.host.password} <br />
-        </p>
-        Notes:
+        <h2>Host: {this.props.host.name}</h2>
+        <div className='list-item'><label>Username:</label><CopyableText value={this.props.host.userName}/></div>
+        <div className='list-item'><label>Password:</label><CopyableText value={this.props.host.password}/></div>
+        <div className='list-item'><label>Notes:</label></div>
         <textarea
           rows='10'
           name='notes'

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import * as apiCalls from '../api';
-import RegistrarItem from './RegistrarItem';
+import RegistrarListItem from './RegistrarListItem';
 import AddRegistrarForm from './AddRegistrarForm';
 import RegistrarInfo from './RegistrarInfo';
 import BackButton from '../General/BackButton';
@@ -53,9 +53,12 @@ class RegistrarList extends Component {
     let updatedReg = await apiCalls.updateRegistrar(registrar);
     // Find registrar in registrars and replace it with updatedReg
     const registrars = this.props.registrars.map(registrar => {
-      return (registrar === updatedReg._id ? updatedReg : registrar);
+      return (registrar._id === updatedReg._id ? updatedReg : registrar);
     });
     // Update state
+    if(this.state.selectedRegistrar._id === updatedReg._id){
+      this.setState({selectedRegistrar: updatedReg});
+    }
     this.props.updateRegistrars(registrars);
   }
 
@@ -77,8 +80,8 @@ class RegistrarList extends Component {
   }
 
   renderRegistrarList() {
-    const registrars = this.props.registrars.map((r) => (
-      <RegistrarItem
+    const registrarListItems = this.props.registrars.map((r) => (
+      <RegistrarListItem
         key={r._id}
         {...r}
         id={r._id}
@@ -91,7 +94,7 @@ class RegistrarList extends Component {
         <h2>All Registrars</h2>
         <Search search={this.searchRegistrars}></Search>
         <ul>
-          {registrars}
+          {registrarListItems}
         </ul>
         <button onClick={this.enableAddRegistrar}>Add Registrar</button>
       </div>

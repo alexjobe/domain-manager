@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BackButton from '../General/BackButton';
 import EditWebsiteForm from './EditWebsiteForm';
+import CopyableText from '../General/CopyableText';
 
 class WebsiteInfo extends Component {
 
@@ -25,21 +26,20 @@ class WebsiteInfo extends Component {
     return (
       <div id="websiteInfoDisplay">
         <BackButton onClick={this.props.goBack}></BackButton>
-        <h2>Website Info:</h2>
-        <p>
-          Website: {this.props.website.name} <br />
-          URL: {this.props.website.url} <br />
-          FTP: {this.props.website.ftp} <br />
-          Username: {this.props.website.userName} <br />
-          Password: {this.props.website.password} <br />
-          {this.props.website.registrar && this.props.website.registrar.name ? 
-            <span>Registrar: {this.props.website.registrar.name}<br /></span>
-            : ''
-          }
-          {this.props.website.host && this.props.website.host.name ? 
-            'Host: ' + this.props.website.host.name : ''}
-        </p>
-        Notes: 
+        <h2>Website: {this.props.website.name}</h2>
+        {this.props.website.registrar && this.props.website.registrar.name ? 
+          <div className='list-item'><label>Registrar: {this.props.website.registrar.name}</label></div>
+          : ''
+        }
+        {this.props.website.host && this.props.website.host.name ? 
+          <div className='list-item'><label>Host: {this.props.website.host.name}</label></div>
+          : ''
+        }
+        <div className='list-item'><label>URL:</label><CopyableText value={this.props.website.url}/></div>
+        <div className='list-item'><label>Username:</label><CopyableText value={this.props.website.userName}/></div>
+        <div className='list-item'><label>Password:</label><CopyableText value={this.props.website.password}/></div>
+        <div className='list-item'><label>FTP:</label><CopyableText value={this.props.website.ftp}/></div>
+        <div className='list-item'><label>Notes:</label></div>
         <textarea
           rows='10'
           name='notes'

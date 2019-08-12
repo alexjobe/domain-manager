@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SelectRegistrarItem from './SelectRegistrarItem';
 import SelectHostItem from './SelectHostItem';
+import TextInput from '../General/TextInput';
 
 class AddWebsiteForm extends Component {
   constructor(props){
@@ -67,35 +68,34 @@ class AddWebsiteForm extends Component {
     return (
       <section id="websiteAddForm">
         <form id="websiteAddInput">
-          <input
-            type='text'
+          <TextInput
             name='websiteName'
             value={this.state.websiteName}
             onChange={this.handleChange}
             placeholder='Website'
           />
-          <input
+          <TextInput
             type='text'
             name='url'
             value={this.state.url}
             onChange={this.handleChange}
             placeholder='URL'
           />
-          <input
+          <TextInput
             type='text'
             name='ftp'
             value={this.state.ftp}
             onChange={this.handleChange}
             placeholder='FTP'
           />
-          <input
+          <TextInput
             type='text'
             name='userName'
             value={this.state.userName}
             onChange={this.handleChange}
             placeholder='Username'
           />
-          <input
+          <TextInput
             type='text'
             name='password'
             value={this.state.password}

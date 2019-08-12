@@ -3,6 +3,7 @@ import * as apiCalls from './api';
 import WebsiteList from './Websites/WebsiteList';
 import RegistrarList from './Registrars/RegistrarList';
 import HostList from './Hosts/HostList';
+import './App.css';
 
 class App extends Component {
   constructor(props){

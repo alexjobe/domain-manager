@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import BackButton from '../General/BackButton';
 import EditRegistrarForm from './EditRegistrarForm';
 import WebsiteList from '../Websites/WebsiteList';
+import CopyableText from '../General/CopyableText';
 
 class RegistrarInfo extends Component {
 
@@ -37,13 +38,10 @@ class RegistrarInfo extends Component {
     return(
       <div id="registrarInfoDisplay">
         <BackButton onClick={this.props.goBack}></BackButton>
-        <h2>Registrar Info:</h2>
-        <p>
-          Registrar: {this.props.registrar.name} <br />
-          Username: {this.props.registrar.userName} <br />
-          Password: {this.props.registrar.password} <br />
-        </p>
-        Notes:
+        <h2>Registrar: {this.props.registrar.name}</h2>
+        <div className='list-item'><label>Username:</label><CopyableText value={this.props.registrar.userName}/></div>
+        <div className='list-item'><label>Password:</label><CopyableText value={this.props.registrar.password}/></div>
+        <div className='list-item'><label>Notes:</label></div>
         <textarea
           rows='10'
           name='notes'

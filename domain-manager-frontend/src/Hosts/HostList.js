@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import * as apiCalls from '../api';
-import HostItem from './HostItem';
+import HostListItem from './HostListItem';
 import AddHostForm from './AddHostForm';
 import HostInfo from './HostInfo';
 import BackButton from '../General/BackButton';
@@ -53,7 +53,7 @@ class HostList extends Component {
     let updatedHost = await apiCalls.updateHost(host);
     // Find host in hosts and replace it with updatedHost
     const hosts = this.props.hosts.map(host => {
-      return (host === updatedHost._id ? updatedHost : host);
+      return (host._id === updatedHost._id ? updatedHost : host);
     });
     // Update state
     this.props.updateHosts(hosts)
@@ -77,8 +77,8 @@ class HostList extends Component {
   }
 
   renderHostList() {
-    const hosts = this.props.hosts.map((r) => (
-      <HostItem
+    const hostListItems = this.props.hosts.map((r) => (
+      <HostListItem
         key={r._id}
         {...r}
         id={r._id}
@@ -91,7 +91,7 @@ class HostList extends Component {
         <h2>All Hosts</h2>
         <Search search={this.searchHosts}></Search>
         <ul>
-          {hosts}
+          {hostListItems}
         </ul>
         <button onClick={this.enableAddHost}>Add Host</button>
       </div>

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import TextInput from '../General/TextInput';
 
 class AddRegistrarForm extends Component {
   constructor(props){
@@ -39,21 +40,21 @@ class AddRegistrarForm extends Component {
     return (
       <section id="registrarAddForm">
         <form id="registrarAddInput">
-          <input
+          <TextInput
             type='text'
             name='registrarName'
             value={this.state.registrarName}
             onChange={this.handleChange}
             placeholder='Registrar'
           />
-          <input
+          <TextInput
             type='text'
             name='userName'
             value={this.state.userName}
             onChange={this.handleChange}
             placeholder='Username'
           />
-          <input
+          <TextInput
             type='text'
             name='password'
             value={this.state.password}

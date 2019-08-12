@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as apiCalls from '../api';
-import WebsiteItem from './WebsiteItem';
+import WebsiteListItem from './WebsiteListItem';
 import WebsiteInfo from './WebsiteInfo';
 import AddWebsiteForm from './AddWebsiteForm';
 import BackButton from '../General/BackButton';
@@ -52,9 +52,7 @@ class WebsiteList extends Component {
 
   async updateWebsite(website) {
     // Update website
-    console.log(website);
     let updatedSite = await apiCalls.updateWebsite(website);
-    console.log(updatedSite);
     // Find website in websites and replace it with updatedSite
     const websites = this.props.websites.map(website => {
       return (website._id === updatedSite._id ? updatedSite : website);
@@ -96,8 +94,8 @@ class WebsiteList extends Component {
     else {
       websites = this.props.websites;
     }
-    const websiteItems = websites.map((w) => (
-      <WebsiteItem
+    const websiteListItems = websites.map((w) => (
+      <WebsiteListItem
         key={w._id}
         {...w}
         id={w._id}
@@ -118,7 +116,7 @@ class WebsiteList extends Component {
         {!this.props.selectedRegistrar && !this.props.selectedHost ? <h2>All Websites</h2> : ''}
         <Search search={this.searchWebsites}></Search>
         <ul>
-          {websiteItems}
+          {websiteListItems}
         </ul>
         <button onClick={this.enableAddWebsite}>Add Website</button>
       </div>
