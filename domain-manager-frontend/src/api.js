@@ -47,6 +47,25 @@ export async function getWebsite(id){
   })
 }
 
+export async function searchWebsites(query){
+  const getURL = WEBSITE_URL + 'search/' + query;
+  return fetch(getURL)
+    .then(resp => {
+      if(!resp.ok) {
+        if(resp.status >= 400 && resp.status < 500){
+          return resp.json().then(data => {
+            let err = {errorMessage: data.message};
+            throw err;
+          })
+        } else {
+          let err = {errorMessage: 'Error: Server is not responding'};
+          throw err;
+        }
+      }
+      return resp.json();
+  })
+}
+
 export async function createWebsite(website) {
   return fetch(WEBSITE_URL, {
     method: 'post',

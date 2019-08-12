@@ -40,6 +40,10 @@ class EditWebsiteForm extends Component {
       updatedWebsite.registrar = this.state.registrar;
       updatedWebsite.host = this.state.host;
 
+      // ObjectIDs cannot be empty strings, but they can be null
+      if(updatedWebsite.registrar === ''){updatedWebsite.registrar = null}
+      if(updatedWebsite.host === ''){updatedWebsite.host = null}
+
       // Call updateWebsite(), which is passed from WebsiteList as a prop
       this.props.updateWebsite(updatedWebsite);
       this.props.disableEditMode();
@@ -103,7 +107,10 @@ class EditWebsiteForm extends Component {
             name='registrar'
             onChange={this.handleChange}
           >
-            <option value=''>---Choose a Registrar---</option>
+            {this.props.website.registrar ? 
+              <option value={this.props.website.registrar._id}>Current Registrar: {this.props.website.registrar.name}</option>
+            : <option value=''>---Choose a Registrar---</option>
+            }
             <option value=''>----------None----------</option>
             {registrars}
           </select>
@@ -111,7 +118,10 @@ class EditWebsiteForm extends Component {
             name='host'
             onChange={this.handleChange}
           >
-            <option value=''>---Choose a Host---</option>
+            {this.props.website.host ? 
+              <option value={this.props.website.host._id}>Current Host: {this.props.website.host.name}</option>
+            : <option value=''>---Choose a Host---</option>
+            }
             <option value=''>-------None--------</option>
             {hosts}
           </select>

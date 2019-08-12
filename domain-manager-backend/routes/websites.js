@@ -20,20 +20,6 @@ router.get("/", function(req, res){
     });
 });
 
-// WEBSITE CREATE - Add new website to database
-router.post("/", function(req, res){
-    db.Website.create(req.body)
-    .then(function(website){
-        return website.populate('registrar').populate('host').execPopulate();
-    })
-    .then(function(website) {
-        res.status(201).json(website); // 201 is "created"
-    })
-    .catch(function(err){
-        res.send(err);
-    });
-});
-
 // WEBSITE GET - Get a single website
 router.get("/:websiteId", function(req, res){
     // Mongoose populates based on ObjectID
@@ -44,6 +30,34 @@ router.get("/:websiteId", function(req, res){
         res.json(website);
     })
     .catch(function(err) {
+        res.send(err);
+    });
+});
+
+// WEBSITE SEARCH - Get all websites that match query. Check name and url.
+router.get("/search/:query", function(req, res){
+    var search_query = '.*' + req.params.query + '.*';
+    db.Website.find({$or: [ { 'name' : { $regex : search_query, $options : 'i' } }, { 'url' : { $regex : search_query, $options : 'i' } }] })
+    .populate('registrar')
+    .populate('host')
+    .then(function(websites){ // Promise instead of typical callback
+        res.json(websites);
+    })
+    .catch(function(err){
+        res.send(err);
+    });
+});
+
+// WEBSITE CREATE - Add new website to database
+router.post("/", function(req, res){
+    db.Website.create(req.body)
+    .then(function(website){
+        return website.populate('registrar').populate('host').execPopulate();
+    })
+    .then(function(website) {
+        res.status(201).json(website); // 201 is "created"
+    })
+    .catch(function(err){
         res.send(err);
     });
 });

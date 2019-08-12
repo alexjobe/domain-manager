@@ -26,9 +26,7 @@ class App extends Component {
   }
 
   componentWillMount(){
-    this.loadWebsites();
-    this.loadRegistrars();
-    this.loadHosts();
+    this.loadAll();
   }
 
   async loadWebsites(){
@@ -46,7 +44,14 @@ class App extends Component {
     this.setState({hosts});
   }
 
+  loadAll() {
+    this.loadWebsites();
+    this.loadRegistrars();
+    this.loadHosts();
+  }
+
   enableHomeView() {
+    this.loadAll();
     this.setState({currentView: 'home'});
   }
 
@@ -64,17 +69,14 @@ class App extends Component {
 
   updateWebsites(websites) {
     this.setState({websites: websites});
-    this.loadWebsites();
   }
 
   updateRegistrars(registrars) {
     this.setState({registrars: registrars});
-    this.loadRegistrars();
   }
 
   updateHosts(hosts) {
     this.setState({hosts: hosts});
-    this.loadHosts();
   }
 
   renderHomeView() {

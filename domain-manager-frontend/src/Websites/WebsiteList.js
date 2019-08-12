@@ -4,6 +4,7 @@ import WebsiteItem from './WebsiteItem';
 import WebsiteInfo from './WebsiteInfo';
 import AddWebsiteForm from './AddWebsiteForm';
 import BackButton from '../General/BackButton';
+import Search from '../General/Search';
 
 class WebsiteList extends Component {
 
@@ -20,6 +21,7 @@ class WebsiteList extends Component {
     this.addWebsite = this.addWebsite.bind(this);
     this.updateWebsite = this.updateWebsite.bind(this);
     this.deleteWebsite = this.deleteWebsite.bind(this);
+    this.searchWebsites = this.searchWebsites.bind(this);
   }
 
   enableAddWebsite() {
@@ -48,7 +50,9 @@ class WebsiteList extends Component {
 
   async updateWebsite(website) {
     // Update website
+    console.log(website);
     let updatedSite = await apiCalls.updateWebsite(website);
+    console.log(updatedSite);
     // Find website in websites and replace it with updatedSite
     const websites = this.props.websites.map(website => {
       return (website._id === updatedSite._id ? updatedSite : website);
@@ -65,6 +69,16 @@ class WebsiteList extends Component {
     await apiCalls.removeWebsite(website._id);
     const websites = this.props.websites.filter(w => w._id !== website._id);
     this.props.updateWebsites(websites);
+  }
+
+  async searchWebsites(query) {
+    if(query !== '') {
+      let matchingSites = await apiCalls.searchWebsites(query);
+      this.props.updateWebsites(matchingSites);
+    } else {
+      let allSites = await apiCalls.getWebsites();
+      this.props.updateWebsites(allSites);
+    }
   }
 
   renderWebsiteList() {
@@ -100,6 +114,7 @@ class WebsiteList extends Component {
           : ''
         }
         {!this.props.selectedRegistrar && !this.props.selectedHost ? <h2>All Websites</h2> : ''}
+        <Search search={this.searchWebsites}></Search>
         <ul>
           {websiteItems}
         </ul>
