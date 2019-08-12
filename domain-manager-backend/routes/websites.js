@@ -34,10 +34,14 @@ router.get("/:websiteId", function(req, res){
     });
 });
 
-// WEBSITE SEARCH - Get all websites that match query. Check name and url.
+// WEBSITE SEARCH - Get all websites that match query. Search by name and url.
 router.get("/search/:query", function(req, res){
     var search_query = '.*' + req.params.query + '.*';
-    db.Website.find({$or: [ { 'name' : { $regex : search_query, $options : 'i' } }, { 'url' : { $regex : search_query, $options : 'i' } }] })
+    db.Website.find(
+        // Find all websites whose name or url contain the query string
+        {$or: [ { 'name' : { $regex : search_query, $options : 'i' } }, 
+        { 'url' : { $regex : search_query, $options : 'i' } }] }
+    )
     .populate('registrar')
     .populate('host')
     .then(function(websites){ // Promise instead of typical callback

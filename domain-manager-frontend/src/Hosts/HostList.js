@@ -4,6 +4,7 @@ import HostItem from './HostItem';
 import AddHostForm from './AddHostForm';
 import HostInfo from './HostInfo';
 import BackButton from '../General/BackButton';
+import Search from '../General/Search';
 
 class HostList extends Component {
 
@@ -19,15 +20,7 @@ class HostList extends Component {
     this.selectHost = this.selectHost.bind(this);
     this.deselectHost = this.deselectHost.bind(this);
     this.updateHost = this.updateHost.bind(this);
-  }
-
-  componentWillMount(){
-    this.loadHosts();
-  }
-
-  async loadHosts(){
-    let hosts = await apiCalls.getHosts();
-    this.setState({hosts});
+    this.searchHosts = this.searchHosts.bind(this);
   }
 
   async addHost(host) {
@@ -38,6 +31,7 @@ class HostList extends Component {
 
   enableAddHost() {
     this.setState({enableAddHost: true});
+    this.searchHosts(''); // Clear search results when changing view
   }
 
   disableAddHost() {
@@ -47,6 +41,7 @@ class HostList extends Component {
   selectHost(host) {
     this.setState({selectedHost: host})
     this.setState({enableAddHost: false});
+    this.searchHosts(''); // Clear search results when changing view
   }
 
   deselectHost() {
@@ -71,6 +66,16 @@ class HostList extends Component {
     this.props.updateHosts(hosts);
   }
 
+  async searchHosts(query) {
+    if(query !== '') {
+      let matchingHosts = await apiCalls.searchHosts(query);
+      this.props.updateHosts(matchingHosts);
+    } else {
+      let allHosts = await apiCalls.getHosts();
+      this.props.updateHosts(allHosts);
+    }
+  }
+
   renderHostList() {
     const hosts = this.props.hosts.map((r) => (
       <HostItem
@@ -84,6 +89,7 @@ class HostList extends Component {
       <div className="HostList">
         <BackButton onClick={this.props.goBack}></BackButton>
         <h2>All Hosts</h2>
+        <Search search={this.searchHosts}></Search>
         <ul>
           {hosts}
         </ul>

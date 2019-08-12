@@ -160,6 +160,25 @@ export async function getRegistrars() {
   })
 }
 
+export async function searchRegistrars(query){
+  const getURL = REGISTRAR_URL + 'search/' + query;
+  return fetch(getURL)
+    .then(resp => {
+      if(!resp.ok) {
+        if(resp.status >= 400 && resp.status < 500){
+          return resp.json().then(data => {
+            let err = {errorMessage: data.message};
+            throw err;
+          })
+        } else {
+          let err = {errorMessage: 'Error: Server is not responding'};
+          throw err;
+        }
+      }
+      return resp.json();
+  })
+}
+
 export async function createRegistrar(registrar) {
   return fetch(REGISTRAR_URL, {
     method: 'post',
@@ -238,6 +257,25 @@ export async function removeRegistrar(id){
 
 export async function getHosts() {
   return fetch(HOST_URL)
+    .then(resp => {
+      if(!resp.ok) {
+        if(resp.status >= 400 && resp.status < 500){
+          return resp.json().then(data => {
+            let err = {errorMessage: data.message};
+            throw err;
+          })
+        } else {
+          let err = {errorMessage: 'Error: Server is not responding'};
+          throw err;
+        }
+      }
+      return resp.json();
+  })
+}
+
+export async function searchHosts(query){
+  const getURL = HOST_URL + 'search/' + query;
+  return fetch(getURL)
     .then(resp => {
       if(!resp.ok) {
         if(resp.status >= 400 && resp.status < 500){

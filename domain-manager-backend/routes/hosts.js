@@ -40,6 +40,19 @@ router.get("/:hostId", function(req, res){
     });
 });
 
+// HOST SEARCH - Get all hosts that match query. Search by name.
+router.get("/search/:query", function(req, res){
+    var search_query = '.*' + req.params.query + '.*';
+    // Find all hosts whose name contains the query string
+    db.Host.find({ 'name' : { $regex : search_query, $options : 'i' } })
+    .then(function(registrars){ // Promise instead of typical callback
+        res.json(registrars);
+    })
+    .catch(function(err){
+        res.send(err);
+    });
+});
+
 // HOST UPDATE - Update a host
 router.put("/:hostId", function(req, res){
     db.Host.findOneAndUpdate({_id: req.params.hostId}, req.body, {new: true}) // {new: true} respond with updated data

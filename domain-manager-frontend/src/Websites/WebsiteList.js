@@ -26,6 +26,7 @@ class WebsiteList extends Component {
 
   enableAddWebsite() {
     this.setState({enableAddWebsite: true});
+    this.searchWebsites(''); // Clear search results when changing view
   }
 
   disableAddWebsite() {
@@ -36,6 +37,7 @@ class WebsiteList extends Component {
     this.updateWebsite(website);
     this.setState({selectedWebsite: website})
     this.setState({enableAddWebsite: false});
+    this.searchWebsites(''); // Clear search results when changing view
   }
 
   deselectWebsite() {
@@ -106,11 +108,11 @@ class WebsiteList extends Component {
       <div className="WebsiteList">
         <BackButton onClick={this.props.goBack}></BackButton>
         {this.props.selectedHost ?
-          <h2>{this.props.selectedHost.name}: Websites</h2> 
+          <h2>{this.props.selectedHost.name}: Hosted Websites</h2> 
           : ''
         }
         {this.props.selectedRegistrar ? 
-          <h2>{this.props.selectedRegistrar.name}: Websites</h2> 
+          <h2>{this.props.selectedRegistrar.name}: Registered Websites</h2> 
           : ''
         }
         {!this.props.selectedRegistrar && !this.props.selectedHost ? <h2>All Websites</h2> : ''}

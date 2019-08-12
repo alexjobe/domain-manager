@@ -40,6 +40,19 @@ router.get("/:registrarId", function(req, res){
     });
 });
 
+// REGISTRAR SEARCH - Get all registrars that match query. Search by name.
+router.get("/search/:query", function(req, res){
+    var search_query = '.*' + req.params.query + '.*';
+    // Find all registrars whose name contains the query string
+    db.Registrar.find({ 'name' : { $regex : search_query, $options : 'i' } })
+    .then(function(registrars){ // Promise instead of typical callback
+        res.json(registrars);
+    })
+    .catch(function(err){
+        res.send(err);
+    });
+});
+
 // REGISTRAR UPDATE - Update a registrar
 router.put("/:registrarId", function(req, res){
     db.Registrar.findOneAndUpdate({_id: req.params.registrarId}, req.body, {new: true}) // {new: true} respond with updated data

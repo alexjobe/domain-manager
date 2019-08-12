@@ -4,6 +4,7 @@ import RegistrarItem from './RegistrarItem';
 import AddRegistrarForm from './AddRegistrarForm';
 import RegistrarInfo from './RegistrarInfo';
 import BackButton from '../General/BackButton';
+import Search from '../General/Search';
 
 class RegistrarList extends Component {
 
@@ -19,6 +20,7 @@ class RegistrarList extends Component {
     this.selectRegistrar = this.selectRegistrar.bind(this);
     this.deselectRegistrar = this.deselectRegistrar.bind(this);
     this.updateRegistrar = this.updateRegistrar.bind(this);
+    this.searchRegistrars = this.searchRegistrars.bind(this);
   }
 
   async addRegistrar(registrar) {
@@ -29,6 +31,7 @@ class RegistrarList extends Component {
 
   enableAddRegistrar() {
     this.setState({enableAddRegistrar: true});
+    this.searchRegistrars(''); // Clear search results when changing view
   }
 
   disableAddRegistrar() {
@@ -38,6 +41,7 @@ class RegistrarList extends Component {
   selectRegistrar(registrar) {
     this.setState({selectedRegistrar: registrar})
     this.setState({enableAddRegistrar: false});
+    this.searchRegistrars(''); // Clear search results when changing view
   }
 
   deselectRegistrar() {
@@ -62,6 +66,16 @@ class RegistrarList extends Component {
     this.props.updateRegistrars(registrars);
   }
 
+  async searchRegistrars(query) {
+    if(query !== '') {
+      let matchingRegistrars = await apiCalls.searchRegistrars(query);
+      this.props.updateRegistrars(matchingRegistrars);
+    } else {
+      let allRegistrars = await apiCalls.getRegistrars();
+      this.props.updateRegistrars(allRegistrars);
+    }
+  }
+
   renderRegistrarList() {
     const registrars = this.props.registrars.map((r) => (
       <RegistrarItem
@@ -75,6 +89,7 @@ class RegistrarList extends Component {
       <div className="RegistrarList">
         <BackButton onClick={this.props.goBack}></BackButton>
         <h2>All Registrars</h2>
+        <Search search={this.searchRegistrars}></Search>
         <ul>
           {registrars}
         </ul>
