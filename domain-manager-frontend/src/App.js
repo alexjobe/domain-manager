@@ -11,8 +11,11 @@ class App extends Component {
       currentView: 'home',
       websites: [],
       registrars: [],
-      hosts: []
+      hosts: [],
     }
+    this.loadWebsites = this.loadWebsites.bind(this);
+    this.loadRegistrars = this.loadRegistrars.bind(this);
+    this.loadHosts = this.loadHosts.bind(this);
     this.enableHomeView = this.enableHomeView.bind(this);
     this.enableWebsiteView = this.enableWebsiteView.bind(this);
     this.enableRegistrarView = this.enableRegistrarView.bind(this);
@@ -61,72 +64,91 @@ class App extends Component {
 
   updateWebsites(websites) {
     this.setState({websites: websites});
+    this.loadWebsites();
   }
 
   updateRegistrars(registrars) {
     this.setState({registrars: registrars});
+    this.loadRegistrars();
   }
 
   updateHosts(hosts) {
     this.setState({hosts: hosts});
+    this.loadHosts();
   }
 
   renderHomeView() {
-    return (
+    return(
       <div className="App">
         <button onClick={this.enableWebsiteView}>Websites</button>
         <button onClick={this.enableRegistrarView}>Registrars</button>
         <button onClick={this.enableHostView}>Hosts</button>
+      </div>
+    )
+  }
+
+  renderWebsiteView() {
+    return(
+      <div className="App">
+        <button onClick={this.enableHomeView}>Home</button>
+        <h1>Websites</h1>
+        <WebsiteList
+          back={this.back}
+          goBack={this.enableHomeView}
+          websites={this.state.websites}
+          registrars={this.state.registrars}
+          hosts={this.state.hosts}
+          updateWebsites={this.updateWebsites}
+        />
+      </div>
+    )
+  }
+
+  renderRegistrarView() {
+    return(
+      <div className="App">
+        <button onClick={this.enableHomeView}>Home</button>
+        <h1>Domain Name Registrars</h1>
+        <RegistrarList 
+          goBack={this.enableHomeView}
+          websites={this.state.websites}
+          registrars={this.state.registrars}
+          hosts={this.state.hosts}
+          updateRegistrars={this.updateRegistrars}
+          updateWebsites={this.updateWebsites}
+        />
+      </div>
+    )
+  }
+
+  renderHostView() {
+    return(
+      <div className="App">
+        <button onClick={this.enableHomeView}>Home</button>
+        <h1>Website Hosts</h1>
+        <HostList 
+          goBack={this.enableHomeView}
+          websites={this.state.websites}
+          registrars={this.state.registrars}
+          hosts={this.state.hosts}
+          updateHosts={this.updateHosts}
+          updateWebsites={this.updateWebsites}
+        />
       </div>
     )
   }
 
   render() {
-    if(this.state.currentView === 'home') {
-      return this.renderHomeView();
+    if(this.state.currentView === "websites") {
+      return this.renderWebsiteView();
     }
-    return (
-      <div className="App">
-        <button onClick={this.enableWebsiteView}>Websites</button>
-        <button onClick={this.enableRegistrarView}>Registrars</button>
-        <button onClick={this.enableHostView}>Hosts</button>
-        {
-          this.state.currentView === 'websites' ?
-            <WebsiteList 
-              goBack={this.enableHomeView}
-              websites={this.state.websites}
-              registrars={this.state.registrars}
-              hosts={this.state.hosts}
-              updateWebsites={this.updateWebsites}
-            />
-          : ''
-        }
-        {
-          this.state.currentView === 'registrars' ?
-            <RegistrarList 
-              goBack={this.enableHomeView}
-              websites={this.state.websites}
-              registrars={this.state.registrars}
-              hosts={this.state.hosts}
-              updateRegistrars={this.updateRegistrars}
-              updateWebsites={this.updateWebsites}
-            />
-          : ''
-        }
-        {
-          this.state.currentView === 'hosts' ?
-            <HostList 
-              goBack={this.enableHomeView}
-              websites={this.state.websites}
-              registrars={this.state.registrars}
-              hosts={this.state.hosts}
-              updateHosts={this.updateHosts}
-              updateWebsites={this.updateWebsites}
-            />
-          : ''
-        }
-      </div>
-    )
+    if(this.state.currentView === "registrars") {
+      return this.renderRegistrarView();
+    }
+    if(this.state.currentView === "hosts") {
+      return this.renderHostView();
+    }
+    return this.renderHomeView();
   }
 }
 

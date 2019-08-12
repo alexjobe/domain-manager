@@ -25,7 +25,7 @@ class WebsiteInfo extends Component {
     return (
       <div id="websiteInfoDisplay">
         <BackButton onClick={this.props.goBack}></BackButton>
-        <h1>Website Info:</h1>
+        <h2>Website Info:</h2>
         <p>
           Website: {this.props.website.name} <br />
           URL: {this.props.website.url} <br />
@@ -33,7 +33,9 @@ class WebsiteInfo extends Component {
           Username: {this.props.website.userName} <br />
           Password: {this.props.website.password} <br />
           {this.props.website.registrar && this.props.website.registrar.name ? 
-            'Registrar: ' + this.props.website.registrar.name : ''} <br />
+            <span>Registrar: {this.props.website.registrar.name}<br /></span>
+            : ''
+          }
           {this.props.website.host && this.props.website.host.name ? 
             'Host: ' + this.props.website.host.name : ''}
         </p>
@@ -56,7 +58,7 @@ class WebsiteInfo extends Component {
     return (
       <div id="websiteEdit">
         <BackButton onClick={this.disableEditMode}></BackButton>
-        <h1>Edit Website</h1>
+        <h2>Edit Website</h2>
         <EditWebsiteForm 
           website={this.props.website} 
           updateWebsite={this.props.updateWebsite} 

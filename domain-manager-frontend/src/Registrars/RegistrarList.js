@@ -74,7 +74,7 @@ class RegistrarList extends Component {
     return (
       <div className="RegistrarList">
         <BackButton onClick={this.props.goBack}></BackButton>
-        <h1>Registrar List</h1>
+        <h2>All Registrars</h2>
         <ul>
           {registrars}
         </ul>
@@ -87,7 +87,7 @@ class RegistrarList extends Component {
     return(
       <div id="registrarAddNew">
         <BackButton onClick={this.disableAddRegistrar}></BackButton>
-        <h1>New Registrar</h1>
+        <h2>New Registrar</h2>
         <AddRegistrarForm 
           addRegistrar={this.addRegistrar} 
           disableAddRegistrar={this.disableAddRegistrar}

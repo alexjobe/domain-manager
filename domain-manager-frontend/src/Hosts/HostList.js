@@ -83,7 +83,7 @@ class HostList extends Component {
     return (
       <div className="HostList">
         <BackButton onClick={this.props.goBack}></BackButton>
-        <h1>Host List</h1>
+        <h2>All Hosts</h2>
         <ul>
           {hosts}
         </ul>
@@ -96,7 +96,7 @@ class HostList extends Component {
     return(
       <div id="hostAddNew">
         <BackButton onClick={this.disableAddHost}></BackButton>
-        <h1>New Host</h1>
+        <h2>New Host</h2>
         <AddHostForm 
           addHost={this.addHost} 
           disableAddHost={this.disableAddHost}

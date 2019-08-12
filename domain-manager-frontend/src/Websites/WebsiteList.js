@@ -91,15 +91,15 @@ class WebsiteList extends Component {
     return (
       <div className="WebsiteList">
         <BackButton onClick={this.props.goBack}></BackButton>
-        <h1>Website List</h1>
-        {this.props.selectedHost ? 
-          <h2>Host: {this.props.selectedHost.name}</h2> 
+        {this.props.selectedHost ?
+          <h2>{this.props.selectedHost.name}: Websites</h2> 
           : ''
         }
         {this.props.selectedRegistrar ? 
-          <h2>Registrar: {this.props.selectedRegistrar.name}</h2> 
+          <h2>{this.props.selectedRegistrar.name}: Websites</h2> 
           : ''
         }
+        {!this.props.selectedRegistrar && !this.props.selectedHost ? <h2>All Websites</h2> : ''}
         <ul>
           {websiteItems}
         </ul>
@@ -112,15 +112,17 @@ class WebsiteList extends Component {
     return (
       <div id="websiteAddNew">
         <BackButton onClick={this.disableAddWebsite}></BackButton>
-        <h1>New Website</h1>
-        {this.props.selectedHost ? 
-          <h2>Host: {this.props.selectedHost.name}</h2> 
-          : ''
-        }
-        {this.props.selectedRegistrar ? 
-          <h2>Registrar: {this.props.selectedRegistrar.name}</h2> 
-          : ''
-        }
+        <h2>
+          {this.props.selectedHost ? 
+            this.props.selectedHost.name + ': '
+            : ''
+          }
+          {this.props.selectedRegistrar ? 
+            this.props.selectedRegistrar.name + ': '
+            : ''
+          }
+          New Website
+        </h2>
         <AddWebsiteForm 
           addWebsite={this.addWebsite} 
           disableAddWebsite={this.disableAddWebsite}
