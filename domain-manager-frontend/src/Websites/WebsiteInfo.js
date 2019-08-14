@@ -14,36 +14,10 @@ class WebsiteInfo extends Component {
       enableViewRegistrar: false,
       enableViewHost: false
     }
-    this.enableEditMode = this.enableEditMode.bind(this);
-    this.disableEditMode = this.disableEditMode.bind(this);
-    this.enableViewRegistrar = this.enableViewRegistrar.bind(this);
-    this.disableViewRegistrar = this.disableViewRegistrar.bind(this);
-    this.enableViewHost = this.enableViewHost.bind(this);
-    this.disableViewHost = this.disableViewHost.bind(this);
-  }
-  
-  enableEditMode() {
-    this.setState({enableEditMode: true});
   }
 
-  disableEditMode() {
-    this.setState({enableEditMode: false});
-  }
-
-  enableViewRegistrar() {
-    this.setState({enableViewRegistrar: true});
-  }
-
-  disableViewRegistrar() {
-    this.setState({enableViewRegistrar: false});
-  }
-
-  enableViewHost() {
-    this.setState({enableViewHost: true});
-  }
-
-  disableViewHost() {
-    this.setState({enableViewHost: false});
+  enableState(state, isEnabled) {
+    this.setState({[state] : isEnabled}); // [state] is a computed property name
   }
 
   renderWebsiteInfo() {
@@ -52,7 +26,7 @@ class WebsiteInfo extends Component {
         <BackButton onClick={this.props.goBack}></BackButton>
         <h2>Website: {this.props.website.name}</h2>
         {this.props.website.registrar && this.props.website.registrar.name ? 
-          <div className='list-item' onClick={this.enableViewRegistrar}>
+          <div className='list-item' onClick={this.enableState.bind(this, 'enableViewRegistrar', true)}>
             <label>
               Registrar: {this.props.website.registrar.name}
             </label>
@@ -60,7 +34,7 @@ class WebsiteInfo extends Component {
           : ''
         }
         {this.props.website.host && this.props.website.host.name ? 
-          <div className='list-item' onClick={this.enableViewHost}>
+          <div className='list-item' onClick={this.enableState.bind(this, 'enableViewHost', true)}>
             <label>
               Host: {this.props.website.host.name}
             </label>
@@ -80,7 +54,7 @@ class WebsiteInfo extends Component {
           readOnly
           disabled
         />
-        <button onClick={this.enableEditMode}>Edit Website</button>
+        <button onClick={this.enableState.bind(this, 'enableEditMode', true)}>Edit Website</button>
         <button onClick={this.props.deleteWebsite}>Delete Website</button>
       </div>
     )
@@ -89,12 +63,12 @@ class WebsiteInfo extends Component {
   renderWebsiteEdit() {
     return (
       <div id="websiteEdit">
-        <BackButton onClick={this.disableEditMode}></BackButton>
+        <BackButton onClick={this.enableState.bind(this, 'enableEditMode', false)}></BackButton>
         <h2>Edit Website</h2>
         <EditWebsiteForm 
           website={this.props.website} 
           updateWebsite={this.props.updateWebsite} 
-          disableEditMode={this.disableEditMode}
+          disableEditMode={this.enableState.bind(this, 'enableEditMode', false)}
           registrars={this.props.registrars}
           hosts={this.props.hosts}
         />
@@ -105,7 +79,7 @@ class WebsiteInfo extends Component {
   renderRegistrarInfo(){
     return (
       <div id='websiteRegistrarInfo'>
-        <BackButton onClick={this.disableViewRegistrar}></BackButton>
+        <BackButton onClick={this.enableState.bind(this, 'enableViewRegistrar', false)}></BackButton>
         <h2>Website: {this.props.website.name}</h2>
         <RegistrarInfo 
           registrar={this.props.website.registrar}
@@ -118,7 +92,7 @@ class WebsiteInfo extends Component {
   renderHostInfo(){
     return (
       <div id='websiteHostInfo'>
-        <BackButton onClick={this.disableViewHost}></BackButton>
+        <BackButton onClick={this.enableState.bind(this, 'enableViewHost', false)}></BackButton>
         <h2>Website: {this.props.website.name}</h2>
         <HostInfo 
           host={this.props.website.host}

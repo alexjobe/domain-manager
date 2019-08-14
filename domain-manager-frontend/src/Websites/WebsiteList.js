@@ -14,8 +14,6 @@ class WebsiteList extends Component {
       selectedWebsite: null,
       enableAddWebsite: false
     }
-    this.enableAddWebsite = this.enableAddWebsite.bind(this);
-    this.disableAddWebsite = this.disableAddWebsite.bind(this);
     this.selectWebsite = this.selectWebsite.bind(this);
     this.deselectWebsite = this.deselectWebsite.bind(this);
     this.addWebsite = this.addWebsite.bind(this);
@@ -24,13 +22,9 @@ class WebsiteList extends Component {
     this.searchWebsites = this.searchWebsites.bind(this);
   }
 
-  enableAddWebsite() {
-    this.setState({enableAddWebsite: true});
+  enableState(state, isEnabled) {
+    this.setState({[state] : isEnabled}); // [state] is a computed property name
     this.searchWebsites(''); // Clear search results when changing view
-  }
-
-  disableAddWebsite() {
-    this.setState({enableAddWebsite: false});
   }
 
   selectWebsite(website) {
@@ -118,7 +112,7 @@ class WebsiteList extends Component {
         <ul>
           {websiteListItems}
         </ul>
-        <button onClick={this.enableAddWebsite}>Add Website</button>
+        <button onClick={this.enableState.bind(this, 'enableAddWebsite', true)}>Add Website</button>
       </div>
     )
   }
@@ -126,7 +120,7 @@ class WebsiteList extends Component {
   renderAddWebsite(){
     return (
       <div id="websiteAddNew">
-        <BackButton onClick={this.disableAddWebsite}></BackButton>
+        <BackButton onClick={this.enableState.bind(this, 'enableAddWebsite', false)}></BackButton>
         <h2>
           {this.props.selectedHost ? 
             this.props.selectedHost.name + ': '
@@ -140,7 +134,7 @@ class WebsiteList extends Component {
         </h2>
         <AddWebsiteForm 
           addWebsite={this.addWebsite} 
-          disableAddWebsite={this.disableAddWebsite}
+          disableAddWebsite={this.enableState.bind(this, 'enableAddWebsite', false)}
           registrars={this.props.registrars}
           hosts={this.props.hosts}
           selectedHost={this.props.selectedHost}

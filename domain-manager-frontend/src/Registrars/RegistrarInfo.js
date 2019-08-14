@@ -14,12 +14,10 @@ class RegistrarInfo extends Component {
       enableEditMode: false,
       enableViewWebsites: false
     }
-
-    this.enableState = this.enableState.bind(this);
   }
 
   enableState(state, isEnabled) {
-    this.setState({[state] : isEnabled});
+    this.setState({[state] : isEnabled}); // [state] is a computed property name
   }
 
   // selectedWebsite is passed from WebsiteInfo as a prop

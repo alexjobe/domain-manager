@@ -14,12 +14,10 @@ class HostInfo extends Component {
       enableEditMode: false,
       enableViewWebsites: false
     }
-
-    this.enableState = this.enableState.bind(this);
   }
 
   enableState(state, isEnabled) {
-    this.setState({[state] : isEnabled});
+    this.setState({[state] : isEnabled}); // [state] is a computed property name
   }
 
   // selectedWebsite is passed from WebsiteInfo as a prop
@@ -43,9 +41,15 @@ class HostInfo extends Component {
           readOnly
           disabled
         />
-        <button onClick={this.enableState.bind(this, 'enableViewWebsites', true)}>Hosted Websites</button>
-        <button onClick={this.enableState.bind(this, 'enableEditMode', true)}>Edit Host</button>
-        <button onClick={this.props.deleteHost}>Delete Host</button>
+        {
+          this.props.websites ?
+            <div id='hostButtons'>
+              <button onClick={this.enableState.bind(this, 'enableViewWebsites', true)}>Hosted Websites</button>
+              <button onClick={this.enableState.bind(this, 'enableEditMode', true)}>Edit Host</button>
+              <button onClick={this.props.deleteHost}>Delete Host</button>
+            </div>
+          : ''
+        }
       </div>
     )
   }

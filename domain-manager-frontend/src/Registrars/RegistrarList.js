@@ -15,8 +15,6 @@ class RegistrarList extends Component {
       enableAddRegistrar: false
     }
     this.addRegistrar = this.addRegistrar.bind(this);
-    this.enableAddRegistrar = this.enableAddRegistrar.bind(this);
-    this.disableAddRegistrar = this.disableAddRegistrar.bind(this);
     this.selectRegistrar = this.selectRegistrar.bind(this);
     this.deselectRegistrar = this.deselectRegistrar.bind(this);
     this.updateRegistrar = this.updateRegistrar.bind(this);
@@ -29,13 +27,9 @@ class RegistrarList extends Component {
     this.props.updateRegistrars([...this.props.registrars, newRegistrar]) // ... is the spread operator
   }
 
-  enableAddRegistrar() {
-    this.setState({enableAddRegistrar: true});
+  enableState(state, isEnabled) {
+    this.setState({[state] : isEnabled}); // [state] is a computed property name
     this.searchRegistrars(''); // Clear search results when changing view
-  }
-
-  disableAddRegistrar() {
-    this.setState({enableAddRegistrar: false});
   }
 
   selectRegistrar(registrar) {
@@ -96,7 +90,7 @@ class RegistrarList extends Component {
         <ul>
           {registrarListItems}
         </ul>
-        <button onClick={this.enableAddRegistrar}>Add Registrar</button>
+        <button onClick={this.enableState.bind(this, 'enableAddRegistrar', true)}>Add Registrar</button>
       </div>
     )
   }
@@ -104,11 +98,11 @@ class RegistrarList extends Component {
   renderAddRegistrar(){
     return(
       <div id="registrarAddNew">
-        <BackButton onClick={this.disableAddRegistrar}></BackButton>
+        <BackButton onClick={this.enableState.bind(this, 'enableAddRegistrar', false)}></BackButton>
         <h2>New Registrar</h2>
         <AddRegistrarForm 
           addRegistrar={this.addRegistrar} 
-          disableAddRegistrar={this.disableAddRegistrar}
+          disableAddRegistrar={this.enableState.bind(this, 'enableAddRegistrar', false)}
         />
       </div>
     )

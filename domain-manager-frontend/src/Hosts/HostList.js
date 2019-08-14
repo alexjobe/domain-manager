@@ -15,8 +15,6 @@ class HostList extends Component {
       enableAddHost: false
     }
     this.addHost = this.addHost.bind(this);
-    this.enableAddHost = this.enableAddHost.bind(this);
-    this.disableAddHost = this.disableAddHost.bind(this);
     this.selectHost = this.selectHost.bind(this);
     this.deselectHost = this.deselectHost.bind(this);
     this.updateHost = this.updateHost.bind(this);
@@ -29,13 +27,9 @@ class HostList extends Component {
     this.props.updateHosts([...this.props.hosts, newHost]) // ... is the spread operator
   }
 
-  enableAddHost() {
-    this.setState({enableAddHost: true});
+  enableState(state, isEnabled) {
+    this.setState({[state] : isEnabled}); // [state] is a computed property name
     this.searchHosts(''); // Clear search results when changing view
-  }
-
-  disableAddHost() {
-    this.setState({enableAddHost: false});
   }
 
   selectHost(host) {
@@ -93,7 +87,7 @@ class HostList extends Component {
         <ul>
           {hostListItems}
         </ul>
-        <button onClick={this.enableAddHost}>Add Host</button>
+        <button onClick={this.enableState.bind(this, 'enableAddHost', true)}>Add Host</button>
       </div>
     )
   }
@@ -101,11 +95,11 @@ class HostList extends Component {
   renderAddHost(){
     return(
       <div id="hostAddNew">
-        <BackButton onClick={this.disableAddHost}></BackButton>
+        <BackButton onClick={this.enableState.bind(this, 'enableAddHost', false)}></BackButton>
         <h2>New Host</h2>
         <AddHostForm 
           addHost={this.addHost} 
-          disableAddHost={this.disableAddHost}
+          disableAddHost={this.enableState.bind(this, 'enableAddHost', false)}
         />
       </div>
     )
