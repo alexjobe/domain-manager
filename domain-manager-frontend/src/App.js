@@ -17,10 +17,6 @@ class App extends Component {
     this.loadWebsites = this.loadWebsites.bind(this);
     this.loadRegistrars = this.loadRegistrars.bind(this);
     this.loadHosts = this.loadHosts.bind(this);
-    this.enableHomeView = this.enableHomeView.bind(this);
-    this.enableWebsiteView = this.enableWebsiteView.bind(this);
-    this.enableRegistrarView = this.enableRegistrarView.bind(this);
-    this.enableHostView = this.enableHostView.bind(this);
     this.updateWebsites = this.updateWebsites.bind(this);
     this.updateRegistrars = this.updateRegistrars.bind(this);
     this.updateHosts = this.updateHosts.bind(this);
@@ -51,21 +47,11 @@ class App extends Component {
     this.loadHosts();
   }
 
-  enableHomeView() {
-    this.loadAll();
-    this.setState({currentView: 'home'});
-  }
-
-  enableWebsiteView() {
-    this.setState({currentView: 'websites'});
-  }
-
-  enableRegistrarView() {
-    this.setState({currentView: 'registrars'});
-  }
-
-  enableHostView() {
-    this.setState({currentView: 'hosts'});
+  setView(view) {
+    if(view === 'home') {
+      this.loadAll();
+    }
+    this.setState({currentView : view});
   }
 
   updateWebsites(websites) {
@@ -83,9 +69,9 @@ class App extends Component {
   renderHomeView() {
     return(
       <div className="App">
-        <button onClick={this.enableWebsiteView}>Websites</button>
-        <button onClick={this.enableRegistrarView}>Registrars</button>
-        <button onClick={this.enableHostView}>Hosts</button>
+        <button onClick={this.setView.bind(this, 'websites')}>Websites</button>
+        <button onClick={this.setView.bind(this, 'registrars')}>Registrars</button>
+        <button onClick={this.setView.bind(this, 'hosts')}>Hosts</button>
       </div>
     )
   }
@@ -93,11 +79,11 @@ class App extends Component {
   renderWebsiteView() {
     return(
       <div className="App">
-        <button onClick={this.enableHomeView}>Home</button>
+        <button onClick={this.setView.bind(this, 'home')}>Home</button>
         <h1>Websites</h1>
         <WebsiteList
           back={this.back}
-          goBack={this.enableHomeView}
+          goBack={this.setView.bind(this, 'home')}
           websites={this.state.websites}
           registrars={this.state.registrars}
           hosts={this.state.hosts}
@@ -110,10 +96,10 @@ class App extends Component {
   renderRegistrarView() {
     return(
       <div className="App">
-        <button onClick={this.enableHomeView}>Home</button>
+        <button onClick={this.setView.bind(this, 'home')}>Home</button>
         <h1>Domain Name Registrars</h1>
         <RegistrarList 
-          goBack={this.enableHomeView}
+          goBack={this.setView.bind(this, 'home')}
           websites={this.state.websites}
           registrars={this.state.registrars}
           hosts={this.state.hosts}
@@ -127,10 +113,10 @@ class App extends Component {
   renderHostView() {
     return(
       <div className="App">
-        <button onClick={this.enableHomeView}>Home</button>
+        <button onClick={this.setView.bind(this, 'home')}>Home</button>
         <h1>Website Hosts</h1>
         <HostList 
-          goBack={this.enableHomeView}
+          goBack={this.setView.bind(this, 'home')}
           websites={this.state.websites}
           registrars={this.state.registrars}
           hosts={this.state.hosts}
