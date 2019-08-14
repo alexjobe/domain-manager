@@ -2,18 +2,26 @@ import React, { Component } from 'react';
 import BackButton from '../General/BackButton';
 import EditWebsiteForm from './EditWebsiteForm';
 import CopyableText from '../General/CopyableText';
+import RegistrarInfo from '../Registrars/RegistrarInfo';
+import HostInfo from '../Hosts/HostInfo';
 
 class WebsiteInfo extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      enableEditMode: false
+      enableEditMode: false,
+      enableViewRegistrar: false,
+      enableViewHost: false
     }
     this.enableEditMode = this.enableEditMode.bind(this);
     this.disableEditMode = this.disableEditMode.bind(this);
+    this.enableViewRegistrar = this.enableViewRegistrar.bind(this);
+    this.disableViewRegistrar = this.disableViewRegistrar.bind(this);
+    this.enableViewHost = this.enableViewHost.bind(this);
+    this.disableViewHost = this.disableViewHost.bind(this);
   }
-
+  
   enableEditMode() {
     this.setState({enableEditMode: true});
   }
@@ -22,17 +30,41 @@ class WebsiteInfo extends Component {
     this.setState({enableEditMode: false});
   }
 
+  enableViewRegistrar() {
+    this.setState({enableViewRegistrar: true});
+  }
+
+  disableViewRegistrar() {
+    this.setState({enableViewRegistrar: false});
+  }
+
+  enableViewHost() {
+    this.setState({enableViewHost: true});
+  }
+
+  disableViewHost() {
+    this.setState({enableViewHost: false});
+  }
+
   renderWebsiteInfo() {
     return (
       <div id="websiteInfoDisplay">
         <BackButton onClick={this.props.goBack}></BackButton>
         <h2>Website: {this.props.website.name}</h2>
         {this.props.website.registrar && this.props.website.registrar.name ? 
-          <div className='list-item'><label>Registrar: {this.props.website.registrar.name}</label></div>
+          <div className='list-item' onClick={this.enableViewRegistrar}>
+            <label>
+              Registrar: {this.props.website.registrar.name}
+            </label>
+          </div>
           : ''
         }
         {this.props.website.host && this.props.website.host.name ? 
-          <div className='list-item'><label>Host: {this.props.website.host.name}</label></div>
+          <div className='list-item' onClick={this.enableViewHost}>
+            <label>
+              Host: {this.props.website.host.name}
+            </label>
+          </div>
           : ''
         }
         <div className='list-item'><label>URL:</label><CopyableText value={this.props.website.url}/></div>
@@ -70,16 +102,43 @@ class WebsiteInfo extends Component {
     )
   }
 
-  render() {
-    return(
-      <div id='websiteInfo'>
-        {
-          this.state.enableEditMode ?
-            this.renderWebsiteEdit()
-          : this.renderWebsiteInfo()
-        }
+  renderRegistrarInfo(){
+    return (
+      <div id='websiteRegistrarInfo'>
+        <BackButton onClick={this.disableViewRegistrar}></BackButton>
+        <h2>Website: {this.props.website.name}</h2>
+        <RegistrarInfo 
+          registrar={this.props.website.registrar}
+          selectedWebsite={this.props.website}
+        />
       </div>
     )
+  }
+
+  renderHostInfo(){
+    return (
+      <div id='websiteHostInfo'>
+        <BackButton onClick={this.disableViewHost}></BackButton>
+        <h2>Website: {this.props.website.name}</h2>
+        <HostInfo 
+          host={this.props.website.host}
+          selectedWebsite={this.props.website}
+        />
+      </div>
+    )
+  }
+
+  render() {
+    if(this.state.enableEditMode){
+      return this.renderWebsiteEdit();
+    }
+    if(this.state.enableViewRegistrar){
+      return this.renderRegistrarInfo();
+    }
+    if(this.state.enableViewHost){
+      return this.renderHostInfo();
+    }
+    return this.renderWebsiteInfo();
   }
 }
 

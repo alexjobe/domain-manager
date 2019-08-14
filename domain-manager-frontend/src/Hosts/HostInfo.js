@@ -3,7 +3,9 @@ import BackButton from '../General/BackButton';
 import EditHostForm from './EditHostForm';
 import WebsiteList from '../Websites/WebsiteList';
 import CopyableText from '../General/CopyableText';
+import HostTitle from './HostTitle';
 
+// Display host info. Rendered from HostList and WebsiteInfo.
 class HostInfo extends Component {
 
   constructor(props){
@@ -12,33 +14,24 @@ class HostInfo extends Component {
       enableEditMode: false,
       enableViewWebsites: false
     }
-    this.enableEditMode = this.enableEditMode.bind(this);
-    this.disableEditMode = this.disableEditMode.bind(this);
-    this.enableViewWebsites = this.enableViewWebsites.bind(this);
-    this.disableViewWebsites = this.disableViewWebsites.bind(this);
+
+    this.enableState = this.enableState.bind(this);
   }
 
-  enableEditMode() {
-    this.setState({enableEditMode: true});
+  enableState(state, isEnabled) {
+    this.setState({[state] : isEnabled});
   }
 
-  disableEditMode() {
-    this.setState({enableEditMode: false});
-  }
-
-  enableViewWebsites() {
-    this.setState({enableViewWebsites: true});
-  }
-
-  disableViewWebsites() {
-    this.setState({enableViewWebsites: false});
-  }
-
+  // selectedWebsite is passed from WebsiteInfo as a prop
+  // websites is passed from HostList as a prop
   renderHostInfo() {
     return(
       <div id="hostInfoDisplay">
-        <BackButton onClick={this.props.goBack}></BackButton>
-        <h2>Host: {this.props.host.name}</h2>
+        <HostTitle
+          selectedWebsite={this.props.selectedWebsite ? true : false}
+          hostName={this.props.host.name}
+          goBack={this.props.goBack}
+        />
         <div className='list-item'><label>Username:</label><CopyableText value={this.props.host.userName}/></div>
         <div className='list-item'><label>Password:</label><CopyableText value={this.props.host.password}/></div>
         <div className='list-item'><label>Notes:</label></div>
@@ -50,8 +43,8 @@ class HostInfo extends Component {
           readOnly
           disabled
         />
-        <button onClick={this.enableViewWebsites}>Hosted Websites</button>
-        <button onClick={this.enableEditMode}>Edit Host</button>
+        <button onClick={this.enableState.bind(this, 'enableViewWebsites', true)}>Hosted Websites</button>
+        <button onClick={this.enableState.bind(this, 'enableEditMode', true)}>Edit Host</button>
         <button onClick={this.props.deleteHost}>Delete Host</button>
       </div>
     )
@@ -60,12 +53,12 @@ class HostInfo extends Component {
   renderHostEdit() {
     return (
       <div id="hostEdit">
-        <BackButton onClick={this.disableEditMode}></BackButton>
+        <BackButton onClick={this.enableState.bind(this, 'enableEditMode', false)}></BackButton>
         <h2>Edit Host</h2>
         <EditHostForm 
           host={this.props.host} 
           updateHost={this.props.updateHost} 
-          disableEditMode={this.disableEditMode}
+          disableEditMode={this.enableState.bind(this, 'enableEditMode', false)}
         />
       </div>
     )
@@ -74,7 +67,7 @@ class HostInfo extends Component {
   renderHostWebsites() {
     return (
       <WebsiteList 
-        goBack={this.disableViewWebsites}
+        goBack={this.enableState.bind(this, 'enableViewWebsites', false)}
         websites={this.props.websites}
         registrars={this.props.registrars}
         hosts={this.props.hosts}

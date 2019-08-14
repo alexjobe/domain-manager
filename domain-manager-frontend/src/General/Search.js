@@ -21,6 +21,7 @@ class Search extends Component {
 
   handleSubmit(e){
     e.preventDefault(); // Prevent form from reloading the page on submit
+    console.log("submit")
 
     // Call search(), which is passed to this component as a prop
     this.props.search(this.state.searchQuery);
@@ -44,8 +45,7 @@ class Search extends Component {
             onChange={this.handleChange}
             placeholder='Search'
           />
-          <button onClick={this.handleSubmit}>Search</button>
-          <button onClick={this.clearSearch}>Clear Search</button>
+          <input type='submit' onClick={this.handleSubmit} style={{display: 'none'}}></input>
         </form>
       </section>
     )

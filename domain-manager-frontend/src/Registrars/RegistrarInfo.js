@@ -3,7 +3,9 @@ import BackButton from '../General/BackButton';
 import EditRegistrarForm from './EditRegistrarForm';
 import WebsiteList from '../Websites/WebsiteList';
 import CopyableText from '../General/CopyableText';
+import RegistrarTitle from './RegistrarTitle';
 
+// Display registrar info. Rendered from RegistrarList and WebsiteInfo.
 class RegistrarInfo extends Component {
 
   constructor(props){
@@ -12,33 +14,24 @@ class RegistrarInfo extends Component {
       enableEditMode: false,
       enableViewWebsites: false
     }
-    this.enableEditMode = this.enableEditMode.bind(this);
-    this.disableEditMode = this.disableEditMode.bind(this);
-    this.enableViewWebsites = this.enableViewWebsites.bind(this);
-    this.disableViewWebsites = this.disableViewWebsites.bind(this);
+
+    this.enableState = this.enableState.bind(this);
   }
 
-  enableEditMode() {
-    this.setState({enableEditMode: true});
+  enableState(state, isEnabled) {
+    this.setState({[state] : isEnabled});
   }
 
-  disableEditMode() {
-    this.setState({enableEditMode: false});
-  }
-
-  enableViewWebsites() {
-    this.setState({enableViewWebsites: true});
-  }
-
-  disableViewWebsites() {
-    this.setState({enableViewWebsites: false});
-  }
-
+  // selectedWebsite is passed from WebsiteInfo as a prop
+  // websites is passed from RegistrarList as a prop
   renderRegistrarInfo() {
     return(
       <div id="registrarInfoDisplay">
-        <BackButton onClick={this.props.goBack}></BackButton>
-        <h2>Registrar: {this.props.registrar.name}</h2>
+        <RegistrarTitle
+          selectedWebsite={this.props.selectedWebsite ? true : false}
+          registrarName={this.props.registrar.name}
+          goBack={this.props.goBack}
+        />
         <div className='list-item'><label>Username:</label><CopyableText value={this.props.registrar.userName}/></div>
         <div className='list-item'><label>Password:</label><CopyableText value={this.props.registrar.password}/></div>
         <div className='list-item'><label>Notes:</label></div>
@@ -50,9 +43,16 @@ class RegistrarInfo extends Component {
           readOnly
           disabled
         />
-        <button onClick={this.enableViewWebsites}>Registered Websites</button>
-        <button onClick={this.enableEditMode}>Edit Registrar</button>
-        <button onClick={this.props.deleteRegistrar}>Delete Registrar</button>
+        {
+          this.props.websites ?
+            <div id='registrarButtons'>
+              <button onClick={this.enableState.bind(this, 'enableViewWebsites', true)}>Registered Websites</button>
+              <button onClick={this.enableState.bind(this, 'enableEditMode', true)}>Edit Registrar</button>
+              <button onClick={this.props.deleteRegistrar}>Delete Registrar</button>
+            </div>
+          : ''
+        }
+        
       </div>
     )
   }
@@ -60,12 +60,12 @@ class RegistrarInfo extends Component {
   renderRegistrarEdit () {
     return (
       <div id="registrarEdit">
-        <BackButton onClick={this.disableEditMode}></BackButton>
+        <BackButton onClick={this.enableState.bind(this, 'enableEditMode', false)}></BackButton>
         <h2>Edit Registrar</h2>
         <EditRegistrarForm 
           registrar={this.props.registrar} 
           updateRegistrar={this.props.updateRegistrar} 
-          disableEditMode={this.disableEditMode}
+          disableEditMode={this.enableState.bind(this, 'enableEditMode', false)}
         />
       </div>
     )
@@ -74,7 +74,7 @@ class RegistrarInfo extends Component {
   renderRegistrarWebsites() {
     return (
       <WebsiteList 
-        goBack={this.disableViewWebsites}
+        goBack={this.enableState.bind(this, 'enableViewWebsites', false)}
         websites={this.props.websites}
         registrars={this.props.registrars}
         hosts={this.props.hosts}
