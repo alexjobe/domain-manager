@@ -1,6 +1,7 @@
 var express = require('express'),
     router = express.Router();
     var db = require('../models');
+    var middleware = require("../middleware");
 
 //======================================================//
 //                    REGISTRAR ROUTES                  //
@@ -8,7 +9,7 @@ var express = require('express'),
 //======================================================//
 
 // REGISTRAR INDEX - Get all registrars
-router.get("/", function(req, res){
+router.get("/", middleware.isLoggedIn, function(req, res){
     db.Registrar.find()
     .then(function(registrars){ // Promise instead of typical callback
         res.json(registrars);
@@ -19,7 +20,7 @@ router.get("/", function(req, res){
 });
 
 // REGISTRAR CREATE - Add new registrar to database
-router.post("/", function(req, res){
+router.post("/", middleware.isLoggedIn, function(req, res){
     db.Registrar.create(req.body)
     .then(function(newRegistrar) {
         res.status(201).json(newRegistrar); // 201 is "created"
@@ -30,7 +31,7 @@ router.post("/", function(req, res){
 });
 
 // REGISTRAR GET - Get a single registrar
-router.get("/:registrarId", function(req, res){
+router.get("/:registrarId", middleware.isLoggedIn, function(req, res){
     db.Registrar.findById(req.params.registrarId)
     .then(function(registrar){
         res.json(registrar);
@@ -41,7 +42,7 @@ router.get("/:registrarId", function(req, res){
 });
 
 // REGISTRAR SEARCH - Get all registrars that match query. Search by name.
-router.get("/search/:query", function(req, res){
+router.get("/search/:query", middleware.isLoggedIn, function(req, res){
     var search_query = '.*' + req.params.query + '.*';
     // Find all registrars whose name contains the query string
     db.Registrar.find({ 'name' : { $regex : search_query, $options : 'i' } })
@@ -54,7 +55,7 @@ router.get("/search/:query", function(req, res){
 });
 
 // REGISTRAR UPDATE - Update a registrar
-router.put("/:registrarId", function(req, res){
+router.put("/:registrarId", middleware.isLoggedIn, function(req, res){
     db.Registrar.findOneAndUpdate({_id: req.params.registrarId}, req.body, {new: true}) // {new: true} respond with updated data
     .then(function(registrar){
         res.json(registrar);
@@ -65,7 +66,7 @@ router.put("/:registrarId", function(req, res){
 });
 
 // REGISTRAR DELETE - Delete a registrar
-router.delete("/:registrarId", function(req, res){
+router.delete("/:registrarId", middleware.isLoggedIn, function(req, res){
 
     db.Registrar.deleteOne({_id: req.params.registrarId})
     .then(function(){

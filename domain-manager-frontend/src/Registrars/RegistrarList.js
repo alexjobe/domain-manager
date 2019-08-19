@@ -22,9 +22,11 @@ class RegistrarList extends Component {
   }
 
   async addRegistrar(registrar) {
-    // Create new registrar and update state
-    let newRegistrar = await apiCalls.createRegistrar(registrar);
-    this.props.updateRegistrars([...this.props.registrars, newRegistrar]) // ... is the spread operator
+    if(this.props.checkLogin()) {
+      // Create new registrar and update state
+      let newRegistrar = await apiCalls.createRegistrar(registrar);
+      this.props.updateRegistrars([...this.props.registrars, newRegistrar]) // ... is the spread operator
+    }
   }
 
   enableState(state, isEnabled) {
@@ -43,33 +45,39 @@ class RegistrarList extends Component {
   }
 
   async updateRegistrar(registrar) {
-    // Update registrar
-    let updatedReg = await apiCalls.updateRegistrar(registrar);
-    // Find registrar in registrars and replace it with updatedReg
-    const registrars = this.props.registrars.map(registrar => {
-      return (registrar._id === updatedReg._id ? updatedReg : registrar);
-    });
-    // Update state
-    if(this.state.selectedRegistrar._id === updatedReg._id){
-      this.setState({selectedRegistrar: updatedReg});
+    if(this.props.checkLogin()) {
+      // Update registrar
+      let updatedReg = await apiCalls.updateRegistrar(registrar);
+      // Find registrar in registrars and replace it with updatedReg
+      const registrars = this.props.registrars.map(registrar => {
+        return (registrar._id === updatedReg._id ? updatedReg : registrar);
+      });
+      // Update state
+      if(this.state.selectedRegistrar._id === updatedReg._id){
+        this.setState({selectedRegistrar: updatedReg});
+      }
+      this.props.updateRegistrars(registrars);
     }
-    this.props.updateRegistrars(registrars);
   }
 
   async deleteRegistrar(registrar) {
-    this.setState({selectedRegistrar: null});
-    await apiCalls.removeRegistrar(registrar._id);
-    const registrars = this.props.registrars.filter(r => r._id !== registrar._id);
-    this.props.updateRegistrars(registrars);
+    if(this.props.checkLogin()) {
+      this.setState({selectedRegistrar: null});
+      await apiCalls.removeRegistrar(registrar._id);
+      const registrars = this.props.registrars.filter(r => r._id !== registrar._id);
+      this.props.updateRegistrars(registrars);
+    }
   }
 
   async searchRegistrars(query) {
-    if(query !== '') {
-      let matchingRegistrars = await apiCalls.searchRegistrars(query);
-      this.props.updateRegistrars(matchingRegistrars);
-    } else {
-      let allRegistrars = await apiCalls.getRegistrars();
-      this.props.updateRegistrars(allRegistrars);
+    if(this.props.checkLogin()) {
+      if(query !== '') {
+        let matchingRegistrars = await apiCalls.searchRegistrars(query);
+        this.props.updateRegistrars(matchingRegistrars);
+      } else {
+        let allRegistrars = await apiCalls.getRegistrars();
+        this.props.updateRegistrars(allRegistrars);
+      }
     }
   }
 
@@ -119,6 +127,7 @@ class RegistrarList extends Component {
         registrars={this.props.registrars}
         hosts={this.props.hosts}
         updateWebsites={this.props.updateWebsites}
+        checkLogin={this.props.checkLogin}
       />
     )
   }

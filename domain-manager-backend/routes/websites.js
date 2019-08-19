@@ -1,6 +1,7 @@
 var express = require('express'),
     router = express.Router();
     var db = require('../models');
+    var middleware = require("../middleware");
 
 //======================================================//
 //                      WEBSITE ROUTES                  //
@@ -8,7 +9,7 @@ var express = require('express'),
 //======================================================//
 
 // WEBSITE INDEX - Get all websites
-router.get("/", function(req, res){
+router.get("/", middleware.isLoggedIn, function(req, res){
     db.Website.find()
     .populate('registrar')
     .populate('host')
@@ -21,7 +22,7 @@ router.get("/", function(req, res){
 });
 
 // WEBSITE GET - Get a single website
-router.get("/:websiteId", function(req, res){
+router.get("/:websiteId", middleware.isLoggedIn, function(req, res){
     // Mongoose populates based on ObjectID
     db.Website.findById(req.params.websiteId)
     .populate('registrar')
@@ -35,7 +36,7 @@ router.get("/:websiteId", function(req, res){
 });
 
 // WEBSITE SEARCH - Get all websites that match query. Search by name and url.
-router.get("/search/:query", function(req, res){
+router.get("/search/:query", middleware.isLoggedIn, function(req, res){
     var search_query = '.*' + req.params.query + '.*';
     db.Website.find(
         // Find all websites whose name or url contain the query string
@@ -53,7 +54,7 @@ router.get("/search/:query", function(req, res){
 });
 
 // WEBSITE CREATE - Add new website to database
-router.post("/", function(req, res){
+router.post("/", middleware.isLoggedIn, function(req, res){
     db.Website.create(req.body)
     .then(function(website){
         return website.populate('registrar').populate('host').execPopulate();
@@ -67,7 +68,7 @@ router.post("/", function(req, res){
 });
 
 // WEBSITE UPDATE - Update a website
-router.put("/:websiteId", function(req, res){
+router.put("/:websiteId", middleware.isLoggedIn, function(req, res){
     // Mongoose populates based on ObjectID
     db.Website.findByIdAndUpdate({_id: req.params.websiteId}, req.body, {new: true}) // {new: true} respond with updated data
     .populate('registrar')
@@ -81,7 +82,7 @@ router.put("/:websiteId", function(req, res){
 });
 
 // WEBSITE DELETE - Delete a website
-router.delete("/:websiteId", function(req, res){
+router.delete("/:websiteId", middleware.isLoggedIn, function(req, res){
 
     db.Website.deleteOne({_id: req.params.websiteId})
     .then(function(){

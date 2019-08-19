@@ -78,6 +78,7 @@ class RegistrarInfo extends Component {
         hosts={this.props.hosts}
         updateWebsites={this.props.updateWebsites}
         selectedRegistrar={this.props.registrar}
+        checkLogin={this.props.checkLogin}
       />
     )
   }

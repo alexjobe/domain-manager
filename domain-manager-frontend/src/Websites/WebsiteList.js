@@ -39,39 +39,47 @@ class WebsiteList extends Component {
   }
 
   async addWebsite(website) {
-    // Create new website and update state
-    let newWebsite = await apiCalls.createWebsite(website);
-    this.props.updateWebsites([...this.props.websites, newWebsite]) // ... is the spread operator
+    if(this.props.checkLogin()) {
+      // Create new website and update state
+      let newWebsite = await apiCalls.createWebsite(website);
+      this.props.updateWebsites([...this.props.websites, newWebsite]) // ... is the spread operator
+    }
   }
 
   async updateWebsite(website) {
-    // Update website
-    let updatedSite = await apiCalls.updateWebsite(website);
-    // Find website in websites and replace it with updatedSite
-    const websites = this.props.websites.map(website => {
-      return (website._id === updatedSite._id ? updatedSite : website);
-    });
-    // Update state
-    if(this.state.selectedWebsite._id === updatedSite._id){
-      this.setState({selectedWebsite: updatedSite});
+    if(this.props.checkLogin()) {
+      // Update website
+      let updatedSite = await apiCalls.updateWebsite(website);
+      // Find website in websites and replace it with updatedSite
+      const websites = this.props.websites.map(website => {
+        return (website._id === updatedSite._id ? updatedSite : website);
+      });
+      // Update state
+      if(this.state.selectedWebsite._id === updatedSite._id){
+        this.setState({selectedWebsite: updatedSite});
+      }
+      this.props.updateWebsites(websites)
     }
-    this.props.updateWebsites(websites)
   }
 
   async deleteWebsite(website) {
-    this.setState({selectedWebsite: null});
-    await apiCalls.removeWebsite(website._id);
-    const websites = this.props.websites.filter(w => w._id !== website._id);
-    this.props.updateWebsites(websites);
+    if(this.props.checkLogin()) {
+      this.setState({selectedWebsite: null});
+      await apiCalls.removeWebsite(website._id);
+      const websites = this.props.websites.filter(w => w._id !== website._id);
+      this.props.updateWebsites(websites);
+    }
   }
 
   async searchWebsites(query) {
-    if(query !== '') {
-      let matchingSites = await apiCalls.searchWebsites(query);
-      this.props.updateWebsites(matchingSites);
-    } else {
-      let allSites = await apiCalls.getWebsites();
-      this.props.updateWebsites(allSites);
+    if(this.props.checkLogin()) {
+      if(query !== '') {
+        let matchingSites = await apiCalls.searchWebsites(query);
+        this.props.updateWebsites(matchingSites);
+      } else {
+        let allSites = await apiCalls.getWebsites();
+        this.props.updateWebsites(allSites);
+      }
     }
   }
 

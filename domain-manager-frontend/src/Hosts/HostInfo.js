@@ -77,6 +77,7 @@ class HostInfo extends Component {
         hosts={this.props.hosts}
         updateWebsites={this.props.updateWebsites}
         selectedHost={this.props.host}
+        checkLogin={this.props.checkLogin}
       />
     )
   }

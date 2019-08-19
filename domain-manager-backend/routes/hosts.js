@@ -1,6 +1,7 @@
 var express = require('express'),
     router = express.Router();
     var db = require('../models');
+    var middleware = require("../middleware");
 
 //======================================================//
 //                      HOST ROUTES                     //
@@ -8,7 +9,7 @@ var express = require('express'),
 //======================================================//
 
 // HOST INDEX - Get all hosts
-router.get("/", function(req, res){
+router.get("/", middleware.isLoggedIn, function(req, res){
     db.Host.find()
     .then(function(hosts){ // Promise instead of typical callback
         res.json(hosts);
@@ -19,7 +20,7 @@ router.get("/", function(req, res){
 });
 
 // HOST CREATE - Add new host to database
-router.post("/", function(req, res){
+router.post("/", middleware.isLoggedIn, function(req, res){
     db.Host.create(req.body)
     .then(function(newHost) {
         res.status(201).json(newHost); // 201 is "created"
@@ -30,7 +31,7 @@ router.post("/", function(req, res){
 });
 
 // HOST GET - Get a single host
-router.get("/:hostId", function(req, res){
+router.get("/:hostId", middleware.isLoggedIn, function(req, res){
     db.Host.findById(req.params.hostId)
     .then(function(host){
         res.json(host);
@@ -41,7 +42,7 @@ router.get("/:hostId", function(req, res){
 });
 
 // HOST SEARCH - Get all hosts that match query. Search by name.
-router.get("/search/:query", function(req, res){
+router.get("/search/:query", middleware.isLoggedIn, function(req, res){
     var search_query = '.*' + req.params.query + '.*';
     // Find all hosts whose name contains the query string
     db.Host.find({ 'name' : { $regex : search_query, $options : 'i' } })
@@ -54,7 +55,7 @@ router.get("/search/:query", function(req, res){
 });
 
 // HOST UPDATE - Update a host
-router.put("/:hostId", function(req, res){
+router.put("/:hostId", middleware.isLoggedIn, function(req, res){
     db.Host.findOneAndUpdate({_id: req.params.hostId}, req.body, {new: true}) // {new: true} respond with updated data
     .then(function(host){
         res.json(host);
@@ -65,7 +66,7 @@ router.put("/:hostId", function(req, res){
 });
 
 // HOST DELETE - Delete a host
-router.delete("/:hostId", function(req, res){
+router.delete("/:hostId", middleware.isLoggedIn, function(req, res){
 
     db.Host.deleteOne({_id: req.params.hostId})
     .then(function(){

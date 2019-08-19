@@ -22,9 +22,11 @@ class HostList extends Component {
   }
 
   async addHost(host) {
-    // Create new host and update state
-    let newHost = await apiCalls.createHost(host);
-    this.props.updateHosts([...this.props.hosts, newHost]) // ... is the spread operator
+    if(this.props.checkLogin()) {
+      // Create new host and update state
+      let newHost = await apiCalls.createHost(host);
+      this.props.updateHosts([...this.props.hosts, newHost]) // ... is the spread operator
+    }
   }
 
   enableState(state, isEnabled) {
@@ -43,30 +45,36 @@ class HostList extends Component {
   }
 
   async updateHost(host) {
-    // Update host
-    let updatedHost = await apiCalls.updateHost(host);
-    // Find host in hosts and replace it with updatedHost
-    const hosts = this.props.hosts.map(host => {
-      return (host._id === updatedHost._id ? updatedHost : host);
-    });
-    // Update state
-    this.props.updateHosts(hosts)
+    if(this.props.checkLogin()) {
+      // Update host
+      let updatedHost = await apiCalls.updateHost(host);
+      // Find host in hosts and replace it with updatedHost
+      const hosts = this.props.hosts.map(host => {
+        return (host._id === updatedHost._id ? updatedHost : host);
+      });
+      // Update state
+      this.props.updateHosts(hosts);
+    }
   }
 
   async deleteHost(host) {
-    this.setState({selectedHost: null});
-    await apiCalls.removeHost(host._id);
-    const hosts = this.props.hosts.filter(r => r._id !== host._id);
-    this.props.updateHosts(hosts);
+    if(this.props.checkLogin()) {
+      this.setState({selectedHost: null});
+      await apiCalls.removeHost(host._id);
+      const hosts = this.props.hosts.filter(r => r._id !== host._id);
+      this.props.updateHosts(hosts);
+    }
   }
 
   async searchHosts(query) {
-    if(query !== '') {
-      let matchingHosts = await apiCalls.searchHosts(query);
-      this.props.updateHosts(matchingHosts);
-    } else {
-      let allHosts = await apiCalls.getHosts();
-      this.props.updateHosts(allHosts);
+    if(this.props.checkLogin()) {
+      if(query !== '') {
+        let matchingHosts = await apiCalls.searchHosts(query);
+        this.props.updateHosts(matchingHosts);
+      } else {
+        let allHosts = await apiCalls.getHosts();
+        this.props.updateHosts(allHosts);
+      }
     }
   }
 
@@ -116,6 +124,7 @@ class HostList extends Component {
         registrars={this.props.registrars}
         hosts={this.props.hosts}
         updateWebsites={this.props.updateWebsites}
+        checkLogin={this.props.checkLogin}
       />
     )
   }
