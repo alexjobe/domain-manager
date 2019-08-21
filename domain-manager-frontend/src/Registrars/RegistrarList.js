@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import * as apiCalls from '../api';
 import RegistrarListItem from './RegistrarListItem';
 import AddRegistrarForm from './AddRegistrarForm';
 import RegistrarInfo from './RegistrarInfo';
 import BackButton from '../General/BackButton';
 import Search from '../General/Search';
+
+var apiCalls = require('../Utils/api');
 
 class RegistrarList extends Component {
 

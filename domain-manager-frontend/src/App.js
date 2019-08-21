@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import * as apiCalls from './api';
 import WebsiteList from './Websites/WebsiteList';
 import RegistrarList from './Registrars/RegistrarList';
 import HostList from './Hosts/HostList';
 import LoginForm from './General/LoginForm';
 import './App.css';
+
+var apiCalls = require('./Utils/api');
 
 class App extends Component {
   constructor(props){

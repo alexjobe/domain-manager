@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import * as apiCalls from '../api';
 import WebsiteListItem from './WebsiteListItem';
 import WebsiteInfo from './WebsiteInfo';
 import AddWebsiteForm from './AddWebsiteForm';
 import BackButton from '../General/BackButton';
 import Search from '../General/Search';
+
+var apiCalls = require('../Utils/api');
 
 class WebsiteList extends Component {
 

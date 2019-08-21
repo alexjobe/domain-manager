@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import * as apiCalls from '../api';
 import HostListItem from './HostListItem';
 import AddHostForm from './AddHostForm';
 import HostInfo from './HostInfo';
 import BackButton from '../General/BackButton';
 import Search from '../General/Search';
+
+var apiCalls = require('../Utils/api');
 
 class HostList extends Component {
 
