@@ -38,7 +38,7 @@ class App extends Component {
 
   async login (user) {
     let foundUser = await apiCalls.login(user);
-    if(foundUser) {
+    if(foundUser && foundUser.username) {
       this.setState({loggedIn: true});
       this.setView('home');
     }

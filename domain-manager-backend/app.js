@@ -66,16 +66,22 @@ app.get("/login", middleware.isLoggedIn, function(req, res) {
 });
 
 // Handle login form
-app.post("/login", passport.authenticate("local"), function(req, res) {
-    return res.json(req.body);
+app.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { return res.json({message: 'User not found'}) }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.json(req.user);
+    });
+  })(req, res, next);
 });
 
 // Logout route
 app.get("/logout", function(req, res) {
     req.logout();
-    res.send("Logged out");
+    res.send({message: 'Logged out'});
 });
-
 
 // // Show register form
 // app.get("/register", function(req, res){
