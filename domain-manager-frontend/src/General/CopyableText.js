@@ -23,6 +23,7 @@ class CopyableText extends Component {
     this.setState({hasFocus: true});
   }
 
+  // Copies the input field's value to clipboard
   copyToClipboard(e) {
     this.textArea.current.select();
     document.execCommand('copy');

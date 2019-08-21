@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import TextInput from '../General/TextInput';
 
-class AddHostForm extends Component {
+class RegisterForm extends Component {
   constructor(props){
     super(props);
     this.state = {
-      hostName: '',
       userName: '',
-      password: '',
-      notes: ''
+      password: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,31 +21,22 @@ class AddHostForm extends Component {
 
   handleSubmit(e){
     e.preventDefault(); // Prevent form from reloading the page on submit
-    // Create host object
-    var host = {
-        name: this.state.hostName,
-        userName: this.state.userName,
-        password: this.state.password,
-        notes: this.state.notes
-    }
-    // Call addHost(), which is passed from HostList as a prop
-    if(host.name) {
-      this.props.addHost(host);
-      this.props.disableAddHost();
+    // Create user object
+    if(this.state.userName && this.state.password) {
+      var user = {
+        username: this.state.userName,
+        password: this.state.password
+      }
+      // registerUser() is passed from App.js as a prop
+      this.props.registerUser(user);
     }
   }
 
   render() {
     return (
-      <section id="hostAddForm">
-        <form id="hostAddInput">
-          <TextInput
-            type='text'
-            name='hostName'
-            value={this.state.hostName}
-            onChange={this.handleChange}
-            placeholder='Host'
-          />
+      <section id="register">
+        <form id="registerForm">
+          <h3>First Time Set Up:</h3>
           <TextInput
             type='text'
             name='userName'
@@ -55,27 +44,20 @@ class AddHostForm extends Component {
             onChange={this.handleChange}
             placeholder='Username'
           />
-          <TextInput
-            type='text'
+          <input
+            type='password'
             name='password'
             value={this.state.password}
             onChange={this.handleChange}
             placeholder='Password'
           />
-          <textarea
-            rows='10'
-            name='notes'
-            value={this.state.notes}
-            onChange={this.handleChange}
-            placeholder='Notes...'
-          />
           <button 
             onClick={this.handleSubmit}
-          >Add Host</button>
+          >Register</button>
         </form>
       </section>
     )
   }
 }
 
-export default AddHostForm;
+export default RegisterForm;

@@ -3,6 +3,7 @@ import WebsiteList from './Websites/WebsiteList';
 import RegistrarList from './Registrars/RegistrarList';
 import HostList from './Hosts/HostList';
 import LoginForm from './General/LoginForm';
+import RegisterForm from './General/RegisterForm';
 import './App.css';
 
 var apiCalls = require('./Utils/api');
@@ -26,17 +27,42 @@ class App extends Component {
     this.login = this.login.bind(this);
     this.checkLogin = this.checkLogin.bind(this);
     this.logout = this.logout.bind(this);
+    this.registerUser = this.registerUser.bind(this);
   }
 
   async componentWillMount(){
-    await this.checkLogin();
+    await this.checkLogin(); // The user may already have a session and be logged in when the page loads
     if(this.state.loggedIn) {
-      this.setView('home');
-    } else {
+      this.setView('home'); // If the user is logged in, skip the login step
+    } else if (await this.checkRegisteredUsers() === true){ // If a registered user exists, show the login form
       this.setView('login');
+    } else {
+      // If there are no registered users, show the register form. There should only ever be one user,
+      // so this step is for first time set up only
+      this.setView('registerUser');
     }
   }
 
+  // Register a new user
+  async registerUser (user) {
+    let newUser = await apiCalls.registerUser(user);
+    if(newUser && newUser.username) {
+      this.setState({loggedIn: true});
+      this.setView('home');
+    }
+    else {
+      this.setState({loggedIn: false});
+    }
+  }
+
+  // Get the number of registered users. If there are no registered users, return false. Otherwise, return true
+  async checkRegisteredUsers () {
+    let registeredUsers = await apiCalls.checkRegisteredUsers();
+    if(registeredUsers && registeredUsers.count > 0) { return true; }
+    return false;
+  }
+
+  // Log in the provided user
   async login (user) {
     let foundUser = await apiCalls.login(user);
     if(foundUser && foundUser.username) {
@@ -48,6 +74,7 @@ class App extends Component {
     }
   }
 
+  // Check to see if the user is already logged in. If so, return true. Otherwise, return false.
   async checkLogin() {
     let foundUser = await apiCalls.checkLogin();
     if(foundUser && foundUser.username) {
@@ -60,27 +87,32 @@ class App extends Component {
     }
   }
 
+  // Log out the current user
   async logout() {
     apiCalls.logout();
     this.setState({loggedIn: false});
     this.setView('login');
   }
 
+  // Get all websites
   async loadWebsites(){
     let websites = await apiCalls.getWebsites();
     this.setState({websites});
   }
 
+  // Get all registrars
   async loadRegistrars(){
     let registrars = await apiCalls.getRegistrars();
     this.setState({registrars});
   }
 
+  // Get all hosts
   async loadHosts(){
     let hosts = await apiCalls.getHosts();
     this.setState({hosts});
   }
 
+  // Check if user is logged in. If so, get data. Otherwise, display login form.
   async loadAll() {
     this.checkLogin();
     if(this.state.loggedIn) {
@@ -93,6 +125,7 @@ class App extends Component {
     }
   }
 
+  // Sets the current view
   async setView(view) {
     if(view === 'home') {
       await this.loadAll();
@@ -100,22 +133,19 @@ class App extends Component {
     this.setState({currentView : view});
   }
 
+  // Update websites in state
   async updateWebsites(websites) {
-    this.state.loggedIn ?
-      this.setState({websites: websites})
-      : this.setView('login');
+    this.setState({websites: websites});
   }
 
-  async updateRegistrars(registrars) {
-    this.state.loggedIn ?
-      this.setState({registrars: registrars})
-      : this.setView('login');
+  // Update registrars in state
+  updateRegistrars(registrars) {
+    this.setState({registrars: registrars});
   }
 
-  async updateHosts(hosts) {
-    this.state.loggedIn ?
-      this.setState({hosts: hosts})
-      : this.setView('login');
+  // Update hosts in state
+  updateHosts(hosts) {
+    this.setState({hosts: hosts});
   }
 
   renderHomeView() {
@@ -133,6 +163,14 @@ class App extends Component {
     return (
       <div className="App">
         <LoginForm login={this.login}/>
+      </div>
+    )
+  }
+
+  renderRegisterUserView() {
+    return (
+      <div className="App">
+        <RegisterForm registerUser={this.registerUser}/>
       </div>
     )
   }
@@ -195,6 +233,9 @@ class App extends Component {
   }
 
   render() {
+    if(this.state.currentView === "registerUser") {
+      return this.renderRegisterUserView();
+    }
     if(this.state.currentView === "login") {
       return this.renderLoginView();
     }

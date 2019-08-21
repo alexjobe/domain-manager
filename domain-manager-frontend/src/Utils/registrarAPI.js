@@ -4,7 +4,7 @@
 const REGISTRAR_URL = 'http://localhost:8080/api/registrars/';
 
 exports.getRegistrars = async function() {
-  return fetch(REGISTRAR_URL, {credentials: 'include'})
+  return fetch(REGISTRAR_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
       if(!resp.ok) {
         if(resp.status >= 400 && resp.status < 500){
@@ -23,7 +23,7 @@ exports.getRegistrars = async function() {
 
 exports.searchRegistrars = async function(query){
   const getURL = REGISTRAR_URL + 'search/' + query;
-  return fetch(getURL, {credentials: 'include'})
+  return fetch(getURL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
       if(!resp.ok) {
         if(resp.status >= 400 && resp.status < 500){
@@ -47,7 +47,7 @@ exports.createRegistrar = async function(registrar) {
       'Content-Type': 'application/json'
     }),
     body: JSON.stringify(registrar),
-    credentials: 'include'
+    credentials: 'include' // Credentials are required for CORS to recognize user session
   })
   .then(resp => {
     if(!resp.ok) {
@@ -74,7 +74,7 @@ exports.updateRegistrar = async function(registrar){
       'Content-Type': 'application/json'
     }),
     body: JSON.stringify(registrar),
-    credentials: 'include'
+    credentials: 'include' // Credentials are required for CORS to recognize user session
   })
   .then(resp => {
     if(!resp.ok) {
@@ -97,7 +97,7 @@ exports.removeRegistrar = async function(id){
 
   return fetch(deleteURL, {
     method: 'delete',
-    credentials: 'include'
+    credentials: 'include' // Credentials are required for CORS to recognize user session
   })
   .then(resp => {
     if(!resp.ok) {

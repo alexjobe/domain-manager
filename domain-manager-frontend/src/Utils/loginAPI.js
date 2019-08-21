@@ -1,9 +1,12 @@
 // --------------------------------------------------------------- //
 // --------------------------- LOGIN API ------------------------- //
 // --------------------------------------------------------------- //
-const LOGIN_URL = 'http://localhost:8080/login/';
-const LOGOUT_URL = 'http://localhost:8080/logout/';
+const USER_URL = 'http://localhost:8080/api/user/';
+const LOGIN_URL = USER_URL + 'login';
+const LOGOUT_URL = USER_URL + 'logout';
+const REGISTER_URL = USER_URL + 'register'
 
+// Login user with given credentials
 exports.login = async function(user) {
   return fetch(LOGIN_URL, {
     method: 'post',
@@ -11,7 +14,7 @@ exports.login = async function(user) {
       'Content-Type': 'application/json'
     }),
     body: JSON.stringify(user),
-    credentials: 'include'
+    credentials: 'include' // Credentials are required for CORS to recognize user session
   })
   .then(resp => {
     if(!resp.ok) {
@@ -29,8 +32,9 @@ exports.login = async function(user) {
   })
 }
 
+// Checks to see if there is a current user session
 exports.checkLogin = async function() {
-  return fetch(LOGIN_URL, {credentials: 'include'})
+  return fetch(LOGIN_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
       if(!resp.ok) {
         if(resp.status >= 400 && resp.status < 500){
@@ -47,8 +51,54 @@ exports.checkLogin = async function() {
   })
 }
 
+// Terminates current user session
 exports.logout = async function() {
-  return fetch(LOGOUT_URL, {credentials: 'include'})
+  return fetch(LOGOUT_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
+    .then(resp => {
+      if(!resp.ok) {
+        if(resp.status >= 400 && resp.status < 500){
+          return resp.json().then(data => {
+            let err = {errorMessage: data.message};
+            throw err;
+          })
+        } else {
+          let err = {errorMessage: 'Error: Server is not responding'};
+          throw err;
+        }
+      }
+      return resp.json();
+  })
+}
+
+// Registers a new user
+exports.registerUser = async function(user) {
+  return fetch(REGISTER_URL, {
+    method: 'post',
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    }),
+    body: JSON.stringify(user),
+    credentials: 'include' // Credentials are required for CORS to recognize user session
+  })
+  .then(resp => {
+    if(!resp.ok) {
+      if(resp.status >= 400 && resp.status < 500){
+        return resp.json().then(data => {
+          let err = {errorMessage: data.message};
+          throw err;
+        })
+      } else {
+        let err = {errorMessage: 'Error: Server is not responding'};
+        throw err;
+      }
+    }
+    return resp.json();
+  })
+}
+
+// Returns the number of registered users
+exports.checkRegisteredUsers = async function() {
+  return fetch(REGISTER_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
       if(!resp.ok) {
         if(resp.status >= 400 && resp.status < 500){

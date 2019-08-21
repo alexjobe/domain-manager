@@ -4,7 +4,7 @@
 const WEBSITE_URL = 'http://localhost:8080/api/websites/';
 
 exports.getWebsites = async function() {
-  return fetch(WEBSITE_URL, {credentials: 'include'})
+  return fetch(WEBSITE_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
       if(!resp.ok) {
         if(resp.status >= 400 && resp.status < 500){
@@ -23,7 +23,7 @@ exports.getWebsites = async function() {
 
 exports.getWebsite = async function(id) {
   const getURL = WEBSITE_URL + id;
-  return fetch(getURL, {credentials: 'include'})
+  return fetch(getURL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
       if(!resp.ok) {
         if(resp.status >= 400 && resp.status < 500){
@@ -42,7 +42,7 @@ exports.getWebsite = async function(id) {
 
 exports.searchWebsites = async function(query){
   const getURL = WEBSITE_URL + 'search/' + query;
-  return fetch(getURL, {credentials: 'include'})
+  return fetch(getURL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
       if(!resp.ok) {
         if(resp.status >= 400 && resp.status < 500){
@@ -66,7 +66,7 @@ exports.createWebsite = async function(website) {
       'Content-Type': 'application/json'
     }),
     body: JSON.stringify(website),
-    credentials: 'include'
+    credentials: 'include' // Credentials are required for CORS to recognize user session
   })
   .then(resp => {
     if(!resp.ok) {
@@ -93,7 +93,7 @@ exports.updateWebsite = async function(website){
       'Content-Type': 'application/json'
     }),
     body: JSON.stringify(website),
-    credentials: 'include'
+    credentials: 'include' // Credentials are required for CORS to recognize user session
   })
   .then(resp => {
     if(!resp.ok) {
@@ -116,7 +116,7 @@ exports.removeWebsite = async function(id){
 
   return fetch(deleteURL, {
     method: 'delete',
-    credentials: 'include'
+    credentials: 'include' // Credentials are required for CORS to recognize user session
   })
   .then(resp => {
     if(!resp.ok) {

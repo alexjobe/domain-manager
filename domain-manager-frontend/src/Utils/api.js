@@ -2,6 +2,7 @@
 // -------- API functions for making calls to the backend -------- //
 // --------------------------------------------------------------- //
 
+// API functions are split into different files, for organization
 var loginAPI = require('./loginAPI');
 var websiteAPI = require('./websiteAPI');
 var registrarAPI = require('./registrarAPI');
@@ -14,6 +15,8 @@ var hostAPI = require('./hostAPI');
 exports.login = loginAPI.login;
 exports.checkLogin = loginAPI.checkLogin;
 exports.logout = loginAPI.logout;
+exports.registerUser = loginAPI.registerUser;
+exports.checkRegisteredUsers = loginAPI.checkRegisteredUsers;
 
 // --------------------------------------------------------------- //
 // --------------------------- Website API ----------------------- //

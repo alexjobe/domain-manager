@@ -15,13 +15,13 @@ class EditWebsiteForm extends Component {
       notes: this.props.website.notes,
       registrar: this.props.website.registrar,
       host: this.props.website.host
-
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // Called whenever the user presses a key in the input field
   handleChange(e){
     // [e.target.name] is a computed property name
     this.setState({ [e.target.name]: e.target.value });

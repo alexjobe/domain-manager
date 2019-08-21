@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import TextInput from '../General/TextInput';
 
-class AddRegistrarForm extends Component {
+class LoginForm extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -13,6 +13,7 @@ class AddRegistrarForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // Called whenever the user presses a key in the input field
   handleChange(e){
     // [e.target.name] is a computed property name
     this.setState({ [e.target.name]: e.target.value });
@@ -26,6 +27,7 @@ class AddRegistrarForm extends Component {
         username: this.state.userName,
         password: this.state.password
       }
+      // login() is passed from App.js as a prop
       this.props.login(user);
     }
   }
@@ -34,6 +36,7 @@ class AddRegistrarForm extends Component {
     return (
       <section id="login">
         <form id="loginForm">
+          <h3>Please Log In:</h3>
           <TextInput
             type='text'
             name='userName'
@@ -41,8 +44,8 @@ class AddRegistrarForm extends Component {
             onChange={this.handleChange}
             placeholder='Username'
           />
-          <TextInput
-            type='text'
+          <input
+            type='password'
             name='password'
             value={this.state.password}
             onChange={this.handleChange}
@@ -57,4 +60,4 @@ class AddRegistrarForm extends Component {
   }
 }
 
-export default AddRegistrarForm;
+export default LoginForm;

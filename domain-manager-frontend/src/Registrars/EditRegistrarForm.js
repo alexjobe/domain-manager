@@ -15,6 +15,7 @@ class EditRegistrarForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // Called whenever the user presses a key in the input field
   handleChange(e){
     // [e.target.name] is a computed property name
     this.setState({ [e.target.name]: e.target.value });
