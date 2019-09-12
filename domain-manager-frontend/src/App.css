@@ -1,3 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700'); 
+
+body {
+    background: #ecf0f1;
+    color: #2c3e50;
+    font-size: 25px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 30px;
+    text-align: center;
+}
+
+ul {
+    white-space: nowrap;
+    overflow: auto;
+    padding: 0;
+}
+
+li {
+    width: 100%;
+	height: 60px;
+	line-height: 60px;
+	font-size: 20px;
+    color: #34495e;
+    transition: all .3s ease;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+li:hover {
+    background: rgba(0, 0, 0, .02);
+	cursor: pointer;
+}
+
+button {
+    border: none;
+    background-color: #34495e;
+    color: white;
+    padding: 16px 60px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 25px;
+    margin: 60px 10px;
+    display: inline-block;
+    transition-duration: 0.3s;
+    width: 400px;
+}
+
+button:hover {
+    background-color: #517394;
+}
+
+input {
+	width: 100%;
+	height: 25px;
+	background: none;
+	border: none;
+	border-bottom: 1px solid #34495e;
+	outline: none;
+    font-weight: 50;
+    font-size: 28px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 20px;
+	color: #34495e;
+}
+
+textarea {
+    overflow: auto;
+    height: auto;
+    width: 100%;
+    height: 200px;
+    color: #34495e;
+    background-color: white;
+}
+
+/* .Navbar button {
+    display: inline-block;
+    margin: 10px;
+} */
+
 .list-item-inline { 
     display: flex;
     flex-flow: row wrap;
@@ -17,3 +97,24 @@
 .list-item label {
     margin: 5px 10px 5px 0;
 }
+
+select {
+    -webkit-appearance: button;
+    -webkit-border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-padding-end: 20px;
+    -webkit-padding-start: 2px;
+    -webkit-user-select: none;
+    background-image: url('./assets/drop_down.png'), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+    background-position: 97% center;
+    background-repeat: no-repeat;
+    border: 1px solid #AAA;
+    color: #34495e;
+    font-size: inherit;
+    margin: 20px;
+    overflow: hidden;
+    padding: 5px 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 300px;
+ }

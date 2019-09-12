@@ -103,26 +103,26 @@ class EditWebsiteForm extends Component {
             onChange={this.handleChange}
             placeholder='Password'
           />
-          <select
+          Registrar: <select
             name='registrar'
             onChange={this.handleChange}
           >
             {this.props.website.registrar ? 
-              <option value={this.props.website.registrar._id}>Current Registrar: {this.props.website.registrar.name}</option>
-            : <option value=''>---Choose a Registrar---</option>
+              <option value={this.props.website.registrar._id}>{this.props.website.registrar.name}</option>
+            : <option value=''>----------None----------</option>
             }
             <option value=''>----------None----------</option>
             {registrars}
           </select>
-          <select
+          Host: <select
             name='host'
             onChange={this.handleChange}
           >
             {this.props.website.host ? 
-              <option value={this.props.website.host._id}>Current Host: {this.props.website.host.name}</option>
-            : <option value=''>---Choose a Host---</option>
+              <option value={this.props.website.host._id}>{this.props.website.host.name}</option>
+            : <option value=''>----------None----------</option>
             }
-            <option value=''>-------None--------</option>
+            <option value=''>----------None----------</option>
             {hosts}
           </select>
           <textarea

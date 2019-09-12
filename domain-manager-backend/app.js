@@ -9,6 +9,7 @@ var express        = require('express'),
     db             = require('./models');
 
 const port         = process.env.PORT || 8080;
+const frontendURL  = process.env.FRONTEND_URL || 'http://localhost:3000';
 const frontendPath = '../domain-manager-frontend';
 
 // ========================= APP CONFIG ========================== //
@@ -26,7 +27,7 @@ app.use(express.static(path.join(frontendPath, 'build')));
 
 // Whitelist requests from the frontend, so React can access the
 // API
-var whitelist = ['http://localhost:3000']
+var whitelist = [frontendURL]
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {

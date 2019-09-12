@@ -178,8 +178,10 @@ class App extends Component {
   renderWebsiteView() {
     return (
       <div className="App">
-        <button onClick={this.setView.bind(this, 'home')}>Home</button>
-        <button onClick={this.logout}>Logout</button>
+        <div className="Navbar">
+          <button onClick={this.setView.bind(this, 'home')}>Home</button>
+          <button onClick={this.logout}>Logout</button>
+        </div>
         <h1>Websites</h1>
         <WebsiteList
           back={this.back}
@@ -197,8 +199,10 @@ class App extends Component {
   renderRegistrarView() {
     return (
       <div className="App">
-        <button onClick={this.setView.bind(this, 'home')}>Home</button>
-        <button onClick={this.logout}>Logout</button>
+        <div className="Navbar">
+          <button onClick={this.setView.bind(this, 'home')}>Home</button>
+          <button onClick={this.logout}>Logout</button>
+        </div>
         <h1>Domain Name Registrars</h1>
         <RegistrarList 
           goBack={this.setView.bind(this, 'home')}
@@ -216,8 +220,10 @@ class App extends Component {
   renderHostView() {
     return (
       <div className="App">
-        <button onClick={this.setView.bind(this, 'home')}>Home</button>
-        <button onClick={this.logout}>Logout</button>
+        <div className="Navbar">
+          <button onClick={this.setView.bind(this, 'home')}>Home</button>
+          <button onClick={this.logout}>Logout</button>
+        </div>
         <h1>Website Hosts</h1>
         <HostList 
           goBack={this.setView.bind(this, 'home')}

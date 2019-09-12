@@ -103,24 +103,22 @@ class AddWebsiteForm extends Component {
             onChange={this.handleChange}
             placeholder='Password'
           />
-          {!this.props.selectedRegistrar ?
+          Registrar: {!this.props.selectedRegistrar ?
             <select
               name='registrar'
               onChange={this.handleChange}
             >
-              <option value=''>---Choose a Registrar---</option>
               <option value=''>----------None----------</option>
               {registrars}
             </select>
             : ''
           }
-          {!this.props.selectedHost ?
+          Host: {!this.props.selectedHost ?
             <select
               name='host'
               onChange={this.handleChange}
             >
-              <option value=''>---Choose a Host---</option>
-              <option value=''>-------None--------</option>
+              <option value=''>----------None----------</option>
               {hosts}
             </select>
             : ''
