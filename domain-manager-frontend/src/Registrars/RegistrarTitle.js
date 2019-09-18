@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import BackButton from '../General/BackButton'
+import Title from '../General/Title';
 
 class RegistrarTitle extends Component {
 
   render() {
     if(!this.props.selectedWebsite) {
       return(
-        <div id='registrarTitle'>
-          <BackButton onClick={this.props.goBack}></BackButton>
-          <h2>Registrar: {this.props.registrarName}</h2>
-        </div>
+        <Title titleString={"Registrar: " + this.props.registrarName} onBack={this.props.goBack}/>
       )
     }
     return(

@@ -5,6 +5,7 @@ import HostList from './Hosts/HostList';
 import LoginForm from './General/LoginForm';
 import RegisterForm from './General/RegisterForm';
 import './App.css';
+import './assets/font-awesome/css/font-awesome.min.css';
 
 var apiCalls = require('./Utils/api');
 
@@ -182,7 +183,6 @@ class App extends Component {
           <button onClick={this.setView.bind(this, 'home')}>Home</button>
           <button onClick={this.logout}>Logout</button>
         </div>
-        <h1>Websites</h1>
         <WebsiteList
           back={this.back}
           goBack={this.setView.bind(this, 'home')}
@@ -203,7 +203,6 @@ class App extends Component {
           <button onClick={this.setView.bind(this, 'home')}>Home</button>
           <button onClick={this.logout}>Logout</button>
         </div>
-        <h1>Domain Name Registrars</h1>
         <RegistrarList 
           goBack={this.setView.bind(this, 'home')}
           websites={this.state.websites}
@@ -224,7 +223,6 @@ class App extends Component {
           <button onClick={this.setView.bind(this, 'home')}>Home</button>
           <button onClick={this.logout}>Logout</button>
         </div>
-        <h1>Website Hosts</h1>
         <HostList 
           goBack={this.setView.bind(this, 'home')}
           websites={this.state.websites}

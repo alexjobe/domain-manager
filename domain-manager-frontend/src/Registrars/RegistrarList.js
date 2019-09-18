@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import RegistrarListItem from './RegistrarListItem';
 import AddRegistrarForm from './AddRegistrarForm';
 import RegistrarInfo from './RegistrarInfo';
-import BackButton from '../General/BackButton';
 import Search from '../General/Search';
+import Title from '../General/Title';
 
 var apiCalls = require('../Utils/api');
 
@@ -93,8 +93,7 @@ class RegistrarList extends Component {
     ));
     return (
       <div className="RegistrarList">
-        <BackButton onClick={this.props.goBack}></BackButton>
-        <h2>All Registrars</h2>
+        <Title titleString="All Registrars" onBack={this.props.goBack}/>
         <Search search={this.searchRegistrars}></Search>
         <ul>
           {registrarListItems}
@@ -107,8 +106,7 @@ class RegistrarList extends Component {
   renderAddRegistrar(){
     return(
       <div id="registrarAddNew">
-        <BackButton onClick={this.enableState.bind(this, 'enableAddRegistrar', false)}></BackButton>
-        <h2>New Registrar</h2>
+        <Title titleString="New Registrar" onBack={this.enableState.bind(this, 'enableAddRegistrar', false)}/>
         <AddRegistrarForm 
           addRegistrar={this.addRegistrar} 
           disableAddRegistrar={this.enableState.bind(this, 'enableAddRegistrar', false)}

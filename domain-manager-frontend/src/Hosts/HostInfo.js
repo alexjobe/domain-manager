@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import BackButton from '../General/BackButton';
 import EditHostForm from './EditHostForm';
 import WebsiteList from '../Websites/WebsiteList';
 import CopyableText from '../General/CopyableText';
 import HostTitle from './HostTitle';
+import Title from '../General/Title';
 
 // Display host info. Rendered from HostList and WebsiteInfo.
 class HostInfo extends Component {
@@ -57,8 +57,7 @@ class HostInfo extends Component {
   renderHostEdit() {
     return (
       <div id="hostEdit">
-        <BackButton onClick={this.enableState.bind(this, 'enableEditMode', false)}></BackButton>
-        <h2>Edit Host</h2>
+        <Title titleString="Edit Host" onBack={this.enableState.bind(this, 'enableEditMode', false)}/>
         <EditHostForm 
           host={this.props.host} 
           updateHost={this.props.updateHost} 

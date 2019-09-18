@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import WebsiteListItem from './WebsiteListItem';
 import WebsiteInfo from './WebsiteInfo';
 import AddWebsiteForm from './AddWebsiteForm';
-import BackButton from '../General/BackButton';
 import Search from '../General/Search';
+import Title from '../General/Title';
 
 var apiCalls = require('../Utils/api');
 
@@ -86,6 +86,11 @@ class WebsiteList extends Component {
 
   renderWebsiteList() {
     var websites;
+    var titleString = "";
+    if(this.props.selectedHost) titleString = this.props.selectedHost.name + ": Hosted Websites";
+    if(this.props.selectedRegistrar) titleString = this.props.selectedRegistrar.name + ": Registered Websites";
+    if(!this.props.selectedRegistrar && !this.props.selectedHost) titleString = "All Websites";
+
     // If there is a selected host or registrar, only display websites for that host or registrar
     // selectedHost and selectedRegistrar are passed as props from HostInfo and RegistrarInfo, respectively
     if(this.props.selectedHost) {
@@ -107,16 +112,7 @@ class WebsiteList extends Component {
     ));
     return (
       <div className="WebsiteList">
-        <BackButton onClick={this.props.goBack}></BackButton>
-        {this.props.selectedHost ?
-          <h2>{this.props.selectedHost.name}: Hosted Websites</h2> 
-          : ''
-        }
-        {this.props.selectedRegistrar ? 
-          <h2>{this.props.selectedRegistrar.name}: Registered Websites</h2> 
-          : ''
-        }
-        {!this.props.selectedRegistrar && !this.props.selectedHost ? <h2>All Websites</h2> : ''}
+        <Title titleString={titleString} onBack = {this.props.goBack}/>
         <Search search={this.searchWebsites}></Search>
         <ul>
           {websiteListItems}
@@ -127,20 +123,13 @@ class WebsiteList extends Component {
   }
 
   renderAddWebsite(){
+    var titleString = 'New Website';
+    if(this.props.selectedHost) titleString = this.props.selectedHost.name + ': New Website';
+    if(this.props.selectedRegistrar) titleString = this.props.selectedRegistrar.name + ': New Website';
+
     return (
       <div id="websiteAddNew">
-        <BackButton onClick={this.enableState.bind(this, 'enableAddWebsite', false)}></BackButton>
-        <h2>
-          {this.props.selectedHost ? 
-            this.props.selectedHost.name + ': '
-            : ''
-          }
-          {this.props.selectedRegistrar ? 
-            this.props.selectedRegistrar.name + ': '
-            : ''
-          }
-          New Website
-        </h2>
+        <Title titleString = {titleString} onBack={this.enableState.bind(this, 'enableAddWebsite', false)}/>
         <AddWebsiteForm 
           addWebsite={this.addWebsite} 
           disableAddWebsite={this.enableState.bind(this, 'enableAddWebsite', false)}

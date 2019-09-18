@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import HostListItem from './HostListItem';
 import AddHostForm from './AddHostForm';
 import HostInfo from './HostInfo';
-import BackButton from '../General/BackButton';
 import Search from '../General/Search';
+import Title from '../General/Title';
 
 var apiCalls = require('../Utils/api');
 
@@ -90,8 +90,7 @@ class HostList extends Component {
     ));
     return (
       <div className="HostList">
-        <BackButton onClick={this.props.goBack}></BackButton>
-        <h2>All Hosts</h2>
+        <Title titleString="All Hosts" onBack={this.props.goBack}/>
         <Search search={this.searchHosts}></Search>
         <ul>
           {hostListItems}
@@ -104,8 +103,7 @@ class HostList extends Component {
   renderAddHost(){
     return(
       <div id="hostAddNew">
-        <BackButton onClick={this.enableState.bind(this, 'enableAddHost', false)}></BackButton>
-        <h2>New Host</h2>
+        <Title titleString="New Host" onBack={this.enableState.bind(this, 'enableAddHost', false)}/>
         <AddHostForm 
           addHost={this.addHost} 
           disableAddHost={this.enableState.bind(this, 'enableAddHost', false)}

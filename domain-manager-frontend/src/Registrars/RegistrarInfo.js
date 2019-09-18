@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import BackButton from '../General/BackButton';
 import EditRegistrarForm from './EditRegistrarForm';
 import WebsiteList from '../Websites/WebsiteList';
 import CopyableText from '../General/CopyableText';
 import RegistrarTitle from './RegistrarTitle';
+import Title from '../General/Title';
 
 // Display registrar info. Rendered from RegistrarList and WebsiteInfo.
 class RegistrarInfo extends Component {
@@ -58,8 +58,7 @@ class RegistrarInfo extends Component {
   renderRegistrarEdit () {
     return (
       <div id="registrarEdit">
-        <BackButton onClick={this.enableState.bind(this, 'enableEditMode', false)}></BackButton>
-        <h2>Edit Registrar</h2>
+        <Title titleString="Edit Registrar" onBack={this.enableState.bind(this, 'enableEditMode', false)}/>
         <EditRegistrarForm 
           registrar={this.props.registrar} 
           updateRegistrar={this.props.updateRegistrar} 

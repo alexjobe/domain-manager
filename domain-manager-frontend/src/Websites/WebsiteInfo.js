@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import BackButton from '../General/BackButton';
 import EditWebsiteForm from './EditWebsiteForm';
 import CopyableText from '../General/CopyableText';
 import RegistrarInfo from '../Registrars/RegistrarInfo';
 import HostInfo from '../Hosts/HostInfo';
+import Title from '../General/Title';
 
 class WebsiteInfo extends Component {
 
@@ -21,10 +21,10 @@ class WebsiteInfo extends Component {
   }
 
   renderWebsiteInfo() {
+    let titleString = "Website: " + this.props.website.name;
     return (
       <div id="websiteInfoDisplay">
-        <BackButton onClick={this.props.goBack}></BackButton>
-        <h2>Website: {this.props.website.name}</h2>
+        <Title  titleString={titleString} onBack={this.props.goBack} />
         {this.props.website.registrar && this.props.website.registrar.name ? 
           <div className='list-item' onClick={this.enableState.bind(this, 'enableViewRegistrar', true)}>
             <strong>
@@ -63,8 +63,7 @@ class WebsiteInfo extends Component {
   renderWebsiteEdit() {
     return (
       <div id="websiteEdit">
-        <BackButton onClick={this.enableState.bind(this, 'enableEditMode', false)}></BackButton>
-        <h2>Edit Website</h2>
+        <Title titleString="Edit Website" onBack={this.enableState.bind(this, 'enableEditMode', false)}/>
         <EditWebsiteForm 
           website={this.props.website} 
           updateWebsite={this.props.updateWebsite} 
@@ -77,10 +76,10 @@ class WebsiteInfo extends Component {
   }
 
   renderRegistrarInfo(){
+    let titleString = this.props.website.name + ": Registrar";
     return (
       <div id='websiteRegistrarInfo'>
-        <BackButton onClick={this.enableState.bind(this, 'enableViewRegistrar', false)}></BackButton>
-        <h2>Website: {this.props.website.name}</h2>
+        <Title titleString={titleString} onBack={this.enableState.bind(this, 'enableViewRegistrar', false)}/>
         <RegistrarInfo 
           registrar={this.props.website.registrar}
           selectedWebsite={this.props.website}
@@ -90,10 +89,10 @@ class WebsiteInfo extends Component {
   }
 
   renderHostInfo(){
+    let titleString = this.props.website.name + ": Host";
     return (
       <div id='websiteHostInfo'>
-        <BackButton onClick={this.enableState.bind(this, 'enableViewHost', false)}></BackButton>
-        <h2>Website: {this.props.website.name}</h2>
+        <Title titleString={titleString} onBack={this.enableState.bind(this, 'enableViewHost', false)}/>
         <HostInfo 
           host={this.props.website.host}
           selectedWebsite={this.props.website}
