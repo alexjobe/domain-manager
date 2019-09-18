@@ -27,17 +27,17 @@ class WebsiteInfo extends Component {
         <h2>Website: {this.props.website.name}</h2>
         {this.props.website.registrar && this.props.website.registrar.name ? 
           <div className='list-item' onClick={this.enableState.bind(this, 'enableViewRegistrar', true)}>
-            <label>
+            <strong>
               Registrar: {this.props.website.registrar.name}
-            </label>
+            </strong>
           </div>
           : ''
         }
         {this.props.website.host && this.props.website.host.name ? 
           <div className='list-item' onClick={this.enableState.bind(this, 'enableViewHost', true)}>
-            <label>
+            <strong>
               Host: {this.props.website.host.name}
-            </label>
+            </strong>
           </div>
           : ''
         }

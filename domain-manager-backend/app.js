@@ -4,15 +4,18 @@ var express        = require('express'),
     methodOverride = require("method-override"),
     path           = require("path"),
     cors           = require('cors'),
+    dotenv        = require('dotenv');
     passport       = require("passport"),
     LocalStrategy  = require("passport-local"),
     db             = require('./models');
 
+
+// ========================= APP CONFIG ========================== //
+
+dotenv.config(); // Configure environment variables (found in .env file)
 const port         = process.env.PORT || 8080;
 const frontendURL  = process.env.FRONTEND_URL || 'http://localhost:3000';
 const frontendPath = '../domain-manager-frontend';
-
-// ========================= APP CONFIG ========================== //
 
 app.use(bodyParser.json()); // Required for POST routes
 app.use(bodyParser.urlencoded({extended: true}));
