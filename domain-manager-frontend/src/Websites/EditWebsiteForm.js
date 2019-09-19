@@ -103,35 +103,50 @@ class EditWebsiteForm extends Component {
             onChange={this.handleChange}
             placeholder='Password'
           />
-          Registrar: <select
-            name='registrar'
-            onChange={this.handleChange}
-          >
-            {this.props.website.registrar ? 
-              <option value={this.props.website.registrar._id}>{this.props.website.registrar.name}</option>
-            : <option value=''>----------None----------</option>
-            }
-            <option value=''>----------None----------</option>
-            {registrars}
-          </select>
-          Host: <select
-            name='host'
-            onChange={this.handleChange}
-          >
-            {this.props.website.host ? 
-              <option value={this.props.website.host._id}>{this.props.website.host.name}</option>
-            : <option value=''>----------None----------</option>
-            }
-            <option value=''>----------None----------</option>
-            {hosts}
-          </select>
-          <textarea
-            rows='10'
-            name='notes'
-            value={this.state.notes}
-            onChange={this.handleChange}
-            placeholder='Notes...'
-          />
+          <div className="drop-downs">
+            <div className="drop-down">
+              <label>Registrar:</label>
+              <div className="drop-down-select">
+                <select
+                  name='registrar'
+                  onChange={this.handleChange}
+                >
+                  {this.props.website.registrar ? 
+                    <option value={this.props.website.registrar._id}>{this.props.website.registrar.name}</option>
+                  : <option value=''>----------None----------</option>
+                  }
+                  <option value=''>----------None----------</option>
+                  {registrars}
+                </select>
+              </div>
+            </div>
+            <div className="drop-down">
+              <label>Host:</label>
+              <div className="drop-down-select">
+                <select
+                  name='host'
+                  onChange={this.handleChange}
+                >
+                  {this.props.website.host ? 
+                    <option value={this.props.website.host._id}>{this.props.website.host.name}</option>
+                  : <option value=''>----------None----------</option>
+                  }
+                  <option value=''>----------None----------</option>
+                  {hosts}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div className="noteInput">
+            <label>Notes:</label>
+            <textarea
+              rows='10'
+              name='notes'
+              value={this.state.notes}
+              onChange={this.handleChange}
+              placeholder='Notes...'
+            />
+          </div>
           <button 
             onClick={this.handleSubmit}
           >Update Website</button>

@@ -27,17 +27,13 @@ class WebsiteInfo extends Component {
         <Title  titleString={titleString} onBack={this.props.goBack} />
         {this.props.website.registrar && this.props.website.registrar.name ? 
           <div className='list-item' onClick={this.enableState.bind(this, 'enableViewRegistrar', true)}>
-            <strong>
-              Registrar: {this.props.website.registrar.name}
-            </strong>
+            <label>Registrar:</label><strong>{this.props.website.registrar.name}</strong>
           </div>
           : ''
         }
         {this.props.website.host && this.props.website.host.name ? 
           <div className='list-item' onClick={this.enableState.bind(this, 'enableViewHost', true)}>
-            <strong>
-              Host: {this.props.website.host.name}
-            </strong>
+            <label>Host:</label><strong>{this.props.website.host.name}</strong>
           </div>
           : ''
         }
@@ -45,15 +41,16 @@ class WebsiteInfo extends Component {
         <div className='list-item'><label>Username:</label><CopyableText value={this.props.website.userName}/></div>
         <div className='list-item'><label>Password:</label><CopyableText value={this.props.website.password}/></div>
         <div className='list-item'><label>FTP:</label><CopyableText value={this.props.website.ftp}/></div>
-        <div className='list-item'><label>Notes:</label></div>
-        <textarea
-          rows='10'
-          name='notes'
-          value={this.props.website.notes}
-          placeholder='Notes...'
-          readOnly
-          disabled
-        />
+        <div className='list-item'><label>Notes:</label>
+          <textarea
+            rows='10'
+            name='notes'
+            value={this.props.website.notes}
+            placeholder='Notes...'
+            readOnly
+            disabled
+          />
+        </div>
         <button onClick={this.enableState.bind(this, 'enableEditMode', true)}>Edit Website</button>
         <button onClick={this.props.deleteWebsite}>Delete Website</button>
       </div>

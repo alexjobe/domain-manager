@@ -1,10 +1,8 @@
 import React from 'react';
 
 const RegistrarListItem = ({name, onSelect}) => (
-  <li>
-    <span onClick={onSelect}>
+  <li onClick={onSelect}>
       <strong>{name}</strong>
-    </span>
   </li>
 )
 

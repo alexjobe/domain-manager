@@ -32,15 +32,16 @@ class RegistrarInfo extends Component {
         />
         <div className='list-item'><label>Username:</label><CopyableText value={this.props.registrar.userName}/></div>
         <div className='list-item'><label>Password:</label><CopyableText value={this.props.registrar.password}/></div>
-        <div className='list-item'><label>Notes:</label></div>
-        <textarea
-          rows='10'
-          name='notes'
-          value={this.props.registrar.notes}
-          placeholder='Notes...'
-          readOnly
-          disabled
-        />
+        <div className='list-item'><label>Notes:</label>
+          <textarea
+            rows='10'
+            name='notes'
+            value={this.props.registrar.notes}
+            placeholder='Notes...'
+            readOnly
+            disabled
+          />
+        </div>
         {
           this.props.websites ?
             <div id='registrarButtons'>

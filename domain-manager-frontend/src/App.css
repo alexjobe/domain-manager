@@ -37,14 +37,27 @@ button {
     border: none;
     background-color: #34495e;
     color: white;
-    padding: 16px 60px;
     cursor: pointer;
     border-radius: 8px;
     font-size: 25px;
-    margin: 60px 10px;
+    margin: 10px;
     display: inline-block;
     transition-duration: 0.3s;
-    width: 400px;
+    width: 300px;
+    height: 50px;
+}
+
+.Navbar {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 20px;
+}
+
+.Navbar button {
+    width: 150px;
+    height: 40px;
+    padding: 0;
+    margin: 0 5px;
 }
 
 button:hover {
@@ -55,6 +68,11 @@ button:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 0 20px;
+}
+
+.Title h2 {
+    margin: 0;
 }
 
 input {
@@ -71,6 +89,32 @@ input {
 	color: #34495e;
 }
 
+#loginForm button {
+    margin: 40px;
+}
+
+#registerForm button {
+    margin: 40px;
+}
+
+.MaiHeader h2 span {
+	font-weight: 700;
+}
+
+.MaiHeader h2 {
+    font-size: 56px;
+	font-weight: 300;
+	margin: 0 0 50px;
+	color: #2c3e50;
+}
+
+.MaiHeader h1 {
+    font-size: 64px;
+	font-weight: 700;
+	margin: 0;
+	color: #2c3e50;
+}
+
 textarea {
     overflow: auto;
     height: auto;
@@ -78,7 +122,12 @@ textarea {
     height: 200px;
     color: #34495e;
     background-color: white;
-    margin: 10px;
+    margin: 10px 0;
+}
+
+.noteInput {
+    text-align: start;
+    margin: 40px 0;
 }
 
 .leftAlign {
@@ -91,13 +140,22 @@ textarea {
     margin: 0 20px;
 }
 
-#backButton:hover {
+#homeButton, #logOutButton{
+    transition-duration: 0.3s;
+    margin: 0 10px;
+}
+
+#homeButton:hover, #logOutButton:hover, #backButton:hover {
     color: #517394;
     cursor: pointer;
 }
 
 .list-item {
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 .list-item-inline { 
@@ -113,17 +171,53 @@ textarea {
     padding: 10px;
     background-color: #fff;
     border: 1px solid #ddd;
+    width: 100%;
+}
+
+.list-item strong {
+    width: 100%;
+    text-align: left;
+    vertical-align: middle;
+    margin: 10px;
+    transition-duration: 0.3s;
+}
+
+.list-item strong:hover {
+    color: #517394;
+    cursor: pointer;
 }
 
 /* Add some margins for each label */
 .list-item label {
-    margin: 5px 10px 5px 0;
+    text-align: right;
+    padding: 10px;
+    width: 200px;
+    margin: auto 0;
+}
+
+.drop-downs {
+    display: flex;
+    margin: 40px 0;
+    justify-content: center;
+}
+
+.drop-down {
+    display: flex;
+}
+
+.drop-down label {
+    text-align: right;
+    padding: 10px;
+    margin: auto 0;
+}
+
+.drop-down-select {
+    width: 50%;
+    text-align: start;
 }
 
 select {
     -webkit-appearance: button;
-    -webkit-border-radius: 2px;
-    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
     -webkit-padding-end: 20px;
     -webkit-padding-start: 2px;
     -webkit-user-select: none;
@@ -138,5 +232,5 @@ select {
     padding: 5px 10px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 300px;
+    width: 400px;
  }

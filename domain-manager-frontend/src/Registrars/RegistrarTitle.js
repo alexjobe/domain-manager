@@ -10,7 +10,7 @@ class RegistrarTitle extends Component {
       )
     }
     return(
-      <h3>Registrar: {this.props.registrarName}</h3>
+      <h3>{this.props.registrarName}</h3>
     )
   }
 }

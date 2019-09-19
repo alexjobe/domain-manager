@@ -4,8 +4,11 @@ import RegistrarList from './Registrars/RegistrarList';
 import HostList from './Hosts/HostList';
 import LoginForm from './General/LoginForm';
 import RegisterForm from './General/RegisterForm';
+import MaiHeader from './General/MaiHeader';
 import './App.css';
 import './assets/font-awesome/css/font-awesome.min.css';
+import HomeButton from './General/HomeButton';
+import LogOutButton from './General/LogOutButton';
 
 var apiCalls = require('./Utils/api');
 
@@ -152,10 +155,14 @@ class App extends Component {
   renderHomeView() {
     return (
       <div className="App">
+        <div className="Navbar">
+          <HomeButton onClick={this.setView.bind(this, 'home')} />
+          <LogOutButton onClick={this.logout}/>
+        </div>
+        <MaiHeader />
         <button onClick={this.setView.bind(this, 'websites')}>Websites</button>
         <button onClick={this.setView.bind(this, 'registrars')}>Registrars</button>
         <button onClick={this.setView.bind(this, 'hosts')}>Hosts</button>
-        <button onClick={this.logout}>Logout</button>
       </div>
     )
   }
@@ -163,6 +170,7 @@ class App extends Component {
   renderLoginView() {
     return (
       <div className="App">
+        <MaiHeader />
         <LoginForm login={this.login}/>
       </div>
     )
@@ -171,6 +179,7 @@ class App extends Component {
   renderRegisterUserView() {
     return (
       <div className="App">
+        <MaiHeader />
         <RegisterForm registerUser={this.registerUser}/>
       </div>
     )
@@ -180,8 +189,8 @@ class App extends Component {
     return (
       <div className="App">
         <div className="Navbar">
-          <button onClick={this.setView.bind(this, 'home')}>Home</button>
-          <button onClick={this.logout}>Logout</button>
+          <HomeButton onClick={this.setView.bind(this, 'home')} />
+          <LogOutButton onClick={this.logout}/>
         </div>
         <WebsiteList
           back={this.back}
@@ -200,8 +209,8 @@ class App extends Component {
     return (
       <div className="App">
         <div className="Navbar">
-          <button onClick={this.setView.bind(this, 'home')}>Home</button>
-          <button onClick={this.logout}>Logout</button>
+          <HomeButton onClick={this.setView.bind(this, 'home')} />
+          <LogOutButton onClick={this.logout}/>
         </div>
         <RegistrarList 
           goBack={this.setView.bind(this, 'home')}
@@ -220,8 +229,8 @@ class App extends Component {
     return (
       <div className="App">
         <div className="Navbar">
-          <button onClick={this.setView.bind(this, 'home')}>Home</button>
-          <button onClick={this.logout}>Logout</button>
+          <HomeButton onClick={this.setView.bind(this, 'home')} />
+          <LogOutButton onClick={this.logout}/>
         </div>
         <HostList 
           goBack={this.setView.bind(this, 'home')}

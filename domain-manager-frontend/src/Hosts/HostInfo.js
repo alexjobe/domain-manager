@@ -32,15 +32,16 @@ class HostInfo extends Component {
         />
         <div className='list-item'><label>Username:</label><CopyableText value={this.props.host.userName}/></div>
         <div className='list-item'><label>Password:</label><CopyableText value={this.props.host.password}/></div>
-        <div className='list-item'><label>Notes:</label></div>
-        <textarea
-          rows='10'
-          name='notes'
-          value={this.props.host.notes}
-          placeholder='Notes...'
-          readOnly
-          disabled
-        />
+        <div className='list-item'><label>Notes:</label>
+          <textarea
+            rows='10'
+            name='notes'
+            value={this.props.host.notes}
+            placeholder='Notes...'
+            readOnly
+            disabled
+          />
+        </div>
         {
           this.props.websites ?
             <div id='hostButtons'>

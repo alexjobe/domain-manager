@@ -9,7 +9,7 @@ class HostTitle extends Component {
       )
     }
     return(
-      <h3>Host: {this.props.hostName}</h3>
+      <h3>{this.props.hostName}</h3>
     )
   }
 }

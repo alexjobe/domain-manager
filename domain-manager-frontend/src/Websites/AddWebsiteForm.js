@@ -123,13 +123,16 @@ class AddWebsiteForm extends Component {
             </select>
             : ''
           }
-          <textarea
-            rows='10'
-            name='notes'
-            value={this.state.notes}
-            onChange={this.handleChange}
-            placeholder='Notes...'
-          />
+          <div className="noteInput">
+            <label>Notes:</label>
+            <textarea
+              rows='10'
+              name='notes'
+              value={this.state.notes}
+              onChange={this.handleChange}
+              placeholder='Notes...'
+            />
+          </div>
           <button 
             onClick={this.handleSubmit}
           >Add Website</button>
