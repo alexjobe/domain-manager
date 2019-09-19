@@ -1,26 +1,22 @@
 import React, {Component} from 'react';
 
 class TextInput extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      hasFocus: false
-    };
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleFocus = this.handleFocus.bind(this);
-  }
 
-  handleBlur() {
+  state = {
+    hasFocus: false
+  };
+
+  handleBlur = () => {
     // The onBlur DOM event occurs when an object loses focus
     this.setState({hasFocus: false});
   }
 
-  handleFocus() {
+  handleFocus = () => {
     // The onFocus DOM event occurs when an object has focus
     this.setState({hasFocus: true});
   }
 
-  render() {
+  render = () => {
     var placeholder = this.props.placeholder;
     if(this.props.value) {
       // If value is passed as a prop, render placeholder and value, for example: "User Name: Bilbo" where

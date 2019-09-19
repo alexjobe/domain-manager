@@ -7,20 +7,17 @@ import Title from '../General/Title';
 
 class WebsiteInfo extends Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      enableEditMode: false,
-      enableViewRegistrar: false,
-      enableViewHost: false
-    }
+  state = {
+    enableEditMode: false,
+    enableViewRegistrar: false,
+    enableViewHost: false
   }
 
-  enableState(state, isEnabled) {
+  enableState = (state, isEnabled) => {
     this.setState({[state] : isEnabled}); // [state] is a computed property name
   }
 
-  renderWebsiteInfo() {
+  renderWebsiteInfo = () => {
     let titleString = "Website: " + this.props.website.name;
     return (
       <div id="websiteInfoDisplay">
@@ -57,7 +54,7 @@ class WebsiteInfo extends Component {
     )
   }
 
-  renderWebsiteEdit() {
+  renderWebsiteEdit = () => {
     return (
       <div id="websiteEdit">
         <Title titleString="Edit Website" onBack={this.enableState.bind(this, 'enableEditMode', false)}/>
@@ -72,7 +69,7 @@ class WebsiteInfo extends Component {
     )
   }
 
-  renderRegistrarInfo(){
+  renderRegistrarInfo = () => {
     let titleString = this.props.website.name + ": Registrar";
     return (
       <div id='websiteRegistrarInfo'>
@@ -85,7 +82,7 @@ class WebsiteInfo extends Component {
     )
   }
 
-  renderHostInfo(){
+  renderHostInfo = () => {
     let titleString = this.props.website.name + ": Host";
     return (
       <div id='websiteHostInfo'>
@@ -98,7 +95,7 @@ class WebsiteInfo extends Component {
     )
   }
 
-  render() {
+  render = () => {
     if(this.state.enableEditMode){
       return this.renderWebsiteEdit();
     }

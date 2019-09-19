@@ -2,24 +2,19 @@ import React, {Component} from 'react';
 import TextInput from '../General/TextInput';
 
 class RegisterForm extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      userName: '',
-      password: ''
-    };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  state = {
+    userName: '',
+    password: ''
+  };
 
   // Called whenever the user presses a key in the input field
-  handleChange(e){
+  handleChange = (e) => {
     // [e.target.name] is a computed property name
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(e){
+  handleSubmit = (e) => {
     e.preventDefault(); // Prevent form from reloading the page on submit
     // Create user object
     if(this.state.userName && this.state.password) {
@@ -32,7 +27,7 @@ class RegisterForm extends Component {
     }
   }
 
-  render() {
+  render = () => {
     return (
       <section id="register">
         <form id="registerForm">

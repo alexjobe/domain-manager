@@ -2,26 +2,21 @@ import React, {Component} from 'react';
 import TextInput from '../General/TextInput';
 
 class EditHostForm extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      hostName: this.props.host.name,
-      userName: this.props.host.userName,
-      password: this.props.host.password,
-      notes: this.props.host.notes
-    };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  state = {
+    hostName: this.props.host.name,
+    userName: this.props.host.userName,
+    password: this.props.host.password,
+    notes: this.props.host.notes
+  };
 
   // Called whenever the user presses a key in the input field
-  handleChange(e){
+  handleChange = (e) => {
     // [e.target.name] is a computed property name
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(e){
+  handleSubmit = (e) => {
     e.preventDefault(); // Prevent form from reloading the page on submit
     if(this.state.hostName) {
       // Create updated host object
@@ -37,7 +32,7 @@ class EditHostForm extends Component {
     }
   }
 
-  render() {
+  render = () => {
     return (
       <section id="hostEditForm">
         <form id="hostEditInput">

@@ -8,21 +8,18 @@ import Title from '../General/Title';
 // Display registrar info. Rendered from RegistrarList and WebsiteInfo.
 class RegistrarInfo extends Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      enableEditMode: false,
-      enableViewWebsites: false
-    }
+  state = {
+    enableEditMode: false,
+    enableViewWebsites: false
   }
 
-  enableState(state, isEnabled) {
+  enableState = (state, isEnabled) => {
     this.setState({[state] : isEnabled}); // [state] is a computed property name
   }
 
   // selectedWebsite is passed from WebsiteInfo as a prop
   // websites is passed from RegistrarList as a prop
-  renderRegistrarInfo() {
+  renderRegistrarInfo = () => {
     return(
       <div id="registrarInfoDisplay">
         <RegistrarTitle
@@ -56,7 +53,7 @@ class RegistrarInfo extends Component {
     )
   }
 
-  renderRegistrarEdit () {
+  renderRegistrarEdit = () => {
     return (
       <div id="registrarEdit">
         <Title titleString="Edit Registrar" onBack={this.enableState.bind(this, 'enableEditMode', false)}/>
@@ -69,7 +66,7 @@ class RegistrarInfo extends Component {
     )
   }
 
-  renderRegistrarWebsites() {
+  renderRegistrarWebsites = () => {
     return (
       <WebsiteList 
         goBack={this.enableState.bind(this, 'enableViewWebsites', false)}
@@ -83,7 +80,7 @@ class RegistrarInfo extends Component {
     )
   }
 
-  render() {
+  render = () => {
     if(this.state.enableEditMode){
       return this.renderRegistrarEdit();
     }

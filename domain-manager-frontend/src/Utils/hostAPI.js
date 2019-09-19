@@ -3,7 +3,7 @@
 // --------------------------------------------------------------- //
 const HOST_URL = 'http://localhost:8080/api/hosts/';
 
-exports.getHosts = async function() {
+exports.getHosts = async() => {
   return fetch(HOST_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
       if(!resp.ok) {
@@ -21,7 +21,7 @@ exports.getHosts = async function() {
   })
 }
 
-exports.searchHosts = async function(query){
+exports.searchHosts = async(query) => {
   const getURL = HOST_URL + 'search/' + query;
   return fetch(getURL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
@@ -40,7 +40,7 @@ exports.searchHosts = async function(query){
   })
 }
 
-exports.createHost = async function(host) {
+exports.createHost = async(host) => {
   return fetch(HOST_URL, {
     method: 'post',
     headers: new Headers({
@@ -65,7 +65,7 @@ exports.createHost = async function(host) {
   })
 }
 
-exports.updateHost = async function(host){
+exports.updateHost = async(host) => {
   const updateURL = HOST_URL + host._id;
 
   return fetch(updateURL, {
@@ -92,7 +92,7 @@ exports.updateHost = async function(host){
   })
 }
 
-exports.removeHost = async function(id){
+exports.removeHost = async(id) => {
   const deleteURL = HOST_URL + id;
 
   return fetch(deleteURL, {

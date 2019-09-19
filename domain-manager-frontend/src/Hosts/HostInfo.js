@@ -8,21 +8,18 @@ import Title from '../General/Title';
 // Display host info. Rendered from HostList and WebsiteInfo.
 class HostInfo extends Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      enableEditMode: false,
-      enableViewWebsites: false
-    }
-  }
+  state = {
+    enableEditMode: false,
+    enableViewWebsites: false
+  };
 
-  enableState(state, isEnabled) {
+  enableState = (state, isEnabled) => {
     this.setState({[state] : isEnabled}); // [state] is a computed property name
   }
 
   // selectedWebsite is passed from WebsiteInfo as a prop
   // websites is passed from HostList as a prop
-  renderHostInfo() {
+  renderHostInfo = () => {
     return(
       <div id="hostInfoDisplay">
         <HostTitle
@@ -55,7 +52,7 @@ class HostInfo extends Component {
     )
   }
 
-  renderHostEdit() {
+  renderHostEdit = () => {
     return (
       <div id="hostEdit">
         <Title titleString="Edit Host" onBack={this.enableState.bind(this, 'enableEditMode', false)}/>
@@ -68,7 +65,7 @@ class HostInfo extends Component {
     )
   }
 
-  renderHostWebsites() {
+  renderHostWebsites = () => {
     return (
       <WebsiteList 
         goBack={this.enableState.bind(this, 'enableViewWebsites', false)}
@@ -82,7 +79,7 @@ class HostInfo extends Component {
     )
   }
 
-  render() {
+  render = () => {
     if(this.state.enableEditMode){
       return this.renderHostEdit();
     }

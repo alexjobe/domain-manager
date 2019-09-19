@@ -9,20 +9,12 @@ var apiCalls = require('../Utils/api');
 
 class RegistrarList extends Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      selectedRegistrar: null,
-      enableAddRegistrar: false
-    }
-    this.addRegistrar = this.addRegistrar.bind(this);
-    this.selectRegistrar = this.selectRegistrar.bind(this);
-    this.deselectRegistrar = this.deselectRegistrar.bind(this);
-    this.updateRegistrar = this.updateRegistrar.bind(this);
-    this.searchRegistrars = this.searchRegistrars.bind(this);
+  state = {
+    selectedRegistrar: null,
+    enableAddRegistrar: false
   }
 
-  async addRegistrar(registrar) {
+  addRegistrar = async(registrar) => {
     if(this.props.checkLogin()) {
       // Create new registrar and update state
       let newRegistrar = await apiCalls.createRegistrar(registrar);
@@ -30,22 +22,22 @@ class RegistrarList extends Component {
     }
   }
 
-  enableState(state, isEnabled) {
+  enableState = (state, isEnabled) => {
     this.setState({[state] : isEnabled}); // [state] is a computed property name
     this.searchRegistrars(''); // Clear search results when changing view
   }
 
-  selectRegistrar(registrar) {
+  selectRegistrar = (registrar) => {
     this.setState({selectedRegistrar: registrar})
     this.setState({enableAddRegistrar: false});
     this.searchRegistrars(''); // Clear search results when changing view
   }
 
-  deselectRegistrar() {
+  deselectRegistrar = () => {
     this.setState({selectedRegistrar: null});
   }
 
-  async updateRegistrar(registrar) {
+  updateRegistrar = async(registrar) => {
     if(this.props.checkLogin()) {
       // Update registrar
       let updatedReg = await apiCalls.updateRegistrar(registrar);
@@ -61,7 +53,7 @@ class RegistrarList extends Component {
     }
   }
 
-  async deleteRegistrar(registrar) {
+  deleteRegistrar = async(registrar) => {
     if(this.props.checkLogin()) {
       this.setState({selectedRegistrar: null});
       await apiCalls.removeRegistrar(registrar._id);
@@ -70,7 +62,7 @@ class RegistrarList extends Component {
     }
   }
 
-  async searchRegistrars(query) {
+  searchRegistrars = async(query) => {
     if(this.props.checkLogin()) {
       if(query !== '') {
         let matchingRegistrars = await apiCalls.searchRegistrars(query);
@@ -82,7 +74,7 @@ class RegistrarList extends Component {
     }
   }
 
-  renderRegistrarList() {
+  renderRegistrarList = () => {
     const registrarListItems = this.props.registrars.map((r) => (
       <RegistrarListItem
         key={r._id}
@@ -103,7 +95,7 @@ class RegistrarList extends Component {
     )
   }
 
-  renderAddRegistrar(){
+  renderAddRegistrar = () => {
     return(
       <div id="registrarAddNew">
         <Title titleString="New Registrar" onBack={this.enableState.bind(this, 'enableAddRegistrar', false)}/>
@@ -115,7 +107,7 @@ class RegistrarList extends Component {
     )
   }
 
-  renderRegistrarInfo(){
+  renderRegistrarInfo = () => {
     return (
       <RegistrarInfo 
         registrar={this.state.selectedRegistrar} 
@@ -131,7 +123,7 @@ class RegistrarList extends Component {
     )
   }
 
-  render() {
+  render = () => {
     if(this.state.selectedRegistrar !== null){
       return this.renderRegistrarInfo();
     }

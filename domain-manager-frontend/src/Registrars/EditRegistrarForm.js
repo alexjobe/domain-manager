@@ -2,26 +2,21 @@ import React, {Component} from 'react';
 import TextInput from '../General/TextInput';
 
 class EditRegistrarForm extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      registrarName: this.props.registrar.name,
-      userName: this.props.registrar.userName,
-      password: this.props.registrar.password,
-      notes: this.props.registrar.notes
-    };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  state = {
+    registrarName: this.props.registrar.name,
+    userName: this.props.registrar.userName,
+    password: this.props.registrar.password,
+    notes: this.props.registrar.notes
+  };
 
   // Called whenever the user presses a key in the input field
-  handleChange(e){
+  handleChange = (e) => {
     // [e.target.name] is a computed property name
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(e){
+  handleSubmit = (e) => {
     e.preventDefault(); // Prevent form from reloading the page on submit
     if(this.state.registrarName) {
       // Create updated registrar object
@@ -37,7 +32,7 @@ class EditRegistrarForm extends Component {
     }
   }
 
-  render() {
+  render = () => {
     return (
       <section id="registrarEditForm">
         <form id="registrarEditInput">

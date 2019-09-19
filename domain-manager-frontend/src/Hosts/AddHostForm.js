@@ -2,26 +2,21 @@ import React, {Component} from 'react';
 import TextInput from '../General/TextInput';
 
 class AddHostForm extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      hostName: '',
-      userName: '',
-      password: '',
-      notes: ''
-    };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  state = {
+    hostName: '',
+    userName: '',
+    password: '',
+    notes: ''
+  };
 
   // Called whenever the user presses a key in the input field
-  handleChange(e){
+  handleChange = (e) => {
     // [e.target.name] is a computed property name
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(e){
+  handleSubmit = (e) => {
     e.preventDefault(); // Prevent form from reloading the page on submit
     // Create host object
     var host = {
@@ -37,7 +32,7 @@ class AddHostForm extends Component {
     }
   }
 
-  render() {
+  render = () => {
     return (
       <section id="hostAddForm">
         <form id="hostAddInput">

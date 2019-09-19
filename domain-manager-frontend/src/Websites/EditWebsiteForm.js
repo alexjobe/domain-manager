@@ -4,30 +4,25 @@ import SelectHostItem from './SelectHostItem';
 import TextInput from '../General/TextInput';
 
 class EditWebsiteForm extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      websiteName: this.props.website.name,
-      url: this.props.website.url,
-      ftp: this.props.website.ftp,
-      userName: this.props.website.userName,
-      password: this.props.website.password,
-      notes: this.props.website.notes,
-      registrar: this.props.website.registrar,
-      host: this.props.website.host
-    };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  state = {
+    websiteName: this.props.website.name,
+    url: this.props.website.url,
+    ftp: this.props.website.ftp,
+    userName: this.props.website.userName,
+    password: this.props.website.password,
+    notes: this.props.website.notes,
+    registrar: this.props.website.registrar,
+    host: this.props.website.host
+  };
 
   // Called whenever the user presses a key in the input field
-  handleChange(e){
+  handleChange = (e) => {
     // [e.target.name] is a computed property name
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleSubmit(e){
+  handleSubmit = (e) => {
     e.preventDefault(); // Prevent form from reloading the page on submit
     if(this.state.websiteName && this.state.url){
       // Create updated website object
@@ -51,7 +46,7 @@ class EditWebsiteForm extends Component {
     }
   }
 
-  render() {
+  render = () => {
     const registrars = this.props.registrars.map((r) => (
       <SelectRegistrarItem
         key={r._id}

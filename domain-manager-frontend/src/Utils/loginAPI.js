@@ -7,7 +7,7 @@ const LOGOUT_URL = USER_URL + 'logout';
 const REGISTER_URL = USER_URL + 'register'
 
 // Login user with given credentials
-exports.login = async function(user) {
+exports.login = async(user) => {
   return fetch(LOGIN_URL, {
     method: 'post',
     headers: new Headers({
@@ -33,7 +33,7 @@ exports.login = async function(user) {
 }
 
 // Checks to see if there is a current user session
-exports.checkLogin = async function() {
+exports.checkLogin = async() => {
   return fetch(LOGIN_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
       if(!resp.ok) {
@@ -52,7 +52,7 @@ exports.checkLogin = async function() {
 }
 
 // Terminates current user session
-exports.logout = async function() {
+exports.logout = async() => {
   return fetch(LOGOUT_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
       if(!resp.ok) {
@@ -71,7 +71,7 @@ exports.logout = async function() {
 }
 
 // Registers a new user
-exports.registerUser = async function(user) {
+exports.registerUser = async(user) => {
   return fetch(REGISTER_URL, {
     method: 'post',
     headers: new Headers({
@@ -97,7 +97,7 @@ exports.registerUser = async function(user) {
 }
 
 // Returns the number of registered users
-exports.checkRegisteredUsers = async function() {
+exports.checkRegisteredUsers = async() => {
   return fetch(REGISTER_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
       if(!resp.ok) {

@@ -9,20 +9,12 @@ var apiCalls = require('../Utils/api');
 
 class HostList extends Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      selectedHost: null,
-      enableAddHost: false
-    }
-    this.addHost = this.addHost.bind(this);
-    this.selectHost = this.selectHost.bind(this);
-    this.deselectHost = this.deselectHost.bind(this);
-    this.updateHost = this.updateHost.bind(this);
-    this.searchHosts = this.searchHosts.bind(this);
+  state = {
+    selectedHost: null,
+    enableAddHost: false
   }
 
-  async addHost(host) {
+  addHost = async(host) => {
     if(this.props.checkLogin()) {
       // Create new host and update state
       let newHost = await apiCalls.createHost(host);
@@ -30,22 +22,22 @@ class HostList extends Component {
     }
   }
 
-  enableState(state, isEnabled) {
+  enableState = (state, isEnabled) => {
     this.setState({[state] : isEnabled}); // [state] is a computed property name
     this.searchHosts(''); // Clear search results when changing view
   }
 
-  selectHost(host) {
+  selectHost = (host) => {
     this.setState({selectedHost: host})
     this.setState({enableAddHost: false});
     this.searchHosts(''); // Clear search results when changing view
   }
 
-  deselectHost() {
+  deselectHost = () => {
     this.setState({selectedHost: null});
   }
 
-  async updateHost(host) {
+  updateHost = async(host) => {
     if(this.props.checkLogin()) {
       // Update host
       let updatedHost = await apiCalls.updateHost(host);
@@ -58,7 +50,7 @@ class HostList extends Component {
     }
   }
 
-  async deleteHost(host) {
+  deleteHost = async(host) => {
     if(this.props.checkLogin()) {
       this.setState({selectedHost: null});
       await apiCalls.removeHost(host._id);
@@ -67,7 +59,7 @@ class HostList extends Component {
     }
   }
 
-  async searchHosts(query) {
+  searchHosts = async(query) => {
     if(this.props.checkLogin()) {
       if(query !== '') {
         let matchingHosts = await apiCalls.searchHosts(query);
@@ -79,7 +71,7 @@ class HostList extends Component {
     }
   }
 
-  renderHostList() {
+  renderHostList = () => {
     const hostListItems = this.props.hosts.map((r) => (
       <HostListItem
         key={r._id}
@@ -100,7 +92,7 @@ class HostList extends Component {
     )
   }
 
-  renderAddHost(){
+  renderAddHost = () => {
     return(
       <div id="hostAddNew">
         <Title titleString="New Host" onBack={this.enableState.bind(this, 'enableAddHost', false)}/>
@@ -112,7 +104,7 @@ class HostList extends Component {
     )
   }
 
-  renderHostInfo(){
+  renderHostInfo = () => {
     return (
       <HostInfo 
         host={this.state.selectedHost} 
@@ -128,7 +120,7 @@ class HostList extends Component {
     )
   }
 
-  render() {
+  render = () => {
     if(this.state.selectedHost !== null){
       return this.renderHostInfo();
     }

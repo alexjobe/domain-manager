@@ -3,7 +3,7 @@ import Title from '../General/Title';
 
 class RegistrarTitle extends Component {
 
-  render() {
+  render = () => {
     if(!this.props.selectedWebsite) {
       return(
         <Title titleString={"Registrar: " + this.props.registrarName} onBack={this.props.goBack}/>

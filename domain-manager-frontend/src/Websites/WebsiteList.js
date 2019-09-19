@@ -9,37 +9,28 @@ var apiCalls = require('../Utils/api');
 
 class WebsiteList extends Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      selectedWebsite: null,
-      enableAddWebsite: false
-    }
-    this.selectWebsite = this.selectWebsite.bind(this);
-    this.deselectWebsite = this.deselectWebsite.bind(this);
-    this.addWebsite = this.addWebsite.bind(this);
-    this.updateWebsite = this.updateWebsite.bind(this);
-    this.deleteWebsite = this.deleteWebsite.bind(this);
-    this.searchWebsites = this.searchWebsites.bind(this);
+  state = {
+    selectedWebsite: null,
+    enableAddWebsite: false
   }
 
-  enableState(state, isEnabled) {
+  enableState = (state, isEnabled) => {
     this.setState({[state] : isEnabled}); // [state] is a computed property name
     this.searchWebsites(''); // Clear search results when changing view
   }
 
-  selectWebsite(website) {
+  selectWebsite = (website) => {
     this.updateWebsite(website);
     this.setState({selectedWebsite: website})
     this.setState({enableAddWebsite: false});
     this.searchWebsites(''); // Clear search results when changing view
   }
 
-  deselectWebsite() {
+  deselectWebsite = () => {
     this.setState({selectedWebsite: null});
   }
 
-  async addWebsite(website) {
+  addWebsite = async(website) => {
     if(this.props.checkLogin()) {
       // Create new website and update state
       let newWebsite = await apiCalls.createWebsite(website);
@@ -47,7 +38,7 @@ class WebsiteList extends Component {
     }
   }
 
-  async updateWebsite(website) {
+  updateWebsite = async(website) => {
     if(this.props.checkLogin()) {
       // Update website
       let updatedSite = await apiCalls.updateWebsite(website);
@@ -63,7 +54,7 @@ class WebsiteList extends Component {
     }
   }
 
-  async deleteWebsite(website) {
+  deleteWebsite = async(website) => {
     if(this.props.checkLogin()) {
       this.setState({selectedWebsite: null});
       await apiCalls.removeWebsite(website._id);
@@ -72,7 +63,7 @@ class WebsiteList extends Component {
     }
   }
 
-  async searchWebsites(query) {
+  searchWebsites = async(query) => {
     if(this.props.checkLogin()) {
       if(query !== '') {
         let matchingSites = await apiCalls.searchWebsites(query);
@@ -84,7 +75,7 @@ class WebsiteList extends Component {
     }
   }
 
-  renderWebsiteList() {
+  renderWebsiteList = () => {
     var websites;
     var titleString = "";
     if(this.props.selectedHost) titleString = this.props.selectedHost.name + ": Hosted Websites";
@@ -122,7 +113,7 @@ class WebsiteList extends Component {
     )
   }
 
-  renderAddWebsite(){
+  renderAddWebsite = () => {
     var titleString = 'New Website';
     if(this.props.selectedHost) titleString = this.props.selectedHost.name + ': New Website';
     if(this.props.selectedRegistrar) titleString = this.props.selectedRegistrar.name + ': New Website';
@@ -142,7 +133,7 @@ class WebsiteList extends Component {
     )
   }
 
-  renderWebsiteInfo(){
+  renderWebsiteInfo = () => {
     return (
       <WebsiteInfo 
         website={this.state.selectedWebsite} 
@@ -155,7 +146,7 @@ class WebsiteList extends Component {
     )
   }
 
-  render() {
+  render = () => {
     if(this.state.selectedWebsite !== null){
       return this.renderWebsiteInfo();
     }

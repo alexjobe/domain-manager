@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Title from '../General/Title';
 
 class HostTitle extends Component {
-  render() {
+  render = () => {
     if(!this.props.selectedWebsite) {
       return(
         <Title titleString={"Host: " + this.props.hostName} onBack={this.props.goBack}/>

@@ -13,28 +13,16 @@ import LogOutButton from './General/LogOutButton';
 var apiCalls = require('./Utils/api');
 
 class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      currentView: 'home',
-      websites: [],
-      registrars: [],
-      hosts: [],
-      loggedIn: false
-    }
-    this.loadWebsites = this.loadWebsites.bind(this);
-    this.loadRegistrars = this.loadRegistrars.bind(this);
-    this.loadHosts = this.loadHosts.bind(this);
-    this.updateWebsites = this.updateWebsites.bind(this);
-    this.updateRegistrars = this.updateRegistrars.bind(this);
-    this.updateHosts = this.updateHosts.bind(this);
-    this.login = this.login.bind(this);
-    this.checkLogin = this.checkLogin.bind(this);
-    this.logout = this.logout.bind(this);
-    this.registerUser = this.registerUser.bind(this);
+  
+  state = {
+    currentView: 'home',
+    websites: [],
+    registrars: [],
+    hosts: [],
+    loggedIn: false
   }
 
-  async componentWillMount(){
+  componentWillMount = async() => {
     await this.checkLogin(); // The user may already have a session and be logged in when the page loads
     if(this.state.loggedIn) {
       this.setView('home'); // If the user is logged in, skip the login step
@@ -48,7 +36,7 @@ class App extends Component {
   }
 
   // Register a new user
-  async registerUser (user) {
+  registerUser = async(user) => {
     let newUser = await apiCalls.registerUser(user);
     if(newUser && newUser.username) {
       this.setState({loggedIn: true});
@@ -60,14 +48,14 @@ class App extends Component {
   }
 
   // Get the number of registered users. If there are no registered users, return false. Otherwise, return true
-  async checkRegisteredUsers () {
+  checkRegisteredUsers = async() => {
     let registeredUsers = await apiCalls.checkRegisteredUsers();
     if(registeredUsers && registeredUsers.count > 0) { return true; }
     return false;
   }
 
   // Log in the provided user
-  async login (user) {
+  login = async(user) => {
     let foundUser = await apiCalls.login(user);
     if(foundUser && foundUser.username) {
       this.setState({loggedIn: true});
@@ -79,7 +67,7 @@ class App extends Component {
   }
 
   // Check to see if the user is already logged in. If so, return true. Otherwise, return false.
-  async checkLogin() {
+  checkLogin = async() => {
     let foundUser = await apiCalls.checkLogin();
     if(foundUser && foundUser.username) {
       this.setState({loggedIn: true});
@@ -92,32 +80,32 @@ class App extends Component {
   }
 
   // Log out the current user
-  async logout() {
+  logout = async() => {
     apiCalls.logout();
     this.setState({loggedIn: false});
     this.setView('login');
   }
 
   // Get all websites
-  async loadWebsites(){
+  loadWebsites = async() => {
     let websites = await apiCalls.getWebsites();
     this.setState({websites});
   }
 
   // Get all registrars
-  async loadRegistrars(){
+  loadRegistrars = async() => {
     let registrars = await apiCalls.getRegistrars();
     this.setState({registrars});
   }
 
   // Get all hosts
-  async loadHosts(){
+  loadHosts = async() => {
     let hosts = await apiCalls.getHosts();
     this.setState({hosts});
   }
 
   // Check if user is logged in. If so, get data. Otherwise, display login form.
-  async loadAll() {
+  loadAll = async() => {
     this.checkLogin();
     if(this.state.loggedIn) {
       this.loadWebsites();
@@ -130,7 +118,7 @@ class App extends Component {
   }
 
   // Sets the current view
-  async setView(view) {
+  setView = async(view) => {
     if(view === 'home') {
       await this.loadAll();
     }
@@ -138,21 +126,21 @@ class App extends Component {
   }
 
   // Update websites in state
-  async updateWebsites(websites) {
+  updateWebsites = async(websites) => {
     this.setState({websites: websites});
   }
 
   // Update registrars in state
-  updateRegistrars(registrars) {
+  updateRegistrars = (registrars) => {
     this.setState({registrars: registrars});
   }
 
   // Update hosts in state
-  updateHosts(hosts) {
+  updateHosts = (hosts) => {
     this.setState({hosts: hosts});
   }
 
-  renderHomeView() {
+  renderHomeView = () => {
     return (
       <div className="App">
         <div className="Navbar">
@@ -167,7 +155,7 @@ class App extends Component {
     )
   }
 
-  renderLoginView() {
+  renderLoginView = () => {
     return (
       <div className="App">
         <MaiHeader />
@@ -176,7 +164,7 @@ class App extends Component {
     )
   }
 
-  renderRegisterUserView() {
+  renderRegisterUserView = () => {
     return (
       <div className="App">
         <MaiHeader />
@@ -185,7 +173,7 @@ class App extends Component {
     )
   }
 
-  renderWebsiteView() {
+  renderWebsiteView = () => {
     return (
       <div className="App">
         <div className="Navbar">
@@ -205,7 +193,7 @@ class App extends Component {
     )
   }
 
-  renderRegistrarView() {
+  renderRegistrarView = () => {
     return (
       <div className="App">
         <div className="Navbar">
@@ -225,7 +213,7 @@ class App extends Component {
     )
   }
 
-  renderHostView() {
+  renderHostView = () => {
     return (
       <div className="App">
         <div className="Navbar">
@@ -245,7 +233,7 @@ class App extends Component {
     )
   }
 
-  render() {
+  render = () => {
     if(this.state.currentView === "registerUser") {
       return this.renderRegisterUserView();
     }
