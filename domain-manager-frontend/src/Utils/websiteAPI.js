@@ -1,7 +1,8 @@
 // --------------------------------------------------------------- //
 // --------------------------- Website API ----------------------- //
 // --------------------------------------------------------------- //
-const WEBSITE_URL = 'http://localhost:8080/api/websites/';
+var BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
+const WEBSITE_URL = BACKEND_URL + '/api/websites/';
 
 exports.getWebsites = async() => {
   return fetch(WEBSITE_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session

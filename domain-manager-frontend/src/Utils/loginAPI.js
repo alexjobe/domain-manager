@@ -1,7 +1,8 @@
 // --------------------------------------------------------------- //
 // --------------------------- LOGIN API ------------------------- //
 // --------------------------------------------------------------- //
-const USER_URL = 'http://localhost:8080/api/user/';
+var BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
+const USER_URL = BACKEND_URL + '/api/user/';
 const LOGIN_URL = USER_URL + 'login';
 const LOGOUT_URL = USER_URL + 'logout';
 const REGISTER_URL = USER_URL + 'register'

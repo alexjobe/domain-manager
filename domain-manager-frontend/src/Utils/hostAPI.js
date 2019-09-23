@@ -1,7 +1,8 @@
 // --------------------------------------------------------------- //
 // ----------------------------- Host API ------------------------ //
 // --------------------------------------------------------------- //
-const HOST_URL = 'http://localhost:8080/api/hosts/';
+var BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
+const HOST_URL = BACKEND_URL + '/api/hosts/';
 
 exports.getHosts = async() => {
   return fetch(HOST_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session

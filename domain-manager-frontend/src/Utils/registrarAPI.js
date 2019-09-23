@@ -1,7 +1,8 @@
 // --------------------------------------------------------------- //
 // -------------------------- Registrar API ---------------------- //
 // --------------------------------------------------------------- //
-const REGISTRAR_URL = 'http://localhost:8080/api/registrars/';
+var BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
+const REGISTRAR_URL = BACKEND_URL + '/api/registrars/';
 
 exports.getRegistrars = async() => {
   return fetch(REGISTRAR_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session

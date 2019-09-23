@@ -43,8 +43,8 @@ router.get("/register", function(req, res) {
 // Handle register logic
 router.post("/register", function(req, res) {
   db.User.countDocuments({}, function(err, count){
-    // Since there will never be more than one user, deny 
-    // register access if a user already exists
+    // Deny register access if a user already exists. This route is only used
+    // on initial setup
     if(count < 1) {
       var newUser = new db.User({username: req.body.username});
       db.User.register(newUser, req.body.password, function(err, user){

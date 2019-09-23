@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 
 class CopyableText extends Component {
 
-  state = {
-    hasFocus: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasFocus: false
+    };
+    this.textArea = React.createRef();
+  }
 
   handleBlur = () => {
     // The onBlur DOM event occurs when an object loses focus
