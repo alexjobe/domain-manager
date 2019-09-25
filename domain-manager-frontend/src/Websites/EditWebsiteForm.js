@@ -26,7 +26,7 @@ class EditWebsiteForm extends Component {
     e.preventDefault(); // Prevent form from reloading the page on submit
     if(this.state.websiteName && this.state.url){
       // Create updated website object
-      var updatedWebsite = this.props.website;
+      var updatedWebsite = {...this.props.website};
       updatedWebsite.name = this.state.websiteName;
       updatedWebsite.url = this.state.url;
       updatedWebsite.ftp = this.state.ftp;

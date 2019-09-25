@@ -14,6 +14,12 @@ class WebsiteList extends Component {
     enableAddWebsite: false
   }
 
+  static defaultProps = {
+    websites: [],
+    registrars: [],
+    hosts: []
+  };
+
   enableState = (state, isEnabled) => {
     this.setState({[state] : isEnabled}); // [state] is a computed property name
     this.searchWebsites(''); // Clear search results when changing view
@@ -47,9 +53,7 @@ class WebsiteList extends Component {
         return (website._id === updatedSite._id ? updatedSite : website);
       });
       // Update state
-      if(this.state.selectedWebsite._id === updatedSite._id){
-        this.setState({selectedWebsite: updatedSite});
-      }
+      this.setState({selectedWebsite: updatedSite});
       this.props.updateWebsites(websites)
     }
   }

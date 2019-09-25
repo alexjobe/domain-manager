@@ -4,7 +4,7 @@ var express        = require('express'),
     methodOverride = require("method-override"),
     path           = require("path"),
     cors           = require('cors'),
-    dotenv        = require('dotenv');
+    dotenv         = require('dotenv'),
     passport       = require("passport"),
     LocalStrategy  = require("passport-local"),
     db             = require('./models');
@@ -20,7 +20,6 @@ const frontendPath = '../domain-manager-frontend';
 app.use(bodyParser.json()); // Required for POST routes
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
-app.set("view engine", "ejs");
 app.use(express.static(path.join(frontendPath, 'build')));
 
 

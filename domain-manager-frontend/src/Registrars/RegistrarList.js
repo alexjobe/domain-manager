@@ -14,6 +14,12 @@ class RegistrarList extends Component {
     enableAddRegistrar: false
   }
 
+  static defaultProps = {
+    websites: [],
+    registrars: [],
+    hosts: []
+  };
+
   addRegistrar = async(registrar) => {
     if(this.props.checkLogin()) {
       // Create new registrar and update state
@@ -46,9 +52,7 @@ class RegistrarList extends Component {
         return (registrar._id === updatedReg._id ? updatedReg : registrar);
       });
       // Update state
-      if(this.state.selectedRegistrar._id === updatedReg._id){
-        this.setState({selectedRegistrar: updatedReg});
-      }
+      this.setState({selectedRegistrar: updatedReg});
       this.props.updateRegistrars(registrars);
     }
   }

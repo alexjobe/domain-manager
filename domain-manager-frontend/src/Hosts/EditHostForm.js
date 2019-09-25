@@ -20,7 +20,7 @@ class EditHostForm extends Component {
     e.preventDefault(); // Prevent form from reloading the page on submit
     if(this.state.hostName) {
       // Create updated host object
-      var updatedHost = this.props.host;
+      var updatedHost = {...this.props.host};
       updatedHost.name = this.state.hostName;
       updatedHost.userName = this.state.userName;
       updatedHost.password = this.state.password;

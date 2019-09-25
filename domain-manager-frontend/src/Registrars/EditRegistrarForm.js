@@ -20,7 +20,7 @@ class EditRegistrarForm extends Component {
     e.preventDefault(); // Prevent form from reloading the page on submit
     if(this.state.registrarName) {
       // Create updated registrar object
-      var updatedRegistrar = this.props.registrar;
+      var updatedRegistrar = {...this.props.registrar};
       updatedRegistrar.name = this.state.registrarName;
       updatedRegistrar.userName = this.state.userName;
       updatedRegistrar.password = this.state.password;

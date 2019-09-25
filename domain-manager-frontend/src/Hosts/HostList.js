@@ -14,6 +14,12 @@ class HostList extends Component {
     enableAddHost: false
   }
 
+  static defaultProps = {
+    websites: [],
+    registrars: [],
+    hosts: []
+  };
+
   addHost = async(host) => {
     if(this.props.checkLogin()) {
       // Create new host and update state
@@ -46,6 +52,7 @@ class HostList extends Component {
         return (host._id === updatedHost._id ? updatedHost : host);
       });
       // Update state
+      this.setState({selectedHost: updatedHost});
       this.props.updateHosts(hosts);
     }
   }
