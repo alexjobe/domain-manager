@@ -1,0 +1,38 @@
+V6 Changes - 9/25/2019
+
+- Introduce REACT_APP_BACKEND_URL environment variable
+- Add defaultProps to List components
+- Replace array assignment with spread operator in Edit components
+- Update package.json for use with Electron Builder
+- Update documentation
+
+V5 Changes - 9/19/2019
+
+- Add Title component with back button
+- Add HomeButton, LogOutButton, MaiHeader
+- Update components to use Babel's 'class properties proposal'
+- Update CSS
+
+V4 Changes - 8/21/2019
+
+- Add user authentication
+- Fix error when user tries to log in with wrong credentials
+- Organize api functions into multiple files
+- Add register user form
+
+V3 Changes - 8/12/2019
+
+- Add search component and ability to search websites by name and url
+- Add search by name functionality for hosts and registrars
+- Add CopyableText component that copies its value to the clipboard when clicked
+- Display host and registrar info when clicked from WebsiteInfo
+- Replace various state toggle functions with a single enableState function
+- Implement setView function in App.js to replace various view toggle functions
+
+V2 Changes - 8/8/2019
+
+- Add ability to choose registrar while creating or editing a website
+- Add Host view and ability to choose host when creating or editing a website
+- Move websites, registrars, and hosts state to App.js
+- Add ability to view websites by host
+- Add ability to view websites by registrar

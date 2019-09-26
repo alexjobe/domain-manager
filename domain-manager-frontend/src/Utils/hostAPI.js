@@ -4,7 +4,7 @@
 var BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
 const HOST_URL = BACKEND_URL + '/api/hosts/';
 
-exports.getHosts = async() => {
+export async function getHosts() {
   return fetch(HOST_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
       if(!resp.ok) {
@@ -22,7 +22,7 @@ exports.getHosts = async() => {
   })
 }
 
-exports.searchHosts = async(query) => {
+export async function searchHosts(query) {
   const getURL = HOST_URL + 'search/' + query;
   return fetch(getURL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
@@ -41,7 +41,7 @@ exports.searchHosts = async(query) => {
   })
 }
 
-exports.createHost = async(host) => {
+export async function createHost(host) {
   return fetch(HOST_URL, {
     method: 'post',
     headers: new Headers({
@@ -66,7 +66,7 @@ exports.createHost = async(host) => {
   })
 }
 
-exports.updateHost = async(host) => {
+export async function updateHost(host) {
   const updateURL = HOST_URL + host._id;
 
   return fetch(updateURL, {
@@ -93,7 +93,7 @@ exports.updateHost = async(host) => {
   })
 }
 
-exports.removeHost = async(id) => {
+export async function removeHost(id) {
   const deleteURL = HOST_URL + id;
 
   return fetch(deleteURL, {
@@ -115,5 +115,3 @@ exports.removeHost = async(id) => {
     return resp.json();
   })
 }
-
-module.exports = exports;

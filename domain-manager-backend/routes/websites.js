@@ -1,7 +1,7 @@
-var express = require('express'),
-    router = express.Router();
-    var db = require('../models');
-    var middleware = require("../middleware");
+var express    = require('express'),
+    router     = express.Router(),
+    db         = require('../models'),
+    middleware = require("../middleware");
 
 //======================================================//
 //                      WEBSITE ROUTES                  //

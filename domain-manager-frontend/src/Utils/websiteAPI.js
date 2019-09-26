@@ -4,7 +4,7 @@
 var BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
 const WEBSITE_URL = BACKEND_URL + '/api/websites/';
 
-exports.getWebsites = async() => {
+export async function getWebsites() {
   return fetch(WEBSITE_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
       if(!resp.ok) {
@@ -22,7 +22,7 @@ exports.getWebsites = async() => {
   })
 }
 
-exports.getWebsite = async(id) => {
+export async function getWebsite(id) {
   const getURL = WEBSITE_URL + id;
   return fetch(getURL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
@@ -41,7 +41,7 @@ exports.getWebsite = async(id) => {
   })
 }
 
-exports.searchWebsites = async(query) => {
+export async function searchWebsites(query) {
   const getURL = WEBSITE_URL + 'search/' + query;
   return fetch(getURL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
@@ -60,7 +60,7 @@ exports.searchWebsites = async(query) => {
   })
 }
 
-exports.createWebsite = async(website) => {
+export async function createWebsite(website) {
   return fetch(WEBSITE_URL, {
     method: 'post',
     headers: new Headers({
@@ -85,7 +85,7 @@ exports.createWebsite = async(website) => {
   })
 }
 
-exports.updateWebsite = async(website) => {
+export async function updateWebsite(website) {
   const updateURL = WEBSITE_URL + website._id;
 
   return fetch(updateURL, {
@@ -112,7 +112,7 @@ exports.updateWebsite = async(website) => {
   })
 }
 
-exports.removeWebsite = async(id) => {
+export async function removeWebsite(id) {
   const deleteURL = WEBSITE_URL + id;
 
   return fetch(deleteURL, {
@@ -134,5 +134,3 @@ exports.removeWebsite = async(id) => {
     return resp.json();
   })
 }
-
-module.exports = exports;

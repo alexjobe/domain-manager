@@ -4,7 +4,7 @@
 var BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
 const REGISTRAR_URL = BACKEND_URL + '/api/registrars/';
 
-exports.getRegistrars = async() => {
+export async function getRegistrars() {
   return fetch(REGISTRAR_URL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
       if(!resp.ok) {
@@ -22,7 +22,7 @@ exports.getRegistrars = async() => {
   })
 }
 
-exports.searchRegistrars = async(query) => {
+export async function searchRegistrars(query) {
   const getURL = REGISTRAR_URL + 'search/' + query;
   return fetch(getURL, {credentials: 'include'}) // Credentials are required for CORS to recognize user session
     .then(resp => {
@@ -41,7 +41,7 @@ exports.searchRegistrars = async(query) => {
   })
 }
 
-exports.createRegistrar = async(registrar) => {
+export async function createRegistrar(registrar) {
   return fetch(REGISTRAR_URL, {
     method: 'post',
     headers: new Headers({
@@ -66,7 +66,7 @@ exports.createRegistrar = async(registrar) => {
   })
 }
 
-exports.updateRegistrar = async(registrar) => {
+export async function updateRegistrar(registrar) {
   const updateURL = REGISTRAR_URL + registrar._id;
 
   return fetch(updateURL, {
@@ -93,7 +93,7 @@ exports.updateRegistrar = async(registrar) => {
   })
 }
 
-exports.removeRegistrar = async(id) => {
+export async function removeRegistrar(id) {
   const deleteURL = REGISTRAR_URL + id;
 
   return fetch(deleteURL, {
@@ -115,5 +115,3 @@ exports.removeRegistrar = async(id) => {
     return resp.json();
   })
 }
-
-module.exports = exports;
