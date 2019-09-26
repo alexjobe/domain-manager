@@ -59,4 +59,17 @@ router.post("/register", function(req, res) {
   });
 });
 
+
+// Handle change password
+router.post("/changepassword", function(req, res) {
+  if(req.isAuthenticated()) {
+    req.user.changePassword(req.body.oldPassword, req.body.newPassword, function(err){
+      if(err) { return res.json(err); }
+      res.status(200).json({message: 'Password change successful'});
+    });
+  } else {
+    return res.json({message: 'Access Denied'});
+  }
+});
+
 module.exports = router;

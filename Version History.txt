@@ -2,7 +2,7 @@ V6 Changes - 9/25/2019
 
 - Introduce REACT_APP_BACKEND_URL environment variable
 - Add defaultProps to List components
-- Replace array assignment with spread operator in Edit components
+- Replace all array and object assignments with spread operator
 - Update package.json for use with Electron Builder
 - Update documentation
 

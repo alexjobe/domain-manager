@@ -97,6 +97,10 @@ input {
     margin: 40px;
 }
 
+#changePasswordForm button {
+    margin: 40px;
+}
+
 .MaiHeader h2 span {
 	font-weight: 700;
 }
@@ -140,12 +144,12 @@ textarea {
     margin: 0 20px;
 }
 
-#homeButton, #logOutButton{
+#homeButton, #logOutButton, #changePassButton {
     transition-duration: 0.3s;
     margin: 0 10px;
 }
 
-#homeButton:hover, #logOutButton:hover, #backButton:hover {
+#homeButton:hover, #logOutButton:hover, #backButton:hover, #changePassButton:hover {
     color: #517394;
     cursor: pointer;
 }
@@ -233,4 +237,8 @@ select {
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 400px;
+ }
+
+ .alert {
+     margin: 40px;
  }

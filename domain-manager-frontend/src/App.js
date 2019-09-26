@@ -3,12 +3,14 @@ import WebsiteList from './Websites/WebsiteList';
 import RegistrarList from './Registrars/RegistrarList';
 import HostList from './Hosts/HostList';
 import LoginForm from './General/LoginForm';
+import ChangePassword from './General/ChangePassword';
 import RegisterForm from './General/RegisterForm';
 import MaiHeader from './General/MaiHeader';
 import './App.css';
 import './assets/font-awesome/css/font-awesome.min.css';
 import HomeButton from './General/HomeButton';
 import LogOutButton from './General/LogOutButton';
+import ChangePassButton from './General/ChangePassButton';
 
 var apiCalls = require('./Utils/api');
 
@@ -145,6 +147,7 @@ class App extends Component {
       <div className="App">
         <div className="Navbar">
           <HomeButton onClick={this.setView.bind(this, 'home')} />
+          <ChangePassButton onClick={this.setView.bind(this, 'password')}/>
           <LogOutButton onClick={this.logout}/>
         </div>
         <MaiHeader />
@@ -173,11 +176,26 @@ class App extends Component {
     )
   }
 
+  renderPasswordView = () => {
+    return (
+      <div className="App">
+        <div className="Navbar">
+          <HomeButton onClick={this.setView.bind(this, 'home')} />
+          <ChangePassButton onClick={this.setView.bind(this, 'password')}/>
+          <LogOutButton onClick={this.logout}/>
+        </div>
+        <MaiHeader />
+        <ChangePassword />
+      </div>
+    )
+  }
+
   renderWebsiteView = () => {
     return (
       <div className="App">
         <div className="Navbar">
           <HomeButton onClick={this.setView.bind(this, 'home')} />
+          <ChangePassButton onClick={this.setView.bind(this, 'password')}/>
           <LogOutButton onClick={this.logout}/>
         </div>
         <WebsiteList
@@ -198,6 +216,7 @@ class App extends Component {
       <div className="App">
         <div className="Navbar">
           <HomeButton onClick={this.setView.bind(this, 'home')} />
+          <ChangePassButton onClick={this.setView.bind(this, 'password')}/>
           <LogOutButton onClick={this.logout}/>
         </div>
         <RegistrarList 
@@ -218,6 +237,7 @@ class App extends Component {
       <div className="App">
         <div className="Navbar">
           <HomeButton onClick={this.setView.bind(this, 'home')} />
+          <ChangePassButton onClick={this.setView.bind(this, 'password')}/>
           <LogOutButton onClick={this.logout}/>
         </div>
         <HostList 
@@ -242,6 +262,9 @@ class App extends Component {
     }
     if(this.state.currentView === "websites") {
       return this.renderWebsiteView();
+    }
+    if(this.state.currentView === "password") {
+      return this.renderPasswordView();
     }
     if(this.state.currentView === "registrars") {
       return this.renderRegistrarView();

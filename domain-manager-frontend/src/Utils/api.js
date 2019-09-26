@@ -17,6 +17,7 @@ exports.checkLogin = loginAPI.checkLogin;
 exports.logout = loginAPI.logout;
 exports.registerUser = loginAPI.registerUser;
 exports.checkRegisteredUsers = loginAPI.checkRegisteredUsers;
+exports.changePassword = loginAPI.changePassword;
 
 // --------------------------------------------------------------- //
 // --------------------------- Website API ----------------------- //
