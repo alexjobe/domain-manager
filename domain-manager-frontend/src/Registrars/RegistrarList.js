@@ -34,7 +34,7 @@ class RegistrarList extends Component {
   }
 
   selectRegistrar = (registrar) => {
-    this.setState({selectedRegistrar: registrar})
+    this.setState({selectedRegistrar: {...registrar}})
     this.setState({enableAddRegistrar: false});
     this.searchRegistrars(''); // Clear search results when changing view
   }
@@ -52,7 +52,7 @@ class RegistrarList extends Component {
         return (registrar._id === updatedReg._id ? updatedReg : registrar);
       });
       // Update state
-      this.setState({selectedRegistrar: updatedReg});
+      this.setState({selectedRegistrar: {...updatedReg}});
       this.props.updateRegistrars(registrars);
     }
   }

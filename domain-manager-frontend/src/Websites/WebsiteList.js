@@ -27,7 +27,7 @@ class WebsiteList extends Component {
 
   selectWebsite = (website) => {
     this.updateWebsite(website);
-    this.setState({selectedWebsite: website})
+    this.setState({selectedWebsite: {...website}})
     this.setState({enableAddWebsite: false});
     this.searchWebsites(''); // Clear search results when changing view
   }
@@ -53,7 +53,7 @@ class WebsiteList extends Component {
         return (website._id === updatedSite._id ? updatedSite : website);
       });
       // Update state
-      this.setState({selectedWebsite: updatedSite});
+      this.setState({selectedWebsite: {...updatedSite}});
       this.props.updateWebsites(websites)
     }
   }

@@ -34,7 +34,7 @@ class HostList extends Component {
   }
 
   selectHost = (host) => {
-    this.setState({selectedHost: host})
+    this.setState({selectedHost: {...host}})
     this.setState({enableAddHost: false});
     this.searchHosts(''); // Clear search results when changing view
   }
@@ -52,7 +52,7 @@ class HostList extends Component {
         return (host._id === updatedHost._id ? updatedHost : host);
       });
       // Update state
-      this.setState({selectedHost: updatedHost});
+      this.setState({selectedHost: {...updatedHost}});
       this.props.updateHosts(hosts);
     }
   }

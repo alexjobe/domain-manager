@@ -89,19 +89,19 @@ class App extends Component {
   // Get all websites
   loadWebsites = async() => {
     let websites = await apiCalls.getWebsites();
-    this.setState({websites});
+    this.setState({websites: [...websites]});
   }
 
   // Get all registrars
   loadRegistrars = async() => {
     let registrars = await apiCalls.getRegistrars();
-    this.setState({registrars});
+    this.setState({registrars: [...registrars]});
   }
 
   // Get all hosts
   loadHosts = async() => {
     let hosts = await apiCalls.getHosts();
-    this.setState({hosts});
+    this.setState({hosts: [...hosts]});
   }
 
   // Check if user is logged in. If so, get data. Otherwise, display login form.
@@ -127,17 +127,17 @@ class App extends Component {
 
   // Update websites in state
   updateWebsites = async(websites) => {
-    this.setState({websites: websites});
+    this.setState({websites: [...websites]});
   }
 
   // Update registrars in state
   updateRegistrars = (registrars) => {
-    this.setState({registrars: registrars});
+    this.setState({registrars: [...registrars]});
   }
 
   // Update hosts in state
   updateHosts = (hosts) => {
-    this.setState({hosts: hosts});
+    this.setState({hosts: [...hosts]});
   }
 
   renderHomeView = () => {
